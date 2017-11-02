@@ -26,46 +26,49 @@ Database file #1: Document.bib
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=20001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Warning--to sort, need author, organization, or key in economist5988
+Warning--to sort, need author, organization, or key in linux
 
 Done.
-You've used 22 entries,
+You've used 41 entries,
             5261 wiz_defined-function locations,
-            1185 strings with 13428 characters,
-and the built_in function-call counts, 21380 in all, are:
-= -- 2033
-> -- 666
-< -- 145
-+ -- 285
-- -- 160
-* -- 1190
-:= -- 3323
-add.period$ -- 43
-call.type$ -- 22
-change.case$ -- 94
-chr.to.int$ -- 322
-cite$ -- 44
-duplicate$ -- 1303
-empty$ -- 1487
-format.name$ -- 210
-if$ -- 4767
+            1340 strings with 18233 characters,
+and the built_in function-call counts, 41593 in all, are:
+= -- 3931
+> -- 1316
+< -- 266
++ -- 565
+- -- 316
+* -- 2365
+:= -- 6356
+add.period$ -- 99
+call.type$ -- 41
+change.case$ -- 183
+chr.to.int$ -- 629
+cite$ -- 86
+duplicate$ -- 2529
+empty$ -- 2976
+format.name$ -- 412
+if$ -- 9320
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 202
-newline$ -- 103
-num.names$ -- 92
-pop$ -- 537
+missing$ -- 401
+newline$ -- 182
+num.names$ -- 160
+pop$ -- 1126
 preamble$ -- 1
-purify$ -- 73
+purify$ -- 144
 quote$ -- 2
-skip$ -- 1611
+skip$ -- 3083
 stack$ -- 0
-substring$ -- 750
-swap$ -- 960
-text.length$ -- 32
+substring$ -- 1480
+swap$ -- 1837
+text.length$ -- 51
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 499
-warning$ -- 0
-while$ -- 114
+type$ -- 948
+warning$ -- 2
+while$ -- 219
 width$ -- 0
-write$ -- 303
+write$ -- 560
+(There were 2 warnings)
