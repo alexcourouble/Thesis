@@ -13,7 +13,6 @@ A level-1 auxiliary file: 7-Theme2.aux
 A level-1 auxiliary file: 7-Theme3.aux
 A level-1 auxiliary file: 8-Conclusion.aux
 The style file: IEEEtranSN-francais.bst
-A level-1 auxiliary file: 9-Annexes.aux
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -30,45 +29,45 @@ Warning--to sort, need author, organization, or key in economist5988
 Warning--to sort, need author, organization, or key in linux
 
 Done.
-You've used 41 entries,
+You've used 19 entries,
             5261 wiz_defined-function locations,
-            1340 strings with 18233 characters,
-and the built_in function-call counts, 41593 in all, are:
-= -- 3931
-> -- 1316
-< -- 266
-+ -- 565
-- -- 316
-* -- 2365
-:= -- 6356
-add.period$ -- 99
-call.type$ -- 41
-change.case$ -- 183
-chr.to.int$ -- 629
-cite$ -- 86
-duplicate$ -- 2529
-empty$ -- 2976
-format.name$ -- 412
-if$ -- 9320
+            1180 strings with 13819 characters,
+and the built_in function-call counts, 20324 in all, are:
+= -- 1897
+> -- 650
+< -- 121
++ -- 280
+- -- 156
+* -- 1194
+:= -- 3063
+add.period$ -- 56
+call.type$ -- 19
+change.case$ -- 89
+chr.to.int$ -- 307
+cite$ -- 42
+duplicate$ -- 1226
+empty$ -- 1490
+format.name$ -- 202
+if$ -- 4555
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 401
-newline$ -- 182
-num.names$ -- 160
-pop$ -- 1126
+missing$ -- 199
+newline$ -- 104
+num.names$ -- 68
+pop$ -- 589
 preamble$ -- 1
-purify$ -- 144
+purify$ -- 71
 quote$ -- 2
-skip$ -- 3083
+skip$ -- 1473
 stack$ -- 0
-substring$ -- 1480
-swap$ -- 1837
-text.length$ -- 51
+substring$ -- 730
+swap$ -- 877
+text.length$ -- 19
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 948
+type$ -- 449
 warning$ -- 2
-while$ -- 219
+while$ -- 105
 width$ -- 0
-write$ -- 560
+write$ -- 281
 (There were 2 warnings)
