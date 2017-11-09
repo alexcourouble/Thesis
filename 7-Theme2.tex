@@ -42,18 +42,25 @@ In this phase as well as the next one, the matches are found using the same +/- 
 
 \section{The Data}
 
-There are two sides to this matching process: the Linux git repository and the archives containing the patches sent in mailing lists over the years. We need to extract the diff (+/- lines) and metadata from both side. 
+There are two sides to this matching process: the Linux git repository and the archives containing the patches sent in mailing lists over the years. We need to extract the diff (+/- lines), the metadata, and the subject and commit summary from both side. The scripts used for each part of the data extraction are available on the project's github under the GPL-3.0 license \footnote{\url{https://github.com/alexcourouble/email2git}}.
 
 
 
 \subsection{The Commits}
 
+First, we need to extract the commit summary from each commit after 2009. This date is our lower bound because our email data from patchwork.kernel.org only has email patches dating back to 2009. The commit summary is the first line of the commit message, which makes it very easy to retrieve. The script \texttt{subject\_data\_gen/commit\_subject\_generator.py} reads a git log output and stores the commit summary for each commit in a SQLite3 database. The exact git log command used is the following:
+\begin{lstlisting}
+git log --no-merges --pretty=format:"%H,%ct,%s" --after={2009-01-01}
+\end{lstlisting}
+The \texttt{pretty} option formats the output according to the passed parameters. 
 
+The next step on this side of the data is to extract the data for the other phases of the matching process. The script \texttt{lines\_data\_prep/git\_prep.py} is more complicated, as there is more data to parse and save. This script reads the authors and the files affected by each commit. It will then create two maps: commit ID to author, and commit ID to files affected. These maps, which exist as python dictionaries are then saved to two separate pickle files\footnote{\url{https://docs.python.org/2/library/pickle.html}}, which make writting, reading, and storing data a fast and easy. This script also extracts the +/- lines from the commit diff and stores them in a pickle file as well. 
 
 
 
 \subsection{The Patches}
 
+The patches are stored on a remote serve in a MySQL database, the same database that hosts the patchwork.kernel.org data. Through the help of SQL queries, I dumped all the necessary data in csv files to avoid complications arising from handling a production database. Once those csv files created, I could parse them with the help of two python scripts available in the Email2git githubg repository. \texttt{subject\_data\_gen/patchwork/pwSubjectFull.py} takes care of the subject data and \texttt{lines\_data\_prep/pw\_prep.py} takes care of the authors, file names, and +/- lines of the patches. Here again, the subject data is stored in a SQLite3 database, and the line data is stored in pickle files. 
 
 
 
