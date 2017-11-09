@@ -26,7 +26,10 @@ This first phase will find a match for about 55\% of the commits. After this ste
 
 \subsection{Author and Affected Files}
 
-Even though the number of commits was reduced by half, I was unable to make the old script fast enough to parse the rest of the data in a timely fashion. Thus, I had to find a new way to use the available meta-data to speed up the matching. The first data point I used was the \textit{author name}.  
+Even though the number of commits was reduced by half after the first phase, I was unable to make the old script fast enough to parse the rest of the data in a timely fashion. Thus, I had to find a way to use the available meta-data to speed up the matching. The first data point I used was the \textit{author name}. As depicted in \autoref{fig:author_matching}\alex{TODO: Improve schema}\alex{Not sure how technical I should get}, I am able to use the name and email address of the \textit{commit author} to pin point to the patches that were sent by the same person. In other words, to find a match for each commit, the algorithm has to parse a handfull of patches instead of hundreds of thousand. Similarly, the files affected by a commit and a patch can drasticaly help the performance of the +/- line algorithm. Through some regular expression and text parsing, we can retrieve the files that are modified in the patch and the \textit{commit diff}. Since the author-based matching is slighty faster and returns more matches than the file-based matching, we start with the former, removing each matched commit and patch to reduce the workload of the next phase.
+
+In this phase as well as the next one, the matches are found using the same +/- lines as the original algorithm, which is a fairly slow process, although this process could be improved using a hashing-based method to find corresponding +/- lines for further performance improvement. 
+
 
 
 \begin{figure}[htb]
@@ -39,23 +42,73 @@ Even though the number of commits was reduced by half, I was unable to make the 
 
 \section{The Data}
 
-There are two sides to this matching process: the Linux git repository and the archives containing the patches sent in mailing lists over the years. We need to extract data from both sides. 
-
-\subsection{Extracting the Commits}
-
-
-\subsection{Extracting the Patches}
+There are two sides to this matching process: the Linux git repository and the archives containing the patches sent in mailing lists over the years. We need to extract the diff (+/- lines) and metadata from both side. 
 
 
 
+\subsection{The Commits}
+
+
+
+\alex{TODO}
+
+
+
+\subsection{The Patches}
+\alex{TODO}
 
 
 
 
 
-\section{Serving the Matches}
+
+
+\section{Providing Access to the Matches}
+
+Email2git's original inteded contribution was to increase the amount of information existing around a commit by providing access to the conversation that took place during the creation of the patch. And now that matches have been generated and saved, we need a way to make the information available to linux developers. Each match is composed of three elements: the \textit{commit ID}, the \textit{patchwork permalink ID}, the \textit{date}, and the \textit{phase} that found the match (subject, author, or file). The patchwork permalink ID is used to point to the patch and conversation on patchwork.kernel.org.
+
+As discussed in chapter 3, the matches are available through two platforms: cregit and as a standalone commit lookup page. And although both platforms use the same UI and fetching mechanism to display the links to patchwork, the user experience is fundamentally different. On cregit, users navigate the interface by browsing the tokenized files. Once the user clicks on a token, we display a window containing the links to the patches and converstation that introduced that token to the source code. Note that in this case, the user need not to know the commit ID of of the token of interest. The commit ID, which is necessary to retrieve the patches, is hard-coded in the html element containing the token. The HTML element containing a token looks like this:
+
+\begin{lstlisting}[language=HTML]
+<a onclick="return 
+windowpopLinux('2ebda74fd6c9d3fc3b9f0234fc519795e23025a5')">
+	include
+</a>
+\end{lstlisting}
+
+The onclick event calls a function defined in a global javascript file: \texttt{cregit.js}. In the original implementation of the cregit interface, this function would open a new browser window and show the commit associated by the token on github. So I modifed \texttt{cregit.js} to disable the "popup mechanism" and to instead use the commit ID to fetch the patchwork permalinks IDs from the server. The matches are stored as csv files named after the commit ID they are associated with on the server hosting the interface. The assyncronous requested is done throught Papaparse\footnote{\url{http://papaparse.com/}}, a powerful opensource javascript library capable of downloading and parsing csv files from the client. The javascript code that generate the URLs from the permalinks and displays the new window lives in a callback function that executes after the request is complete. We were able to keep the "view commit on github" feature, by showing a button in the new window.  
+
+On the standalone commit ID lookup page, the mechanism is almost identical, but the user experience is completely different. Instead of clicking on a token, the user knows the commit ID in advance, as they might have encountered it while trying to fix a bug, or read a \texttt{git log} output. The user copies and pastes the commit ID in the search bar, and the match window appears with a list of dated links to patchwork. The lookup page verifies whether the commit ID is a SHA-1 hash with the following regex:
+
+\begin{lstlisting}
+// removing white space
+cid = cid.replace(/\s/g, '');
+
+// validating input
+if (!/\b[0-9a-f]{40,40}\b/.test(cid)){
+    window.alert("The input should be a full 40-character SHA1 hash.");
+    return;
+}
+\end{lstlisting}
+
+We are running analytics on the server hosting the matches to understand the usage of the data and to know the proportion of requested commit IDs are not matched. Removing the whitespace and assuring the validity of the string ensures the accuracy of these statistics, by recuding the number of failed requests due to a poorly formated commit ID.
+
+ \begin{figure}[htb]
+\centering
+\includegraphics[width=5in]{analytics}
+\caption{Plots created from the analytic}
+\label{fig:analytics}
+\end{figure}
+
+\autoref{fig:analytics} displays the plots created by the analytics script running on the server. We observe two peaks in number of unique IP addresses at two different moments: at the end of July and in mid September. The former date corresponds to the day we introduced Email2git in a blogpost on linux.com and the latter corresponds to the talk I gave at the Open Source Summit North America in Los Angeles. 
 
 
 
+\section{Introducing Email2git to the Opensource Commutnity}
+
+
+\alex{Should I nclude the entire blogpost? As an annex?}
+
+\alex{mention LWN article about refereed talk}
 
 
