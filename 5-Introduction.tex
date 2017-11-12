@@ -8,17 +8,33 @@
 % portée.
 \Chapter{INTRODUCTION}\label{sec:Introduction}  
 
-10-12 lines to introduce the topic.
+
+
+Large software projects, both commercial open source, contain multiple different teams. Each team is responsible for a certain area of the project. In other words, the developers in each team maintain and improve the code in their code area, or subsystem. These teams 
+
+\alex{TODO: finish intro of intro}
+
+
+Experts in Software developerment teams in companies, like linux, have multiple teams responsible for their own part of the project, composed of engineers with various levels of expertise in their code area. 
+
+Many different studies have shown that expertise is important for many different aspects of SE
+
+previous expertise models not adapted to linux due to their size and contribution process.
+
+Maintainers's actrivities not represented in state of the art expertise models. 
+
+SInce maintainers are experts > they should come on top of expertise recomendations.
+
+We introduce a model that does.
+
+
 
 
 \section{Definitions and Concepts}  % environ 2-3 pages
 
 
-
-
-
-
 \subsection{The Anatomy of a Git Commit}
+\label{sec:commit_anatomy}
 
 The a git commit is a fundamental concept in the scope of this research and for the understanding of git in general. The changes brought to source code by developers are contained in a \textit{commit}. If a developer is tasked to fix a bug or to create a new feature in a project, she will have to modify the source code in order to implement these changes. When the developer feels ready to share these changes, they can apply them to the repository in the form of a git commit. The changes are reprented in the \textit{commit diff}, which contains the exact lines to be removed (-) or added (+) in the source code. Git uses the +/- lines to modify the repository of someone who \textit{pulled} the changes form the developer. 
 
@@ -62,12 +78,34 @@ The commit diff, which sits at the end of the git log output, shows the exact fi
 \label{sec:contrib-process}  
 
 
-The linux community uses a well established email-based contribution process. The 
+Altough Linux uses Git as its version control system, most developer cannot commit directly to the repository. In fact, the developers and maintainers use several different repositories in the development process. The main repository (also called the main tree, of the main line) is maintained by Linus Torvald, the creator of Linux. For a developer to have their code changes integrated into an official release of the Linux Kernel, their changes must be submitted and accepted by Linus Torvalds, as he has the last word on any code being added to the main tree. 
+
+Submitting code changes \textit{upstream}, means to submit changes hoping they will be integrated into the main tree, and thus into an official Linux release. To achieve this, there is a set of guidelines to follow, as the Linux Kernel follows a strict development cadence and has high code quality standards. First, the code submitted must follow the Linux coding style \alex{cite coding style https://01.org/linuxgraphics/gfx-docs/drm/process/coding-style.html}. It is important to impose a strict coding style in projects of the scale of the linux kernel. Code comming from tens of thousands of developers would become very hard to maintain is everyone cubmitted code with their own coding style. Secondly, developers must follow the submission process guidelines. In the vast majority of cases, developers submit their changes to a maintainer. A maintainer is in charge of maintaining a specifi subsystem. A subsystem can be represented as a series of files that work together to serve a certain purpose. When a developer is unsure of who to send the changes to, they can consult the \texttt{MAINTAINERS} file, or use the script \texttt{get\_maintainer.pl} to discover persone responsible for a certain file. The developer must send her changes in the form of a patch. The patch contains the necessary information to apply the changes to another copy of the source code. Maintainers recieve changes from multiple developers by email. Although not required, they can use several git commands to apply the change submitted the emails to their local repository. Naturally, maintainers must review the patches to ensure that they are worthy of being integrated into their subsytem tree. These reviews usally occur in an email thread following the email patch. The patch author will probably have to improve their code changes according to the maintainer's reviews. If maintainers are satisfied with a patch, they will \textit{commit} it to their repository. As explained in \autoref{sec:commit_anatomy}, for each commit, git differenciates between the \textbf{commit author} and the \textbf{commit committer}. The \textbf{author} wrote and sent the patch, while the \textbf{committer} committed the patch to a git repository. 
+
+Before submitting changes to Linus, maintainers usually send the changes acquired in their repository to \textit{linux-next}. They may do so through an email as a patch, although submitting large changes is easier throught Git. Linux-next is where the integration testing occurs. This is where developers and maintainers make sure new code changes do not interfere with the rest of the code base and do not introduce any bugs. Linus will pull commits that have been in the -next tree for a few weeks. Linux-next ensures important bugs introduced by new commits are discovered and dealt with before being committed to the main tree, as these bugs would drastically slow down the release cycle. 
+
+
+The main tree uses a specific releace cycle. After a new version is releases, 4.13 for instance, the \textit{merge window} opens for release 4.14. This two-week long merge window is the only opportunity to submit new code changes in hope to have them integrated in release 4.14. Linus pulls most of the changes from linux-next during that time period because these changes are les likely to cause bugs and thus delay the next release. After two weeks, the merge window closes and linux 4.14-rc1 is released. Then, developers work on ensuring that the kernel is as stable as possible. For approximately 6 to 8 weeks, linus will only accept patches that address bugs introduced by commits merged during the merge window. The only exception is new drivers. New drivers can be submitted outside of the merge window because bugs introduced by drivers are self contained, and only affect users using the specific driver. A new -rc comes out about every week, until Linus declares that the kernel is stable enough to be released. 
+
+Furthermore, large subsytems impose their own release schedule to developers. For instance, the Net subsystem also has two main trees: \texttt{net} and \texttt{net-next}. Net-next recieves all changes submitted to the net subsystem. Once the linus' merge window opens, net-next closes, and all the changes accumulated over the last 10 weeks will be submitted to the main tree. At this point, the net tree will recieve all the fixed related to commits that were committed to the main tree. Once Linus' merge window closes, net-next reopens and developers are free to submit new patches again. 
+
+As stated above, the contribution process relies heavily on emails. The reason why the linux community does not use tools such as github or gerrit is that those tools would not scale to the size of the linux community. And even though the email-based system has been very reliable over the lifetime of the project, there is one drawback. Once a patch is sent to a maintainer, there usually is a discussion occuring on the mailing list. This discussion contains many precious information such as design decisions and code reviews. However, once the patch is committed to the subsytem tree, and after the commit makes its way upstream to the main tree, there is no easy way to recover the discussion that took place in the mailing list. We address this issue with a new tool created during this masters.\footnote{\url{https://01.org/linuxgraphics/gfx-docs/drm/process/howto.html#becoming-a-kernel-developer}}\footnote{\url{https://www.kernel.org/doc/Documentation/networking/netdev-FAQ.txt}}
+
+
+\section{research Objectives}
+
+Our main research objective is to create a model capable of detecting experts in a certain code area. \autoref{sec:expertise_models} describes previous expertise models created over the years. We believe these previous models are not well suited for the linux community. We based our model on a series of new metrics, which were acquired through different techinques. We were able to make some of these metrcis available to the community through two open source projects, which are described in Chapter 3.
+
 
 
 
 
 \section{Plan of the Thesis}
+
+
+The structure of this thesis is as follows. We conduct a litterature review in chapter 2, where we describe previous expertise models and other topics of interest. Chapter 3 gives a detailed overview of the general workflow of the thesis. Chapter 4 gives an indepth look at Email2git, one of the opensourcve project we created. Finally, chapter 5 includes the article we submitted to the  International Conference on Software Analysis, Evolution and Reengineering (SANER).
+
+
 
 % Un URL: \href{http://www.polymtl.ca}{École Polytechnique de Montréal}.
 
