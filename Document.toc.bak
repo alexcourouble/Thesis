@@ -20,47 +20,45 @@
 \contentsline {chapter}{\numberline {2}CRITICAL LITERATURE REVIEW}{7}{chapter.2}
 \contentsline {section}{\numberline {2.1}Mining Software Repositories}{7}{section.2.1}
 \contentsline {section}{\numberline {2.2}Software Engineering Expertise}{8}{section.2.2}
-\contentsline {section}{\numberline {2.3}Documentation}{8}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Linux Documentation}{8}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Git Documentation}{8}{subsection.2.3.2}
-\contentsline {chapter}{\numberline {3}RESEARCH GENERAL WORKFLOW}{9}{chapter.3}
-\contentsline {section}{\numberline {3.1}Srcmap}{9}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Srcmap 1.0}{9}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Srcmap 2.0}{10}{subsection.3.1.2}
-\contentsline {section}{\numberline {3.2}Email2git}{11}{section.3.2}
-\contentsline {section}{\numberline {3.3}Integrating Email2git with Cregit}{12}{section.3.3}
-\contentsline {chapter}{\numberline {4}EMAIL2GIT: FROM ACADEMIC RESEARCH TO OPEN-SOURCE SOFTWARE}{14}{chapter.4}
-\contentsline {section}{\numberline {4.1}Previous Publications and Original Algorithm}{14}{section.4.1}
-\contentsline {section}{\numberline {4.2}Scalling the Algorithm}{14}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Patch Email Subject}{15}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Author and Affected Files}{16}{subsection.4.2.2}
-\contentsline {section}{\numberline {4.3}The Data}{16}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}The Commits}{16}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}The Patches}{17}{subsection.4.3.2}
-\contentsline {section}{\numberline {4.4}Providing Access to the Matches}{18}{section.4.4}
-\contentsline {section}{\numberline {4.5}Introducing Email2git to the Opensource Community}{19}{section.4.5}
-\contentsline {chapter}{\numberline {5}ARTICLE: ON HISTORY-AWARE MULTI-ACTIVITY EXPERTISE MODELS}{21}{chapter.5}
-\contentsline {section}{\numberline {5.1}Abstract}{21}{section.5.1}
-\contentsline {section}{\numberline {5.2}Introduction}{21}{section.5.2}
-\contentsline {section}{\numberline {5.3}Background and Related Work}{23}{section.5.3}
-\contentsline {section}{\numberline {5.4}Measuring the Expertise Footprint of Contributors}{24}{section.5.4}
-\contentsline {subsection}{\numberline {5.4.1}Dimension 1: Contributor Activities}{25}{subsection.5.4.1}
-\contentsline {subsection}{\numberline {5.4.2}Dimension 2: Historical Perspective}{26}{subsection.5.4.2}
-\contentsline {subsection}{\numberline {5.4.3}Use Cases for Expertise Footprint}{27}{subsection.5.4.3}
-\contentsline {section}{\numberline {5.5}Case Study Setup}{28}{section.5.5}
-\contentsline {subsection}{\numberline {5.5.1}Subject Data}{28}{subsection.5.5.1}
-\contentsline {subsection}{\numberline {5.5.2}Filtering of the Data}{29}{subsection.5.5.2}
-\contentsline {subsection}{\numberline {5.5.3}Instantiation of the Footprint Models}{30}{subsection.5.5.3}
-\contentsline {subsection}{\numberline {5.5.4}Git-related Activity Measures}{30}{subsection.5.5.4}
-\contentsline {subsection}{\numberline {5.5.5}Linking Commits to Review Emails}{31}{subsection.5.5.5}
-\contentsline {section}{\numberline {5.6}Case Study Results}{32}{section.5.6}
-\contentsline {section}{\numberline {5.7}Discussion}{39}{section.5.7}
-\contentsline {section}{\numberline {5.8}Conclusion}{40}{section.5.8}
-\contentsline {chapter}{\numberline {6}CONCLUSION}{45}{chapter.6}
-\contentsline {section}{\numberline {6.1}Advancement of knowledge}{45}{section.6.1}
-\contentsline {section}{\numberline {6.2}Limits and constraints}{45}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}Srcmap}{45}{subsection.6.2.1}
-\contentsline {subsection}{\numberline {6.2.2}Email2git}{45}{subsection.6.2.2}
-\contentsline {subsection}{\numberline {6.2.3}Paper}{45}{subsection.6.2.3}
-\contentsline {section}{\numberline {6.3}Recommendations}{45}{section.6.3}
-\contentsline {compteur}{REFERENCES}{46}{chapter*.12}
+\contentsline {section}{\numberline {2.3}Open Source Participation}{9}{section.2.3}
+\contentsline {chapter}{\numberline {3}RESEARCH GENERAL WORKFLOW}{10}{chapter.3}
+\contentsline {section}{\numberline {3.1}Srcmap}{10}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Srcmap 1.0}{10}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Srcmap 2.0}{11}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Email2git}{12}{section.3.2}
+\contentsline {section}{\numberline {3.3}Integrating Email2git with Cregit}{13}{section.3.3}
+\contentsline {chapter}{\numberline {4}EMAIL2GIT: FROM ACADEMIC RESEARCH TO OPEN-SOURCE SOFTWARE}{15}{chapter.4}
+\contentsline {section}{\numberline {4.1}Previous Publications and Original Algorithm}{15}{section.4.1}
+\contentsline {section}{\numberline {4.2}Scalling the Algorithm}{15}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Patch Email Subject}{16}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Author and Affected Files}{17}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}The Data}{17}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}The Commits}{17}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}The Patches}{18}{subsection.4.3.2}
+\contentsline {section}{\numberline {4.4}Providing Access to the Matches}{19}{section.4.4}
+\contentsline {section}{\numberline {4.5}Introducing Email2git to the Opensource Community}{20}{section.4.5}
+\contentsline {chapter}{\numberline {5}ARTICLE: ON HISTORY-AWARE MULTI-ACTIVITY EXPERTISE MODELS}{22}{chapter.5}
+\contentsline {section}{\numberline {5.1}Abstract}{22}{section.5.1}
+\contentsline {section}{\numberline {5.2}Introduction}{22}{section.5.2}
+\contentsline {section}{\numberline {5.3}Background and Related Work}{24}{section.5.3}
+\contentsline {section}{\numberline {5.4}Measuring the Expertise Footprint of Contributors}{25}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Dimension 1: Contributor Activities}{26}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Dimension 2: Historical Perspective}{27}{subsection.5.4.2}
+\contentsline {subsection}{\numberline {5.4.3}Use Cases for Expertise Footprint}{28}{subsection.5.4.3}
+\contentsline {section}{\numberline {5.5}Case Study Setup}{29}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Subject Data}{29}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Filtering of the Data}{30}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.5.3}Instantiation of the Footprint Models}{31}{subsection.5.5.3}
+\contentsline {subsection}{\numberline {5.5.4}Git-related Activity Measures}{31}{subsection.5.5.4}
+\contentsline {subsection}{\numberline {5.5.5}Linking Commits to Review Emails}{32}{subsection.5.5.5}
+\contentsline {section}{\numberline {5.6}Case Study Results}{33}{section.5.6}
+\contentsline {section}{\numberline {5.7}Discussion}{40}{section.5.7}
+\contentsline {section}{\numberline {5.8}Conclusion}{41}{section.5.8}
+\contentsline {chapter}{\numberline {6}CONCLUSION}{46}{chapter.6}
+\contentsline {section}{\numberline {6.1}Advancement of knowledge}{46}{section.6.1}
+\contentsline {section}{\numberline {6.2}Limits and constraints}{46}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Srcmap}{46}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Email2git}{46}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Paper}{46}{subsection.6.2.3}
+\contentsline {section}{\numberline {6.3}Recommendations}{46}{section.6.3}
+\contentsline {compteur}{REFERENCES}{47}{chapter*.12}
