@@ -1,45 +1,42 @@
 \Chapter{CONCLUSION}
 \label{sec:Conclusion}
-Text.
 
 
-\section{Advancement of knowledge}
+The research project described in this thesis establishes a history-aware model capable of predicting experts in a large software project. We describe the different metrics acquired for the creation of the model as well as the techniques used to mine the necessary data. We were able to make some of the data available to the Linux community through two open source tool available online. We describe the different steps undertaken during the deployment of those tools. We also provide an evaluation of our expertise model.
 
 
-Two open source projects.
-
-New ways to determine expertise
+\section{Advancement of Knowledge}
 
 
-\section{Limits and constraints}
+In addition to communicating our findings regarding expertise models in a submitted scholarly article, we were able to build two interfaces to further share our data with the rest of the Linux community. The main advancement of knowledge carried by our research project is the new dimentions used in our expertise model. State of the art techniques fail to include other aspects of software engineering, like code reviews and upstream committing. Our model is more appropriate to large organization where mainainers or managers are usually too busy to continue contributing code to the project. 
+
+\section{Limits, Constraints, and Recommendations}
 \label{sec:Limits and constraints}
 
 
 
 \subsection{Srcmap}
 
-UI very slow with large amount fo data. Possibility to stream data for smooth browsing. AKA not download the whole data set on load, just download the right the data of the place clicked
+Srcmap, our visualization of the kernel and its authors, has a few constrains and a lot of possible future work. The main constrain is the lack of a fluid user experience. The amount of data to process in the browser is too high to allow smooth browsing of the main tree. A way to address this issue would be to configure the interface to only download the required data as users browse the visualization. This way, the internet browser uses to display the tool would not have to save the entire dataset in memory and would only process the desired area. 
 
 
 
 \subsection{Email2git}
 
-Missing mailing lists
+Email2git, our code reivew tracking system, has a few important limitations. The first limitation to consider is the missing mailing list. Although our patch data source, patchwork.kernel.org, already track many precious mailing lists, some major mailings list like \tetxtt{net-dev} are not tracked. This is reflected in the low number of commit matched in the \textt{net} subdirectory. 
 
-Patch 0, boiler plate of patch, which patchwork tracks
+We recieved a lot of valuable feedback from linux developers after our refereed talk the Open Source Summit North America. A developer mentioned the absence of the \textit{Patch 0} from our current implementation of Email2git. The Patch 0 is a summary of the changes submitted, often in multi-patch submissions. Another suggestion was to track \textit{linux-next}. This would allow developers to access discussion behind commits that have not been integrated in the main tree. 
 
-Tracking linux next
-
-
+For the future of this project, we recommend running our own instance of Patchwork 2.0, which automatically track the Patch 0 of each patch. In addition to ansering the lack of Patch 0, it would allow to have control on the tracked mailing lists. If we have access to old archives of the desired mailing lists, we could be able to create matching data dating to before 2009. We also recommend tracking the linux-next tree, as Email2git could ease the integration debugging process. 
 
 
 \subsection{Paper}
 
+There are two main limitation to the model proposed in our submitted paper. The first limitation is a direct concequence of Email2git's limitation. The missing mailing lists cause an uneven distribution of the matched commits accross the different subdirectories of the kernel. To address this limitation, we only studied subsystems with a certain percentage of matched commits. This ensured homogeneity of the data among the different subsystems. 
+
+The other limitation is the validation technique we implement to assess the performance of our model. We use the maintainers currently active in the subsystem for the studied release. The issue with the technique is that since our model is partially based on activities usually related to maintainership, such as code reviews and upstream committing. To evaluate our model as \textbf{maintainer recommender} instead of an \textbf{expert recommender}, we would have to look at the developers that were selected as a replacement for a departing maintainer. A strong model would be capable of detecting the chosen developer for the release before the maintainer change.
+
+At last, we cite the existing link between code stability and knowldge of that code area. Since our model offers a customaizable historical weight function, we could choose this weight function according to the stability of the code. For example, we could implement an exponential weight function to a very stable code base, as older contributions should account for more of the expertise measure. Furthermore, a code base undergoing large amounts of changes could require a logarithmic weight function, as older contributions should not affect current expertise as much as recent contributions. 
 
 
-
-
-
-
-\section{Recommendations}
 
