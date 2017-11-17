@@ -10,30 +10,19 @@
 
 
 
-Missing: 
-- Problem this thesis is trying to solve
-- Thesis Hypothesis
 
 
 
+As an answer to the risks associated with employee turn over in software engineering organizations, researchers have attempted to establish models capable of finding experts in certain code areas. By recommending experienced developers, these models would ease the difficulty of replacing current experts as they leave the organization. Introduced in the early 2000s, these models were using two simple metrics to assess expertise: number of \ac{LOC} and number of commits. However, using these metrics to measure expertise on \textit{modern} large scale software project does not yield accurate results. we believe that, as the teams behind large software projects increase in size, these models tend to lose accuracy. 
+
+The Linux Kernel, for instance, is a 26-year-old project that has experienced a drastic growth in terms of code base and in terms of developer community. Wanting to keep a high standard of code quality and a fast release system, the community had to implement a hierarchical contribution system. In this contribution system, some developers are responsible for the maintenance of their subsystems. These developers, or maintainers, are trusted by the rest of the Linux community to be skilled enough to ensure the durability of their subsystem. This trust was acquired by contributing to the subsystem over the years. However, when trying to use traditional expertise determining metrics in the linux kernel, maintainers are rarely recomended. 
 
 
-Large software projects, both commercial open source, contain multiple different teams. Each team is responsible for a certain area of the project. In other words, the developers in each team maintain and improve the code in their code area, or subsystem. These teams 
-
-\alex{TODO: finish intro of intro}
+We believe that previous expertise models fail to take into account some critical aspect of large scale software development. As subsystems become larger and welcome more contributors, maintainers have to dedicate more of their time reviewing other developers' contributions to maintain code quality. This shift towards a managerial position is usually followed by a drop in code contributions by that person. This implies that, in the eye of a model looking at only \ac{LOC} and commits, the maintainer will lose expertise. 
 
 
-Experts in Software developerment teams in companies, like linux, have multiple teams responsible for their own part of the project, composed of engineers with various levels of expertise in their code area. 
+We introduce a new expertise model adapted to large software organization like the Linux community. Our model is better suited for the Linux community because it takes into account all the activities undertaken by both maintainers and developers. This thesis provides an in-depth description of the different steps necessary for the creation of this model.
 
-Many different studies have shown that expertise is important for many different aspects of SE
-
-previous expertise models not adapted to linux due to their size and contribution process.
-
-Maintainers's actrivities not represented in state of the art expertise models. 
-
-SInce maintainers are experts > they should come on top of expertise recomendations.
-
-We introduce a model that does.
 
 
 
@@ -58,7 +47,7 @@ The header contains the following data points:
 \end{figure}
 
 \begin{itemize}
-	\item \textbf{Commit ID:} The "name" of the commit. \alex{explain hash origin}
+	\item \textbf{Commit ID:} The "name" of the commit.
 	\item \textbf{Commit Author:} Name and email address of the developer who \textit{wrote}, or \textit{authored} the code change.
 	\item \textbf{Author Date:} Time, date, and timezone at which the changes were submitted.
 	\item \textbf{Commit Committer:} Name and email address of the person who committed the code to the repository.
@@ -97,20 +86,19 @@ The main tree uses a specific releace cycle. After a new version is releases, 4.
 
 Furthermore, large subsytems impose their own release schedule to developers. For instance, the Net subsystem also has two main trees: \texttt{net} and \texttt{net-next}. Net-next recieves all changes submitted to the net subsystem. Once the linus' merge window opens, net-next closes, and all the changes accumulated over the last 10 weeks will be submitted to the main tree. At this point, the net tree will recieve all the fixed related to commits that were committed to the main tree. Once Linus' merge window closes, net-next reopens and developers are free to submit new patches again. 
 
-As stated above, the contribution process relies heavily on emails. The reason why the linux community does not use tools such as github or gerrit is that those tools would not scale to the size of the linux community. And even though the email-based system has been very reliable over the lifetime of the project, there is one drawback. Once a patch is sent to a maintainer, there usually is a discussion occuring on the mailing list. This discussion contains many precious information such as design decisions and code reviews. However, once the patch is committed to the subsytem tree, and after the commit makes its way upstream to the main tree, there is no easy way to recover the discussion that took place in the mailing list. We address this issue with a new tool created during this masters.\footnote{\url{https://01.org/linuxgraphics/gfx-docs/drm/process/howto.html#becoming-a-kernel-developer}}\footnote{\url{https://www.kernel.org/doc/Documentation/networking/netdev-FAQ.txt}}
+As stated above, the contribution process relies heavily on emails. The reason why the linux community does not use tools such as github or gerrit is that those tools would not scale to the size of the linux community. And even though the email-based system has been very reliable over the lifetime of the project, there is one drawback. Once a patch is sent to a maintainer, there usually is a discussion occuring on the mailing list. This discussion contains many precious information such as design decisions and code reviews. However, once the patch is committed to the subsytem tree, and after the commit makes its way upstream to the main tree, there is no easy way to recover the discussion that took place in the mailing list. We address this issue with a new tool created during this masters.
+
+% \footnote{\url{https://01.org/linuxgraphics/gfx-docs/drm/process/howto.html#becoming-a-kernel-developer}}
+% \footnote{\url{https://www.kernel.org/doc/Documentation/networking/netdev-FAQ.txt}}
 
 
 \section{Hypothesis of Thesis}
 
-Our main research objective is to create a model capable of detecting experts in a certain code area. \autoref{sec:expertise_models} describes previous expertise models created over the years. We believe these previous models are not well suited for the linux community. We based our model on a series of new metrics, which were acquired through different techinques. We were able to make some of these metrcis available to the community through two open source projects, which are described in Chapter 3.
+Our main research objective is to create a model capable of detecting experts in a certain code area. \autoref{sec:expertise_models} describes previous expertise models created over the years. We believe these previous models are not well suited for the linux community. We based our model on a series of new metrics, which were acquired through different techniques. We were able to make some of these metrcis available to the community through two open source projects, which are described in Chapter 3.
 
-% \fbox{%
-%     \parbox[c]{4in}{%
-        
-%     }%
-% }
 
-\hypobox
+\textbf{Hypothesis:} Expertise models targeting large software engineering organizations require a look at all development activities, including code reviews and upstream committing.
+
 
 \section{Plan of the Thesis}
 

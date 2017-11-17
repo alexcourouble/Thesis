@@ -2,17 +2,19 @@
 
 
 
-As stated in \autoref{sec:Introduction}, the goal of our research project is to create an expertise model based on a series of metrics mined from the Linux Git repository and various mailing lists.
+As stated in \autoref{sec:Introduction}, the goal of our research project is to create an expertise model based on a series of metrics mined from the Linux Git repository and various mailing lists. 
+Our expertise model takes into account many different activities present in the linux contribution process. These activities translate into metrics as we attempt to quantify them. To give back to the linux community, we made those metrics available through two open source tools, as the metrics are complicated to generate.  
+
+In this chapter, we describe the general workflow of the research. 
+\autoref{sec:srcmap} and \autoref{sec:email2git} introduce the tools we created, providing an explaination of how the metrics will assist the creation of our expertise model. \autoref{sec:expertise_model} describes the impact that the two tools had on our research project and how they led to the creation of our expertise model, whose aproach and evaluation were submitted as a paper to the IEEE International Conference on Software Analysis, Evolution and Reengineering\footnote{\url{http://saner.unimol.it/}}.
 
 
 
-
-
-
-This masters research project consisted of two different parallel projects. On one hand, in a collaboration with the linux foundation, we created and open-sourced 2 tools: Srcmap and Email2git. On the other hand, we created and evaluated an expertise detection model, which was submitted as a paper to the IEEE International Conference on Software Analysis, Evolution and Reengineering\footnote{\url{http://saner.unimol.it/}}. This chapter will discuss the details of both side of the research project, and the links between them.
+% This masters research project consisted of two different parallel projects. On one hand, in a collaboration with the linux foundation, we created and open-sourced 2 tools: Srcmap and Email2git. On the other hand, we created and evaluated an expertise detection model, which was submitted as a paper to the IEEE International Conference on Software Analysis, Evolution and Reengineering\footnote{\url{http://saner.unimol.it/}}. This chapter will discuss the details of both side of the research project, and the links between them.
 
 
 \section{Srcmap}
+\label{sec:srcmap}
 
 In the interest of offering more visibility to the authors of the Linux Kernel, we built a data visualization tool capable of displaying a wide array of information about directories or files found in the linux git repository. We wanted to display the following data points about each file and directory of the source code:
 
@@ -24,7 +26,7 @@ In the interest of offering more visibility to the authors of the Linux Kernel, 
 	\item A bar plot displaying the distribution of line of code age
 \end{itemize}
 
-We needed an interface that would allow the user to navigate the different files and direcotries of Linux while displaying our list of datapoints, which is why we chose to base the tool on a treemap. Treemaps, which were introduced by Shneiderman~\citep{Bederson-2002} as a solution to display large hierarchical dataset on a 2 dimentional plane, were a great fit for our tool's requierments. 
+We needed an interface that would allow the user to navigate the different files and direcotries of Linux while displaying our list of datapoints, which is why we chose to base the tool on a treemap. Treemaps, which were introduced by~\citep{Bederson-2002} as a solution to display large hierarchical dataset on a 2 dimentional plane, were a great fit for our tool's requierments. 
 
 \subsection{Srcmap 1.0}
 
@@ -38,8 +40,6 @@ In the first version of Srcmap\footnote{\url{http://mcis.polymtl.ca/~courouble/l
 \end{figure}
 
 \autoref{fig:srcmap1} shows the first version of Srcmap. The diferent boxes represent subdirectories of the Linux Kernel. The different colors present within each box give a preview of the content of the box. In this version of the tool, the color represents the developer having contributed the most lines of code in the contained files. Furthermore, the size of the boxes is proportional to the number of lines of code existing within the file or directory represented by the box. The panel on the right of the screen and the tooltip contain most of the data: exact number of lines of code, age of the first and last lines of code to be added, and the top 20 authors and their percentage of lines of code contributed.
-
-Even though the library offered by Google allowed us to quickly provide a strong proof of concept, we discovered some limitations when we tried adding new features to the tool. The tool had issues handling the size of the dataset. The actual data would take up to 30 seconds to load, and navigating between each node became very slow. This is why we decided to create a new version of the tool with a different treemap library.
 
 
 \subsection{Srcmap 2.0}
@@ -66,29 +66,46 @@ After some research, we discovered a new treemap implementation\footnote{\url{ht
 
 Although the foamtree library had a steeper learning curve than the Google Charts Treemap library, the versatility provided by the foamtree library allow us to provide a much more pleasant user experience and easier access to the data.
 
-I was given the oportunity to travel to Santa Fe, New Mexico to present Srcmap and Cregit at the Linux Plumbers Conference. After discussing srcmap and my research to a series of linux developers, it became evident that there was real interest for another aspect of linux development: linking Linux git commits to email patches and code reviews.
+
 
 
 \subsection{Scalability}
 
+The very first Srcmap prototype consisted of a treemap displaying only the \texttt{net} subdirectory, which was small enough to provide a smooth user experience. However, Scalability issues started to arise when we attempted displaying the entire Linux Kernel source code. The data would take up to 30 seconds to load, and navigating between each node became very slow.
+
+
+Furthermore, we discovered the limitations of Google Charts when we tried adding new features to the tool. The API provided did not allow the level of customization we desired. 
+
+
+This is why we decided to create a new version of the tool with a different treemap library. The new library, Foamtree, provided a richer API and allowed for smooth browsing through deeply nested tree.
+
+
+
+
+
 \subsection{Community Engagment}
 
-\subsection{Lessons Learned}
+After the creation of the first implementation of Srcmap, we attended LinuxCon 2016 to meet with a series of Linux developers and maintainers. The goal of these informal interviews was to recieve early feedback on the tool. In addition to that, I traveled to Santa Fe, New Mexico to present Srcmap and Cregit at the Linux Plumbers Conference. After discussing srcmap and our research to a series of linux developers, we deducted two points. 
 
+Firstly, experienced linux developers and maintainers are accustomed to their own development workflow. According to our interviews, experienced developers have acquired \textit{muscle memory} from developing in the same terminal over the years. Moreover, experienced maintainers were not interested in a web-based visualization tool.
+
+Secondly, it became evident that there was real interest for another aspect of linux development: linking Linux git commits to email patches and code reviews. 
+
+
+ Access to the original patches and code reviews would save a lot of time 
+
+\alex{more}
 
 \section{Email2git}
+\label{sec:email2git}
 
 The linux contribution process has been a reliable way to pipe code contributions (patches) from developers around the world, to the main Linux repository. With a working copy of the Linux Kernel on their computers, developer can modify the source code and, if desired, submit their changes for review, in hope to integrate the main tree. These changes are submitted as patches, files that contain the lines that are to be removed and the lines that are to be added. To submit a patch, developer send the patch file(s) to a linux maintainer in an \textit{email} with a description of the changes brought by the patch. If accepted, the maintainer will \textit{commit} the changes to his local git repository, and submit the changes \textit{upstream} to another maintainer. 
 
-Although this system has been very reliable, it has one major drawback: once committed, it is impossible to easily find the email conversation that eventually led to the creation of the patch. We addressed this drawback by creating an algorithm capable of backtracking the origin of commits in the Linux Git repository. The algorithm is described in chapter 4.
+Although this system has been very reliable, it has one major drawback: once committed, it is impossible to easily find the email conversation that eventually led to the creation of the patch. We addressed this drawback by creating an algorithm capable of backtracking the origin of commits in the Linux Git repository. The algorithm and the issues related to scalability are described in chapter 4.
 
 The data generated by the algorithm consists of a list of commit to patch matches. The matches are accessible online through two interfaces: as a commit ID search through the Email2git interface\footnote{\url{http://mcis.polymtl.ca/~courouble/email2git/}}, or though the Cregit interface\footnote{\url{https://cregit.linuxsources.org/}}.
 
-\subsection{Scalability}
 
-\subsection{Community Engagment}
-
-\subsection{Lessons Learned}
 
 
 
@@ -117,5 +134,27 @@ Cregit addresses this limitation by tokenizing the source code in a git reposito
 
 
 
+
+
+
+
+\section{Lessons Learned}
+
+
+We learned many important lesson during the creation of Srcmap. From a technical point of view, we learned the importance of selecting a suitable library that will be capable of responding to our demands and requirements. Finding the right tool from the inception of the project would have saved us from weeks of work. From a community perspective, we now understand the importance of understanding the needs and the habits of the targetted community. 
+
+We leveraged the lessons learned from Srcmap, while creating Email2git. The purpose of Email2git was to answer a complain coming from multiple developers and maintainers: the difficulty of finding an email discussion about patches that were eventually integratted in the Linux Kernel. Understanding the Linux community allowed us to better introduce our tool when we released it, as explained in Chapter 4.
+
+
+
+\setion{Expertise Model}
+\label{sec:expertise_model}
+
+
+During the creation of srcmap, we discovered that maintainers' contribution frquecies were decreasing overtime. This resulted in their \textit{LOC footprint} to slowly erode because of the contributions coming from other developers. Wondering whether htis decrease in footprint was the result of maintainers reconsidering their involment with the Linux community, we analysed other metrics. Starting with the data collected for the creation of Email2git, we took a look at the other aspects of development. We discovered that as the Linux community becomes larger, maintainers are spending and increasing amount of time review code changes submitted by other developers. With this data available, we were able to improve state of the art expertise model. Chapter 5 presents the paper in which we introduce and evaluate our expertise model. 
+
+
+
 \section{Recommendations}
 
+\alex{Recommendations and lessons learned in one section? I feel like I would repeat of lot of talking points.}

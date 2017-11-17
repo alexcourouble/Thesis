@@ -29,10 +29,19 @@
 }
 {\end{list}}
 
-\newcommand{\hypobox}[1]{\begin{center}%
-        \noindent\thicklines\setlength{\fboxsep}{8pt}%
-        \cornersize{0.2}\Ovalbox{\begin{minipage}{3.0in}%
-        \textit{#1}\end{minipage}} \end{center}}
+\newcommand{\hypobox}[1]{
+        \begin{center}%
+          \noindent
+          \thicklines
+          \setlength{\fboxsep}{8pt}%
+          % \cornersize{0.2}
+          \ovalbox{
+            \begin{minipage}{3.0in}%
+              % \textit{#1} 
+              
+            \end{minipage}
+          } 
+        \end{center}}
 
 \newcommand{\bram}[1]{\textcolor{blue}{{\it [Bram: #1]}}}
 \newcommand{\alex}[1]{\textcolor{red}{{\it [Alex: #1]}}}
