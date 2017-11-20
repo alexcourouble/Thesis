@@ -29,45 +29,45 @@ Warning--to sort, need author, organization, or key in economist5988
 Warning--to sort, need author, organization, or key in linux
 
 Done.
-You've used 21 entries,
+You've used 22 entries,
             5261 wiz_defined-function locations,
-            1199 strings with 14441 characters,
-and the built_in function-call counts, 23082 in all, are:
-= -- 2160
-> -- 742
-< -- 143
-+ -- 322
-- -- 177
-* -- 1364
-:= -- 3479
-add.period$ -- 63
-call.type$ -- 21
-change.case$ -- 100
-chr.to.int$ -- 363
-cite$ -- 46
-duplicate$ -- 1382
-empty$ -- 1667
-format.name$ -- 227
-if$ -- 5174
-int.to.chr$ -- 1
+            1205 strings with 14661 characters,
+and the built_in function-call counts, 24275 in all, are:
+= -- 2267
+> -- 781
+< -- 151
++ -- 341
+- -- 186
+* -- 1436
+:= -- 3647
+add.period$ -- 65
+call.type$ -- 22
+change.case$ -- 105
+chr.to.int$ -- 384
+cite$ -- 48
+duplicate$ -- 1453
+empty$ -- 1757
+format.name$ -- 238
+if$ -- 5448
+int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 222
-newline$ -- 114
-num.names$ -- 76
-pop$ -- 648
+missing$ -- 233
+newline$ -- 117
+num.names$ -- 80
+pop$ -- 682
 preamble$ -- 1
-purify$ -- 80
+purify$ -- 84
 quote$ -- 2
-skip$ -- 1674
+skip$ -- 1761
 stack$ -- 0
-substring$ -- 862
-swap$ -- 1009
-text.length$ -- 23
+substring$ -- 914
+swap$ -- 1063
+text.length$ -- 24
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 499
+type$ -- 524
 warning$ -- 2
-while$ -- 119
+while$ -- 125
 width$ -- 0
-write$ -- 314
+write$ -- 326
 (There were 2 warnings)
