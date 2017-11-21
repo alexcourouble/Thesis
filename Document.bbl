@@ -131,8 +131,8 @@ D.~W. McDonald et M.~S. Ackerman, ``Expertise recommender: A flexible
 T.~Mens, M.~Claes, P.~Grosjean, et A.~Serebrenik, \emph{Studying Evolving
   Software Ecosystems based on Ecological Models}.\hskip 1em plus 0.5em minus
   0.4em\relax Berlin, Heidelberg: Springer Berlin Heidelberg, 2014, pp.
-  297--326. DOI: \doi{10.1007/978-3-642-45398-4_10}. En~ligne:
-  \url{https://doi.org/10.1007/978-3-642-45398-4_10}
+  297--326. DOI: \doi{10.1007/978-3-642-45398-4\_10}. En~ligne:
+  \url{https://doi.org/10.1007/978-3-642-45398-4\_10}
 \BIBentrySTDinterwordspacing
 
 \bibitem[Minto and Murphy(2007)]{Minto-2007}
@@ -187,7 +187,7 @@ C.-G. Wu, J.~H. Gerlach, et C.~E. Young, ``An empirical analysis of open source
 
 \bibitem[Zhou and Mockus(2015)]{Zhou}
 M.~Zhou et A.~Mockus, ``Who will stay in the floss community? modeling
-  participantâ's initial behavior'', \emph{Software Engineering, IEEE
+  participant's initial behavior'', \emph{Software Engineering, IEEE
   Transactions on}, vol.~41, pp. 82--99, 01 2015.
 
 \bibitem[Zhou et~al.(2017)Zhou, Chen, Mockus, and Wu]{Zhou-fse}
