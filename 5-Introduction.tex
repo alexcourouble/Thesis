@@ -89,7 +89,7 @@ Secondly, developers must follow the submission process guidelines. In the vast 
 
 Naturally, maintainers must review the patches to ensure that they are worthy of being integrated into their subsytem tree. These reviews usally occur in the email thread following the email patch. The patch author will probably have to improve their code changes according to the maintainer's reviews. If maintainers are satisfied with a patch, they will \textit{commit} it to their repository. As explained in \autoref{sec:commit_anatomy}, for each commit, git differenciates between the \textbf{commit author} and the \textbf{commit committer}. 
 
-Before submitting changes to Linus, maintainers usually send the changes acquired in their repository to \textit{linux-next}. They may do so through an email as a patch, although submitting large changes is easier throught Git. Linux-next is where the integration testing occurs. This is where developers and maintainers make sure new code changes do not interfere with the rest of the code base and do not introduce any bugs. Linus will pull commits that have been in the -next tree for a few weeks \alex{cite: https://01.org/linuxgraphics/gfx-docs/drm/process/howto.html\#becoming-a-kernel-developer}. Linux-next ensures important bugs introduced by new commits are discovered and dealt with before being committed to the main tree, as these bugs would drastically slow down the release cycle. 
+Before submitting changes to Linus, maintainers usually send the changes acquired in their repository to \textit{linux-next}\footnote{\url{https://01.org/linuxgraphics/gfx-docs/drm/process/howto.html\#becoming-a-kernel-developer}}. They may do so through an email as a patch, although submitting large changes is easier throught Git. Linux-next is where the integration testing occurs. This is where developers and maintainers make sure new code changes do not interfere with the rest of the code base and do not introduce any bugs. Linus will pull commits that have been in the -next tree for a few weeks \alex{cite: https://01.org/linuxgraphics/gfx-docs/drm/process/howto.html\#becoming-a-kernel-developer}. Linux-next ensures important bugs introduced by new commits are discovered and dealt with before being committed to the main tree, as these bugs would drastically slow down the release cycle. 
 
 
 The main tree uses a specific releace cycle. After a new version is releases, 4.13 for instance, the \textit{merge window} opens for release 4.14. This two-week long merge window is the only opportunity to submit new code changes in hope to have them integrated in release 4.14. Linus pulls most of the changes from linux-next during that time period because these changes are les likely to cause bugs and thus delay the next release. After two weeks, the merge window closes and linux 4.14-rc1 is released. Then, developers work on ensuring that the kernel is as stable as possible. For approximately 6 to 8 weeks, linus will only accept patches that address bugs introduced by commits merged during the merge window. The only exception is new drivers. New drivers can be submitted outside of the merge window because bugs introduced by drivers are self contained, and only affect users using the specific driver. A new -rc comes out about every week, until Linus declares that the kernel is stable enough to be released. 
@@ -113,6 +113,14 @@ Our main research objective is to create a model capable of detecting experts in
 
 
 \textbf{Hypothesis:} Expertise models targeting large software engineering organizations require a look at all development activities, including code reviews and upstream committing.
+
+
+
+To explore this hypothesis, we evaluate the relevance of the different activities present in large scale software development for the purpose of measuring expertise. We build an expertise model based on metrics quantifying these activities. Moreover, we include a hirtorical dimention to the model to represent the impact of long term involvement with the software project. Finally, we provide an evaluation of the different activities by comparing the expert recommendations to the data listed in the \texttt{MAINTAINERS} file.
+
+
+
+
 
 
 \section{Plan of the Thesis}
