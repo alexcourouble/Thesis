@@ -9,25 +9,21 @@
 \Chapter{INTRODUCTION}\label{sec:Introduction}  
 
 
+As an answer to the risks associated with employee turn over in software engineering organizations, researchers have attempted to establish models capable of finding experts in certain code areas. By recommending experienced developers, these models would ease the difficulty of replacing current experts as they leave the organization. \alex{citations and concrete numbers}
 
 
-
-
-As an answer to the risks associated with employee turn over in software engineering organizations, researchers have attempted to establish models capable of finding experts in certain code areas. By recommending experienced developers, these models would ease the difficulty of replacing current experts as they leave the organization. 
-
-
-Introduced in the early 2000s, these models were using two simple metrics to assess expertise: number of \ac{LOC} and number of commits. 
+Introduced in the early 2000s, these models were using two simple metrics to assess expertise: number of \ac{LOC} and number of commits. \alex{why these? need more details}
 
 
 However, using these metrics to measure expertise on \textit{modern} large scale software project does not yield accurate results. we believe that, as the teams behind large software projects increase in size, these models tend to lose accuracy. 
 
-The Linux Kernel, for instance, is a 26-year-old project that has experienced a drastic growth in terms of code base and in terms of developer community. Wanting to keep a high standard of code quality and a fast release system, the community had to implement a hierarchical contribution system. In this contribution system, some developers are responsible for the maintenance of their subsystems. These developers, or maintainers, are trusted by the rest of the Linux community to be skilled enough to ensure the durability of their subsystem. This trust was acquired by contributing to the subsystem over the years. However, when trying to use traditional expertise determining metrics in the linux kernel, maintainers are rarely recomended. 
+The Linux Kernel, for instance, is a 26-year-old project that has experienced a drastic growth in terms of code base and in terms of developer community. Wanting to keep a high standard of code quality and a fast release system, the community had to implement a hierarchical contribution system. In this contribution system, some developers are responsible for the maintenance of their subsystems. These developers, or maintainers, are trusted by the rest of the Linux community to be skilled enough to ensure the durability of their subsystem. This trust was acquired by contributing to the subsystem over the years. However, when trying to use traditional expertise determining metrics in the linux kernel, maintainers are rarely recomended. \alex{need evidence from research}
 
 
-We believe that previous expertise models fail to take into account some critical aspect of large scale software development. As subsystems become larger and welcome more contributors, maintainers have to dedicate more of their time reviewing other developers' contributions to maintain code quality. This shift towards a managerial position is usually followed by a drop in code contributions by that person. This implies that, in the eye of a model looking at only \ac{LOC} and commits, the maintainer will lose expertise. 
+We believe that previous expertise models fail to take into account some critical aspect of large scale software development. As subsystems become larger and welcome more contributors, maintainers have to dedicate more of their time reviewing other developers' contributions to maintain code quality. This shift towards a managerial position is usually followed by a drop in code contributions by that person. This implies that, in the eye of a model looking at only \ac{LOC} and commits, the maintainer will lose expertise. \alex{explain time dimenssion as well. Explain creation of srcmap and how we learned from that >> history}
 
 
-We introduce a new expertise model adapted to large software organization like the Linux community. Our model is better suited for the Linux community because it takes into account all the activities undertaken by both maintainers and developers. This thesis provides an in-depth description of the different steps necessary for the creation of this model.
+We introduce a new expertise model adapted to large software organization like the Linux community. Our model is better suited for the Linux community because it can take into account all the activities undertaken by both maintainers and developers. This thesis provides an in-depth description of the different steps necessary for the creation of this model.
 
 
 

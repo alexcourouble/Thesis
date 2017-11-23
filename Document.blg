@@ -19,7 +19,6 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: Document.bib
-Warning--I didn't find a database entry for "jiang"
 -- IEEEtranSN.bst version 1.13 (2008/09/30) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
@@ -32,7 +31,7 @@ Warning--to sort, need author, organization, or key in linux
 Done.
 You've used 22 entries,
             5261 wiz_defined-function locations,
-            1206 strings with 14664 characters,
+            1205 strings with 14659 characters,
 and the built_in function-call counts, 24275 in all, are:
 = -- 2267
 > -- 781
@@ -71,4 +70,4 @@ warning$ -- 2
 while$ -- 125
 width$ -- 0
 write$ -- 326
-(There were 3 warnings)
+(There were 2 warnings)

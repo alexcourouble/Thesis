@@ -2,7 +2,10 @@
 
 As explained in \autoref{sec:Introduction}, the linux contribution process is a strong email-based system that has proven to be more reliable and scalable over the years. Like in many other organizations, the linux development community makes extensive use of code reviews to ensure the quality of contributors' code submissions. These code reviews occur in the mailing lists, where the patch was first introduced. After accepting and integrating the patch to the git repository, it is usually very hard to recover the original patch, the code reviews, and the discussion that took place during the code reviews. 
 
-Other tools have addressed this issue by providing a code review environment and by keeping track of the code review for each commit. \alex{examples gerrit, github} However, the linux community never used these tool for upstream contributions as they would not scale to the size of the linux community. We address this flaw in the development process by creating Email2git, a tool able to find, for a given linux commit, the orignal patches and the code reviews. This chapter introduce Email2git, from its inception, to its deployement to production. 
+Other tools have addressed this issue by providing a code review environment and by keeping track of the code review for each commit. However, these environments often do not broadcast the code reviews to everyone. These \textit{unicast} review environment only allow the author to read the code reviews. In a quantitative study, \citep{armstrong} examined the differences between \textit{unicast} and \textit{broadcast} review system. The authors discovered that broadcast allows for faster review cycle, and provides learning material for new developers. The linux community never used these tool for upstream contributions as they would not scale to the size of the linux community. 
+
+
+To address the lack of way to backtrack reviews, we implemented Email2git. The tool is able to find, for a given linux commit, the orignal patches and the code reviews. This chapter introduce Email2git, from its inception, to its deployement to production. 
 
 \section{Previous Publications and Original Algorithm}
 
