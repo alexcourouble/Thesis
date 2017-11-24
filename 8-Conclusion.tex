@@ -2,7 +2,7 @@
 \label{sec:Conclusion}
 
 
-The research project described in this thesis establishes a history-aware model capable of predicting experts in a large software project. We describe the different metrics acquired for the creation of the model as well as the techniques used to mine the necessary data. We were able to make some of the data available to the Linux community through two open source tool available online. We describe the different steps undertaken during the deployment of those tools. We also provide an evaluation of our expertise model.
+The research project described in this thesis establishes a history-aware model capable of predicting experts in a large software project. We describe the different metrics acquired for the creation of the model as well as the techniques used to mine the necessary data. We also provide an empirical evaluation of the model based on a list of known Linux experts. We were able to make some of the data available to the Linux community through two open source tool available online. We describe the different steps undertaken during the deployment of those tools. We also provide an evaluation of our expertise model.
 
 
 \section{Advancement of Knowledge}
@@ -23,7 +23,7 @@ Srcmap, our visualization of the kernel and its authors, has a few constrains an
 
 \subsection{Email2git}
 
-Email2git, our code reivew tracking system, has a few important limitations. The first limitation to consider is the missing mailing list. Although our patch data source, patchwork.kernel.org, already track many mailing lists, some major mailings list like \texttt{net-dev} are not tracked. This is reflected in the low number of commit matched in the \texttt{net} subdirectory. 
+Email2git, our code reivew tracking system, has a few important limitations. The first limitation to consider is the missing mailing list. Although our patch data source, patchwork.kernel.org, already track many mailing lists, some major mailings list like \texttt{net-dev} are not tracked. Although this is a minor issue, it reflects in the low number of commit matched in the \texttt{net} subdirectory. 
 
 We recieved a lot of valuable feedback from linux developers after our refereed talk the Open Source Summit North America. A developer mentioned the absence of the \textit{Patch 0} from our current implementation of Email2git. The Patch 0 is a summary of the changes submitted, often in multi-patch submissions. Another suggestion was to track \textit{linux-next}. This would allow developers to access discussion behind commits that have not been integrated in the main tree. 
 
