@@ -11,7 +11,7 @@ To address the lack of way to backtrack reviews, we implemented Email2git. The t
 
 The original algorithm capable of backtracking patches from commits was introduced in two papers~\citep{msr13jojo,jiang14} published by Jiang, a former member of the MCIS Lab. The general idea of the algorithm was to compare the +/- lines from both the git commits and the email patches. A match was found if the proportion of identical +/- lines was above a certain threshold. Although this script was a great proof of concept, it had difficulties scalling to 8 years of emails and commits. 
 
-
+For example, a 
 
 \section{Scalling the Algorithm}
 
@@ -40,7 +40,7 @@ In this phase as well as the next one, the matches are found using the same +/- 
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=5in]{author_matching}
+\includegraphics[width=5in]{author_matching_tmp}
 \caption{Using the patch sender to assist matching}
 \label{fig:author_matching}
 \end{figure}
@@ -121,8 +121,7 @@ We undertook various efforts to make our work more visible to the linux and open
 
 
 
-
-\alex{Should I nclude the entire blogpost? As an annex?}
+\section{Evaluation}
 
 
 
