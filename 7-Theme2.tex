@@ -11,11 +11,13 @@ To address the lack of way to backtrack reviews, we implemented Email2git. The t
 
 The original algorithm capable of backtracking patches from commits was introduced in two papers~\citep{msr13jojo,jiang14} published by Jiang, a former member of the MCIS Lab. The general idea of the algorithm was to compare the +/- lines from both the git commits and the email patches. A match was found if the proportion of identical +/- lines was above a certain threshold. Although this script was a great proof of concept, it had difficulties scalling to 8 years of emails and commits. 
 
-\alex{example}
+For example, there are 5 +/- lines in a commit $A$'s diff. The algorithm iterates through the patches present in the dataset, comparing the 5 +/- lines form the commit to the +/- lines from each patch. To compare the +/- lines from the commits and the patches, the algorithm find the proportion of identical lines in both the commit and the patch. A patch will be matched to commit $A$ if the proportion of identical lines is above a certain threshold. 
 
 \section{Scalling the Algorithm}
 
 Since we had access to email patches dating back to 2009, we decided to extract git commits from the Linux git repository from the same date, which represent over \textit{500,000 commits} to analyse. Unfortunatly, this amount of data was too large for the orignal algorithm to parse in a timely fashion, which called for a new, scalable algorithm that leverages heuristics mentioned in \citep{msr13jojo,jiang14}.
+
+We were able to separate the matching process into multiple different phases. After each phase, the matched commits and patches are removed from the dataset to reduce the workload for the next phase. The different phases are explained in this section. 
 
 \subsection{Patch Email Subject}
 
@@ -104,16 +106,24 @@ if (!/\b[0-9a-f]{40,40}\b/.test(cid)){
 
 \section{Introducing Email2git to the Opensource Community}
 
-We undertook various efforts to make our work more visible to the linux and open source community in general. The first effort was a blog post published on linux.com\footnote{\url{https://www.linux.com/blog/email2git-matching-linux-code-its-mailing-list-discussions}}. This blog post discusses email2git and its integration with cregit. This blog post was shared on Facebook and Twiter by the Linux Foundation and by other developers, which helped spreading the word about our work. In addition to this blogpost, I gave a refereed talk at the Open Source Summit and the Linux Plumbers Conference in Los Angeles. This gave me the oportunity to give a demo, explain the underlying algorithm and finally discuss the project with developer and recieve crucial feedback. An article\footnote{\url{https://lwn.net/Articles/734018/}} was published on LWN.net by Jake Edge following my talk. It explained the algorithm, the chalenges faced, and mentioned some of the questions the were asked during the talk.
+We undertook various efforts to make our work more visible to the linux and open source community in general. The first effort was a blog post published on linux.com\footnote{\url{https://www.linux.com/blog/email2git-matching-linux-code-its-mailing-list-discussions}}. This blog post discusses email2git and its integration with cregit. This blog post was shared on Facebook and Twiter by the Linux Foundation and by other developers, which helped spreading the word about our work. In addition to this blogpost, I gave a refereed talk at the Open Source Summit and the Linux Plumbers Conference in Los Angeles. This gave me the oportunity to give a demo, explain the underlying algorithm and finally discuss the project with developer and recieve crucial feedback. An article\footnote{\url{https://lwn.net/Articles/734018/}} was published on LWN.net by Jake Edge following my talk. It explained the algorithm, the chalenges faced, and mentioned some of the questions that were asked during the talk.
 
-\alex{Feedback from developers}
+
+The linux developers feedback included the following points:
+\begin{enumerate}
+	\item \textbf{Including patch zero.} The patch zero is the email that introduces a multi-patch series. It contains information regarding the entirety of the patch series. Our current source of matches, lkml.kernel.org, uses patchwork 1.0, which did not track the patch zero. The patch zero feature was implemented in Patchwork 2.0.
+
+	\item \textbf{Tracking Linux-next.} As mentioned in \autoref{sec:contrib-process}, linux-next is the branch used for integration testing. Developers would benefit from review discussions to help fix bugs that arised from integrating commits to linux-next. 
+
+	\item \textbf{Give credit to reviewers.} The \texttt{reviewed-by} tag is used to give credit to the developers that contributed during a patch review. However, some reviewers often do not receive the credit they deserve after contributing in reviews. Our tool could automate the \texttt{reviewed-by} tags.
+
+	\item \textbf{Guidelines for more accurate matching.} A developer suggested the creation of a list of guidelines for developers to follow in their development process. These guidelines would promote the use of the built-in git features that use the email subject as commit-summary. If addopted by the community, those guidelines would increase the proportion of matches found. 
+\end{enumerate}
 
 
 \section{Evaluation}
 
-
-
-To evaluate the current state of the tool, we look at the number of commits Email2git was able to match. More specifically, we look at the proportion of commits matches in the largest subdirectories of the Linux Kernel source code. \autoref{fig:matched_proportions} presents these proportions
+To evaluate the current state of the tool, we look at the number of commits Email2git was able to match. Overall, the algorithm matched 57\% of the non-merge commits since 2009. We look at the proportion of commits matched in the largest subdirectories of the Linux Kernel source code. \autoref{fig:matched_proportions} presents these proportions. The proportion of matches found is uneveny spread accross the different subdirectories of the Linux Kernel source code. For example, the \texttt{kernel} and \texttt{mm} directories have about \textbf{70\%} of their commits matched. On the other hand, the \texttt{net} directory only has \textbf{25\%} of their commits matched. This is mainly due to the absence of key mailing list from our email dataset. One of these mailing lists is \texttt{netdev}, where many patches related to net development are sent. This is reflected in the low proportion of commits matched in the \texttt{net} subdirectory. 
 
 
 \begin{figure}[htb]
@@ -123,18 +133,11 @@ To evaluate the current state of the tool, we look at the number of commits Emai
 \label{fig:matched_proportions}
 \end{figure}
 
+Furthermore, we can break down the matches by the stage of the algorithm that generated them. The first phase of the algorithm, which uses the email subject, finds about \textbf{95\%} of the final set of matches. The second part of the algorithm, which uses line-based matching, finds \textbf{5\%} of the final matches. It is important to note that the second phase of the algorithm is exposed to less commits than the first phase. The commits matched by the first phase are removed from the dataset before starting the second phase.
 
 
-\alex{Subject}
 
-This first phase will find a match for about 55\% of the commits. After this step, we can remove the commits and the patches that were matches from the "search space", reducing the amount of patches and commits to be parsed, reducing the load on the algorithm. 
-
-\alex{authors}
-
-\alex{filenames}
-
-
-Moreover, we are running an analytics script on the server hosting the matches to understand the usage of the data and to know the proportion of requested commit IDs are not matched. Removing the whitespace and assuring the validity of the string ensures the accuracy of these statistics, by recuding the number of failed requests due to a poorly formated commit ID.
+Finally, we are running an analytics script on the server hosting the matches to understand the usage of the data and to know the proportion of requested commit IDs are not matched. Removing the whitespace and assuring the validity of the string ensures the accuracy of these statistics, by recuding the number of failed requests due to a poorly formated commit ID.
 
 \begin{figure}[htb]
 \centering
