@@ -19,13 +19,13 @@ Since we had access to email patches dating back to 2009, we decided to extract 
 
 \subsection{Patch Email Subject}
 
-The most important heuristic that drastically increased the matching speed is the \textit{email subject - commit summary} concept. The built-in git features \texttt{git format-patch} and \texttt{git send-email} allows developers to easily submit their changes to a maintainer by email according to the Linux Kernel Contribution guidelines\footnote{\url{https://kernelnewbies.org/FirstKernelPatch}}. This or these emails contain all the meta-data that will eventually be included in the commit, if the patch is accepted. The meta-data includes heuristics such as: time sent, author, commit message, ... If the patch is accepted, the maintainer can use another git command to integrate the patch into her repository: \texttt{git am}\footnote{\url{https://git-scm.com/docs/git-am}}. This command will automatically exctract the patch info and keep the relevant information in the commit. The piece of information we are interested in is the email subject. \texttt{Git am} automatically saves the email subject and uses it the "commit summary". This commit summary, or commit title, is the first line of the commit message (((TODO: refer to intro for git commit stuff))). Comparing both strings of characters allows for a very quick first phase of matching.
+The most important heuristic that drastically increased the matching speed is the \textit{email subject - commit summary} concept. The built-in git features \texttt{git format-patch} and \texttt{git send-email} allows developers to easily submit their changes to a maintainer by email according to the Linux Kernel Contribution guidelines\footnote{\url{https://kernelnewbies.org/FirstKernelPatch}}. This or these emails contain all the meta-data that will eventually be included in the commit, if the patch is accepted. The meta-data includes heuristics such as: time sent, author, commit message, ... If the patch is accepted, the maintainer can use another git command to integrate the patch into her repository: \texttt{git am}\footnote{\url{https://git-scm.com/docs/git-am}}. This command will automatically exctract the patch info and keep the relevant information in the commit. The piece of information we are interested in is the email subject. \texttt{Git am} automatically saves the email subject and uses it the "commit summary". This commit summary, or commit title, is the first line of the commit message as explained in \autoref{sec:commit_anatomy}. Comparing both strings of characters allows for a very quick first phase of matching.
 
 
 
 \subsection{Author and Affected Files}
 
-Even though the number of commits was reduced by half after the first phase, I was unable to make the old script fast enough to parse the rest of the data in a timely fashion. Thus, I had to find a way to use the available meta-data to speed up the matching. The first data point I used was the \textit{author name}. As depicted in \autoref{fig:author_matching}\alex{TODO: Improve schema}\alex{Not sure how technical I should get}, I am able to use the name and email address of the \textit{commit author} to pin point to the patches that were sent by the same person. In other words, to find a match for each commit, the algorithm has to parse a handfull of patches instead of hundreds of thousand. Similarly, the files affected by a commit and a patch can drasticaly help the performance of the +/- line algorithm. Through some regular expression and text parsing, we can retrieve the files that are modified in the patch and the \textit{commit diff}. Since the author-based matching is slighty faster and returns more matches than the file-based matching, we start with the former, removing each matched commit and patch to reduce the workload of the next phase.
+Even though the number of commits was reduced by half after the first phase, I was unable to make the old script fast enough to parse the rest of the data in a timely fashion. Thus, I had to find a way to use the available meta-data to speed up the matching. The first data point I used was the \textit{author name}. As depicted in \autoref{fig:author_matching}, I am able to use the name and email address of the \textit{commit author} to pin point to the patches that were sent by the same person. In other words, to find a match for each commit, the algorithm has to parse a handfull of patches instead of hundreds of thousand. Similarly, the files affected by a commit and a patch can drasticaly help the performance of the +/- line algorithm. Through some regular expression and text parsing, we can retrieve the files that are modified in the patch and the \textit{commit diff}. Since the author-based matching is slighty faster and returns more matches than the file-based matching, we start with the former, removing each matched commit and patch to reduce the workload of the next phase.
 
 In this phase as well as the next one, the matches are found using the same +/- lines as the original algorithm, which is a fairly slow process, although this process could be improved using a hashing-based method to find corresponding +/- lines for further performance improvement. 
 
@@ -106,11 +106,24 @@ if (!/\b[0-9a-f]{40,40}\b/.test(cid)){
 
 We undertook various efforts to make our work more visible to the linux and open source community in general. The first effort was a blog post published on linux.com\footnote{\url{https://www.linux.com/blog/email2git-matching-linux-code-its-mailing-list-discussions}}. This blog post discusses email2git and its integration with cregit. This blog post was shared on Facebook and Twiter by the Linux Foundation and by other developers, which helped spreading the word about our work. In addition to this blogpost, I gave a refereed talk at the Open Source Summit and the Linux Plumbers Conference in Los Angeles. This gave me the oportunity to give a demo, explain the underlying algorithm and finally discuss the project with developer and recieve crucial feedback. An article\footnote{\url{https://lwn.net/Articles/734018/}} was published on LWN.net by Jake Edge following my talk. It explained the algorithm, the chalenges faced, and mentioned some of the questions the were asked during the talk.
 
+\alex{Feedback from developers}
 
 
 \section{Evaluation}
 
-\alex{Talk about performance of each step}
+
+
+To evaluate the current state of the tool, we look at the number of commits Email2git was able to match. More specifically, we look at the proportion of commits matches in the largest subdirectories of the Linux Kernel source code. \autoref{fig:matched_proportions} presents these proportions
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=5in]{plots/matched_commits_dir}
+\caption{Percentage of matched commits in Linux subdirectories, from 2009 to the time of writing this thesis}
+\label{fig:matched_proportions}
+\end{figure}
+
+
 
 \alex{Subject}
 
@@ -120,14 +133,10 @@ This first phase will find a match for about 55\% of the commits. After this ste
 
 \alex{filenames}
 
-\alex{Total performance, show graph with matched commits}
 
+Moreover, we are running an analytics script on the server hosting the matches to understand the usage of the data and to know the proportion of requested commit IDs are not matched. Removing the whitespace and assuring the validity of the string ensures the accuracy of these statistics, by recuding the number of failed requests due to a poorly formated commit ID.
 
-\alex{Show web requests plots to show performance of email2git}
-
-We are running analytics on the server hosting the matches to understand the usage of the data and to know the proportion of requested commit IDs are not matched. Removing the whitespace and assuring the validity of the string ensures the accuracy of these statistics, by recuding the number of failed requests due to a poorly formated commit ID.
-
- \begin{figure}[htb]
+\begin{figure}[htb]
 \centering
 \includegraphics[width=5in]{analytics}
 \caption{Plots created from the analytic}
