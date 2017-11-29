@@ -3,7 +3,7 @@
 
 
 As stated in \autoref{sec:Introduction}, the goal of our research project is to create an expertise model based on a series of metrics mined from the Linux Git repository and various mailing lists. Although our model could be applied to other project, we focused our evaluation on the Linux Kernel.
-Our expertise model takes into account many different activities present in the linux contribution process. These activities translate into metrics as we attempt to quantify them. To give back to the linux community, we made those metrics available through two open source tools, as the metrics are complicated to generate.  
+Our expertise model takes into account many different activities not only present in the linux contribution process, but also in other large scale software engineering projets. These activities translate into metrics as we attempt to quantify them. To give back to the linux community, we made those metrics available through two open source tools, as the metrics are complicated to generate.  
 
 In this chapter, we describe the general workflow of the research. \autoref{sec:expertise_model} introduces the expertise model we created during our research project, whose aproach and evaluation were submitted as a paper to the IEEE International Conference on Software Analysis, Evolution and Reengineering\footnote{\url{http://saner.unimol.it/}}. In \autoref{sec:srcmap} and \autoref{sec:email2git}, we introduce the tools we created, providing an explaination of how the metrics helped with the creation of our expertise model. 
 
@@ -101,9 +101,7 @@ However, the interviewed developers showed interest in work that was previously 
 \subsection{Lessons learned}
 \label{sec:lessons_srcmap}
 
-We learned many important lesson during the creation of Srcmap. From a technical point of view, we learned the importance of selecting a suitable library that will be capable of responding to our demands and requirements. Finding the right tool from the inception of the project would have saved us from weeks of work. 
-
-From a community perspective, we now understand the importance of understanding the needs and the habits of the targetted community. 
+We learned many important lesson during the creation of Srcmap.  From a community perspective, we now understand the importance of understanding the needs and the habits of the targetted community. 
 
 
 From a research point of view, the creation of srcmap allowed us to understand an important concept in the creation of our expertise model. The different areas displayed in the treemap represent the footprint of the developer in the given area. In this case, the area represents a file or directory. As we updated srcmap to a newer release of the Linux Kernel, we noticed that the larger footprints were decreasing. Which lead us to discover the concept of decreasing footprint, an important aspect of our expertise model. 

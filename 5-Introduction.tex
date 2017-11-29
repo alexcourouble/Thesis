@@ -9,10 +9,10 @@
 \Chapter{INTRODUCTION}\label{sec:Introduction}  
 
 
-Employee turn over represents a risk for software organizations. \citep{turnover} claim that the cost associated to replacing a developer can bbe up to 1.5 times the developer's salary. As an answer to this risks in software engineering organizations, researchers have attempted to establish models capable of finding experts in certain code areas. By recommending experienced developers, these models would ease the difficulty of replacing current experts as they leave the organization. 
+Employee turn over represents a risk for software organizations. \citep{turnover} claim that the cost associated to replacing a developer can be up to 1.5 times the developer's salary. As an answer to this risks in software engineering organizations, researchers have attempted to establish models capable of finding experts in certain code areas. By recommending experienced developers, these models would ease the difficulty of replacing current experts as they leave the organization. 
 
 
-Introduced in the early 2000s, these models were using the developers' coding activities to assess their expertise. Their activity was quantified in terms of two simple metrics: number of \ac{LOC} and number of commits, which represents the amount of change brought to the source code. 
+Introduced in the early 2000s\citep{mockus02}\citep{McDonald}, these models were using the developers' coding activities to assess their expertise. Their activity was quantified in terms of two simple metrics: number of \ac{LOC} and number of commits, which represents the amount of change brought to the source code. 
 
 The Linux Kernel, for instance, is a 26-year-old project that has experienced a drastic growth in terms of code base and in terms of developer community. Wanting to keep a high standard of code quality and a fast release system, the community had to implement a hierarchical contribution system. In this contribution system, some developers are responsible for the maintenance of their subsystems. These developers, or maintainers, are trusted by the rest of the Linux community to be skilled enough to ensure the durability of their subsystem. This trust was acquired by contributing to the subsystem over the years. However, when trying to use traditional expertise determining metrics in the linux kernel, maintainers are rarely recomended. Our results indicate that the number of lines of code only correctly assess less than 50\% of experts and number of commits authored only finds 25\% of experts. 
 
@@ -39,20 +39,20 @@ The header contains the following data points:
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=3.5in]{commit_anatomy}
+\includegraphics[width=4.5in]{commit_anatomy}
 \caption{The anatomy of a commit}
 \label{fig:commit_anatomy}
 \end{figure}
 
 \begin{itemize}
-	\item \textbf{Commit ID:} The "name" of the commit.
+	\item \textbf{Commit ID:} The commit's unique identifier.
 	\item \textbf{Commit Author:} Name and email address of the developer who \textit{wrote}, or \textit{authored} the code change.
 	\item \textbf{Author Date:} Time, date, and timezone at which the changes were submitted.
 	\item \textbf{Commit Committer:} Name and email address of the person who committed the code to the repository.
 	\item \textbf{Commit Date:} Time, date, and timezone at which the commit was committed tot he repository.
 \end{itemize}
 
-In the scope of the Linux Kernel, the Commit Author rarely the Commit Committer. As explained in \autoref{sec:contrib-process}, the author is the person who wrote the code, and then submitted it for review as a patch in an email. The commit committer is the person that recieved, accepted, and commited the changes to their repository.
+In the scope of the Linux Kernel, the Commit Author rarely is the Commit Committer. As explained in \autoref{sec:contrib-process}, the author is the person who wrote the code, and then submitted it for review as a patch in an email. The commit committer is the person that recieved, accepted, and commited the changes to their repository.
 
 The commit message contains the following datapoints:
 
@@ -88,9 +88,9 @@ The main tree uses a specific releace cycle. After a new version is releases, 4.
 
 Furthermore, large subsytems impose their own release schedule to developers. For instance, the Net subsystem also has two main trees: \texttt{net} and \texttt{net-next}. Net-next recieves all changes submitted to the net subsystem. Once the linus' merge window opens, net-next closes, and all the changes accumulated over the last 10 weeks will be submitted to the main tree. At this point, the net tree will recieve all the fixed related to commits that were committed to the main tree. Once Linus' merge window closes, net-next reopens and developers are free to submit new patches again. 
 
-As stated above, the contribution process relies heavily on emails. The reason why the linux community does not use tools such as github or gerrit is that those tools would not scale to the size of the linux community \citep{armstrong}. And even though the email-based system has been very reliable over the lifetime of the project, there is one drawback. Once a patch is committed to the subsytem tree, and after the commit makes its way upstream to the main tree, there is no easy way to recover the discussion that took place in the mailing list. We address this issue by leveraging an existing algorithm that was introduced and evaluated in \citep{msr13jojo} and \citep{jiang14}. We scaled the algorithm and made the output data available to linux developers.
+As stated above, the contribution process relies heavily on emails. The reason why the linux community does not use tools such as github or gerrit is that those tools would not scale to the size of the linux community \citep{armstrong}. And even though the email-based system has been very reliable over the lifetime of the project, there is one drawback. Once a patch is committed to the subsytem tree, and after the commit makes its way upstream to the main tree, there is no easy way to recover the review discussions that took place in the mailing list. 
 
-The process described in this section shows the number of different activities in which Linux developers participate. Previous models, which based their measure of expertise on number of lines of code and commits, do not account for some of the activities undertaken by Linux experts. We build an expertise model which considers a widder aray of metric to assess developer expertise. Since the Linux contribution process is similar to the one used by other organizations, this model could be accurate in other large software projects. 
+The process described in this section shows the number of different activities in which Linux developers participate. Previous models, which based their measure of expertise on number of lines of code and commits, do not account for some of the activities undertaken by Linux experts. 
 
 % \footnote{\url{https://01.org/linuxgraphics/gfx-docs/drm/process/howto.html#becoming-a-kernel-developer}}
 % \footnote{\url{https://www.kernel.org/doc/Documentation/networking/netdev-FAQ.txt}}
@@ -110,7 +110,7 @@ Our main research objective is to create a model capable of detecting experts in
 
 To explore this hypothesis, we evaluate the relevance of the different activities present in large scale software development for the purpose of measuring expertise. We build an expertise model based on metrics quantifying these activities. Moreover, we include a hirtorical dimention to the model to represent the impact of long term involvement with the software project. Finally, we provide an evaluation of the different activities by comparing the expert recommendations to the data listed in the \texttt{MAINTAINERS} file.
 
-
+We build an expertise model which considers a widder aray of metric to assess developer expertise. Since the Linux contribution process is similar to the one used by other organizations, this model could be accurate in other large software projects. 
 
 
 
