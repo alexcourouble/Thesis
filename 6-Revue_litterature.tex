@@ -29,6 +29,45 @@ Each of these previous studies ~\citep{Bhattacharya}, ~\citep{mockus02}, ~\citep
 
 Globally, we found that the previous expertise models on the topic fail to address several important activities present in software development mentioned in~\citep{Fritz-2007}. Even though the authors give insightful advice on how developers acquire knoledge, they do not provide an expertise model capable of recommending expert for a certain code area. 
 
+\section{The Anatomy of a Git Commit}
+\label{sec:commit_anatomy}
+
+A git commit is a fundamental concept in the scope of this research and for the understanding of git in general. The changes brought to source code by developers are contained in a \textit{commit}. If a developer is tasked to fix a bug or to create a new feature in a project, she will have to modify the source code in order to implement these changes. When a developer feels ready to share these changes, she can apply them to the repository in the form of a git commit. The changes are reprented in the \textit{commit diff}, which contains the exact lines to be removed (-) or added (+) in the source code. Git uses the +/- lines to modify the repository of someone who \textit{pulled} the changes form the developer as depicted in \autoref{fig:commit_anatomy}. 
+
+Furthermore, commits contain an array of metadata regarding the changes committed, all of which is accessible to anyone with a copy of the repository through a handful of builtin commands. For example, git log returns information about the past commits in the repository. \autoref{fig:commit_anatomy} shows one commit in the output printed by the following command: \texttt{git log -{}-pretty=fuller -{}-patch}, where the \texttt{-{}-pretty=fuller} shows more information and \textit{-{}-patch} shows the commit diff. There are three main parts to the commit as seen in the image: the header, the  message, and the diff.
+
+The header contains the following data points:
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=4.5in]{commit_anatomy}
+\caption{The anatomy of a commit}
+\label{fig:commit_anatomy}
+\end{figure}
+
+\begin{itemize}
+	\item \textbf{Commit ID:} The commit's unique identifier.
+	\item \textbf{Commit Author:} Name and email address of the developer who \textit{wrote}, or \textit{authored} the code change.
+	\item \textbf{Author Date:} Time, date, and timezone at which the changes were submitted.
+	\item \textbf{Commit Committer:} Name and email address of the person who committed the code to the repository.
+	\item \textbf{Commit Date:} Time, date, and timezone at which the commit was committed tot he repository.
+\end{itemize}
+
+In the scope of the Linux Kernel, the Commit Author rarely is the Commit Committer. As explained in \autoref{sec:Introduction}, the author is the person who wrote the code, and then submitted it for review as a patch in an email. The commit committer is the person that recieved, accepted, and commited the changes to their repository.
+
+The commit message contains the following datapoints:
+
+\begin{itemize}
+	\item \textbf{Commit summary:} Often called the commit title, a brief explaination of the purpose of the commit. 
+	\item \textbf{Commit Message:} In depth explaination of the purpose of the commit.
+	\item \textbf{Credit Attribution Tags:} List of people who were involved in the commit and the nature of their involvment. 
+\end{itemize}
+
+There are many different types of credit atribution tags, each describing the way the person contributed to the commit. The most common ones, and the ones we use in this study are: \textit{Signed-off-by}, \textit{Reviewed-by}, and \textit{Acked-by} (acknoledged by). According to \alex{cite https://www.kernel.org/doc/html/v4.12/process/submitting-patches.html} the tags have the following meanings. \textit{Signed-off-by} indicates the developer assisted in the creation of the patch or that she committed it upstream. \textit{Acked-by} is used by developers who were not involved in the creation of the patch but wanted to record their approval. \textit{Reviewed-by} is used to credit developers who contributed reviews to the submitted patch. 
+
+The commit diff, which sits at the end of the git log output, shows the exact files and lines that were modified by the author of the commit. Git uses the commit diffs to apply the changes to the files in the repository. The diff can be percieved as the set of instructions to transform the source code into the desired state.
+
+
 
 \section{Open Source Participation}
 
