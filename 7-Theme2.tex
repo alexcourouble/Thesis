@@ -102,6 +102,27 @@ if (!/\b[0-9a-f]{40,40}\b/.test(cid)){
 }
 \end{lstlisting}
 
+\subsection{Integrating Email2git with Cregit}
+
+Cregit is a project that aim at providing a finer grain approach to \textit{git blame}. The blame option in git returns the name of the developer who last changed a line of code in the source code. It provides a great way to quickly unmask the developers responsible for code in the Source Code. However, it has a serious limitation: git blame assigns a line to a developer even after a small modification to that line. For instance, if developer $A$ writes \texttt{print "Hello world"}, this line will then become associated with developer $A$. However, if developer $B$ modifies the line to read \texttt{print "Hello world!"}, git blame will associate the line with devloper $B$ even though developer $B$ only added a character. 
+
+Cregit addresses this limitation by tokenizing the source code in a git repository to enables git blame at a token level, instead of a line level. This provides a better understanding of the true authors of the source code. A tokensize version of the Linux kernel source code is available online through the cregit interface\footnote{\url{https://cregit.linuxsources.org/}}.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=3.5in]{cregit_code}
+\caption{Tokenized source code as it appears on Cregit.}
+\label{fig:cregit_code}
+\end{figure}
+
+\autoref{fig:cregit_code} shows tokenized linux code as it appears on the Cregit interface. In an effort to ease the access to email2git data, we decided to provide access to the matches through cregit. To this end, I modified the user interface to display a window containing all the available patches after clicking on a token, as shown in \autoref{fig:cregit_matches}. 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=3.5in]{cregit_matches}
+\caption{Window containing the patches that introduced the commit associated with the clicked token}
+\label{fig:cregit_matches}
+\end{figure}
 
 
 \section{Introducing Email2git to the Opensource Community}
@@ -149,6 +170,9 @@ Finally, we are running an analytics script on the server hosting the matches to
 \autoref{fig:analytics} displays the plots created by the analytics script running on the server. We observe two peaks in number of unique IP addresses at two different moments: at the end of July and in mid September. The former date corresponds to the day we introduced Email2git in a blogpost on linux.com and the latter corresponds to the talk I gave at the Open Source Summit North America in Los Angeles. 
 
 \section{Conclusion}
+
+We leveraged the lessons learned from Srcmap while creating Email2git. The purpose of Email2git was to answer a complain coming from multiple developers and maintainers: the difficulty of finding an email discussion about patches that were eventually integratted in the Linux Kernel. Understanding the Linux community allowed us to better introduce our tool when we released it, as explained in Chapter 4. Moreover, the data acquired in the implementation of Email2git served as one of the metrics used by our expertise model as explained in chapter 5.
+
 
 \alex{email2git successful, developers showed interest, }
 
