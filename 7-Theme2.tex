@@ -74,11 +74,38 @@ The patches are stored on a remote serve in a MySQL database, the same database 
 
 
 
+
+
+\section{Integrating Email2git with Cregit}
+
+Cregit is a project that aim at providing a finer grain approach to \textit{git blame}. The blame option in git returns the name of the developer who last changed a line of code in the source code. It provides a great way to quickly unmask the developers responsible for code in the Source Code. However, it has a serious limitation: git blame assigns a line to a developer even after a small modification to that line. For instance, if developer $A$ writes \texttt{print "Hello world"}, this line will then become associated with developer $A$. However, if developer $B$ modifies the line to read \texttt{print "Hello world!"}, git blame will associate the line with devloper $B$ even though developer $B$ only added a character. 
+
+Cregit addresses this limitation by tokenizing the source code in a git repository to enables git blame at a token level, instead of a line level. This provides a better understanding of the true authors of the source code. A tokensize version of the Linux kernel source code is available online through the cregit interface\footnote{\url{https://cregit.linuxsources.org/}}.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=3.5in]{cregit_code}
+\caption{Tokenized source code as it appears on Cregit.}
+\label{fig:cregit_code}
+\end{figure}
+
+\autoref{fig:cregit_code} shows tokenized linux code as it appears on the Cregit interface. In an effort to ease the access to email2git data, we decided to provide access to the matches through cregit. To this end, I modified the user interface to display a window containing all the available patches after clicking on a token, as shown in \autoref{fig:cregit_matches}. 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=3.5in]{cregit_matches}
+\caption{Window containing the patches that introduced the commit associated with the clicked token}
+\label{fig:cregit_matches}
+\end{figure}
+
+
+
+
 \section{Providing Access to the Matches}
 
 Email2git's original inteded contribution was to increase the amount of information existing around a commit by providing access to the conversation that took place during the creation of the patch. And now that matches have been generated and saved, we need a way to make the information available to linux developers. Each match is composed of four elements: the \textit{commit ID}, the \textit{patchwork permalink ID}, the \textit{date}, and the \textit{phase} that found the match (subject, author, or file). The patchwork permalink ID is used to point to the patch and conversation on patchwork.kernel.org.
 
-As discussed in chapter 3, the matches are available through two platforms: cregit and as a standalone commit lookup page. And although both platforms use the same UI and fetching mechanism to display the links to patchwork, the user experience is fundamentally different. On cregit, users navigate the interface by browsing the tokenized files. Once the user clicks on a token, we display a window containing the links to the patches and converstation that introduced that token to the source code. Note that in this case, the user need not to know the commit ID of of the token of interest. The commit ID, which is necessary to retrieve the patches, is hard-coded in the html element containing the token. The HTML element containing a token looks like this:
+As discussed in the previous section, the matches are available through two platforms: cregit and as a standalone commit lookup page. And although both platforms use the same UI and fetching mechanism to display the links to patchwork, the user experience is fundamentally different. On cregit, users navigate the interface by browsing the tokenized files. Once the user clicks on a token, we display a window containing the links to the patches and converstation that introduced that token to the source code. Note that in this case, the user need not to know the commit ID of of the token of interest. The commit ID, which is necessary to retrieve the patches, is hard-coded in the html element containing the token. The HTML element containing a token looks like this:
 
 \begin{lstlisting}[language=HTML]
 <a onclick="return 
@@ -102,27 +129,8 @@ if (!/\b[0-9a-f]{40,40}\b/.test(cid)){
 }
 \end{lstlisting}
 
-\subsection{Integrating Email2git with Cregit}
 
-Cregit is a project that aim at providing a finer grain approach to \textit{git blame}. The blame option in git returns the name of the developer who last changed a line of code in the source code. It provides a great way to quickly unmask the developers responsible for code in the Source Code. However, it has a serious limitation: git blame assigns a line to a developer even after a small modification to that line. For instance, if developer $A$ writes \texttt{print "Hello world"}, this line will then become associated with developer $A$. However, if developer $B$ modifies the line to read \texttt{print "Hello world!"}, git blame will associate the line with devloper $B$ even though developer $B$ only added a character. 
 
-Cregit addresses this limitation by tokenizing the source code in a git repository to enables git blame at a token level, instead of a line level. This provides a better understanding of the true authors of the source code. A tokensize version of the Linux kernel source code is available online through the cregit interface\footnote{\url{https://cregit.linuxsources.org/}}.
-
-\begin{figure}[htb]
-\centering
-\includegraphics[width=3.5in]{cregit_code}
-\caption{Tokenized source code as it appears on Cregit.}
-\label{fig:cregit_code}
-\end{figure}
-
-\autoref{fig:cregit_code} shows tokenized linux code as it appears on the Cregit interface. In an effort to ease the access to email2git data, we decided to provide access to the matches through cregit. To this end, I modified the user interface to display a window containing all the available patches after clicking on a token, as shown in \autoref{fig:cregit_matches}. 
-
-\begin{figure}[htb]
-\centering
-\includegraphics[width=3.5in]{cregit_matches}
-\caption{Window containing the patches that introduced the commit associated with the clicked token}
-\label{fig:cregit_matches}
-\end{figure}
 
 
 \section{Introducing Email2git to the Opensource Community}
@@ -132,7 +140,7 @@ We undertook various efforts to make our work more visible to the linux and open
 
 The linux developers feedback included the following points:
 \begin{enumerate}
-	\item \textbf{Including patch zero.} The patch zero is the email that introduces a multi-patch series. It contains information regarding the entirety of the patch series. Our current source of matches, lkml.kernel.org, uses patchwork 1.0, which did not track the patch zero. The patch zero feature was implemented in Patchwork 2.0.
+	\item \textbf{Including patch zero.} The patch zero is the email that introduces a multi-patch series. A multi-patch series is a large set of changes that is split over multiple emails. The patch zero contains information regarding the entirety of the patch series. Our current source of matches, lkml.kernel.org, uses patchwork 1.0, which did not track the patch zero. The patch zero feature was implemented in Patchwork 2.0.
 
 	\item \textbf{Tracking Linux-next.} As mentioned in \autoref{sec:Introduction}, linux-next is the branch used for integration testing. Developers would benefit from review discussions to help fix bugs that arised from integrating commits to linux-next. 
 
