@@ -29,10 +29,6 @@ The most important heuristic that drastically increased the matching speed is th
 
 Even though the number of commits was reduced by half after the first phase, I was unable to make the old script fast enough to parse the rest of the data in a timely fashion. Thus, I had to find a way to use the available meta-data to speed up the matching. The first data point I used was the \textit{author name}. As depicted in \autoref{fig:author_matching}, I am able to use the name and email address of the \textit{commit author} to pin point to the patches that were sent by the same person. In other words, to find a match for each commit, the algorithm has to parse a handfull of patches instead of hundreds of thousand. Similarly, the name of the files affected by a commit and a patch can drasticaly help the performance of the +/- line algorithm. Through some regular expression and text parsing, we can retrieve the files that are modified in the patch and the \textit{commit diff}. Since the author-based matching is slighty faster and returns more matches than the file-based matching, we start with the former, removing each matched commit and patch to reduce the workload of the next phase.
 
-In this phase as well as the next one, the matches are found using the same +/- lines as the original algorithm, which is a fairly slow process, although this process could be improved using a hashing-based method to find corresponding +/- lines for further performance improvement. 
-
-
-
 \begin{figure}[htb]
 \centering
 \includegraphics[width=5in]{author_matching_tmp}
@@ -162,7 +158,7 @@ To evaluate the current state of the tool, we look at the number of commits Emai
 \label{fig:matched_proportions}
 \end{figure}
 
-Furthermore, we can break down the matches by the stage of the algorithm that generated them. The first phase of the algorithm, which uses the email subject, finds about \textbf{95\%} of the final set of matches. The second part of the algorithm, which uses line-based matching, finds \textbf{5\%} of the final matches. It is important to note that the second phase of the algorithm is exposed to less commits than the first phase. The commits matched by the first phase are removed from the dataset before starting the second phase.
+Furthermore, we can break down the matches by the stage of the algorithm that generated them. The first phase of the algorithm, which uses the email subject, finds about \textbf{95\%} of the final set of matches. The second part of the algorithm, which uses the author and filename based matching, finds \textbf{5\%} of the final matches. It is important to note that the second phase of the algorithm is exposed to less commits than the first phase. The commits matched by the first phase are removed from the dataset before starting the second phase. This implies that the second phase will inherently find less matches than the first phase. We tested the performance of the line-based algorithm (both author and filename) on a subset of commit and patches to understand its performance. The algorithm found a \textit{correct} match for \textit{26\%} of the analysed commits.
 
 
 
