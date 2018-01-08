@@ -11,28 +11,16 @@ The research project described in this thesis establishes a history-aware model 
 In addition to communicating our findings regarding expertise models in a submitted scholarly article, we were able to build two interfaces to further share our data with the rest of the Linux community. The main advancement of knowledge carried by our research project is the new dimentions used in our expertise model. State of the art techniques fail to include other aspects of software engineering, like code reviews and upstream committing. Our model is more appropriate to large organization where mainainers or managers are usually too busy to continue contributing code to the project. 
 
 \section{Limits, Constraints, and Recommendations}
-\label{sec:Limits and constraints}
+% \label{sec:Limits and constraints}
 
 
 
-\subsection{Srcmap}
-
-Srcmap, our visualization of the kernel and its authors, has a few constrains and a lot of possible future work. The main constrain is the lack of a fluid user experience. The amount of data to process in the browser is too high to allow smooth browsing of the main tree. A way to address this issue would be to configure the interface to only download the required data as users browse the visualization. This way, the internet browser uses to display the tool would not have to save the entire dataset in memory and would only process the desired area. 
 
 
 
-\subsection{Email2git}
+% \subsection{Paper}
 
-Email2git, our code reivew tracking system, has a few important limitations. The first limitation to consider is the missing mailing list. Although our patch data source, patchwork.kernel.org, already track many mailing lists, some major mailings list like \texttt{net-dev} are not tracked. Although this is a minor issue, it reflects in the low number of commit matched in the \texttt{net} subdirectory. 
-
-We recieved a lot of valuable feedback from linux developers after our refereed talk the Open Source Summit North America. A developer mentioned the absence of the \textit{Patch 0} from our current implementation of Email2git. The Patch 0 is a summary of the changes submitted, often in multi-patch submissions. Another suggestion was to track \textit{linux-next}. This would allow developers to access discussion behind commits that have not been integrated in the main tree. 
-
-For the future of this project, we recommend running our own instance of Patchwork 2.0, which automatically track the Patch 0 of each patch. In addition to ansering the lack of Patch 0, it would allow to have control on the tracked mailing lists. If we have access to old archives of the desired mailing lists, we could be able to create matching data dating to before 2009. We also recommend tracking the linux-next tree, as Email2git could ease the integration debugging process. 
-
-
-\subsection{Paper}
-
-There are two main limitation to the model proposed in our submitted paper. The first limitation is a direct concequence of Email2git's limitation. The missing mailing lists cause an uneven distribution of the matched commits accross the different subdirectories of the kernel. To address this limitation, we only studied subsystems with a certain percentage of matched commits. This ensured homogeneity of the data among the different subsystems. 
+There are two main limitations to the model proposed in our submitted paper. The first limitation is a direct concequence of Email2git's limitation. The missing mailing lists cause an uneven distribution of the matched commits accross the different subdirectories of the kernel. To address this limitation, we only studied subsystems with a certain percentage of matched commits. This ensured homogeneity of the data among the different subsystems. 
 
 The other limitation is the validation technique we implement to assess the performance of our model. We use the maintainers currently active in the subsystem for the studied release. The issue with the technique is that since our model is partially based on activities usually related to maintainership, such as code reviews and upstream committing. To evaluate our model as \textbf{maintainer recommender} instead of an \textbf{expert recommender}, we would have to look at the developers that were selected as a replacement for a departing maintainer. A strong model would be capable of detecting the chosen developer for the release before the maintainer change.
 

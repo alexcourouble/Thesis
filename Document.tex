@@ -22,6 +22,8 @@
 \usepackage{color}
 \usepackage{amsfonts}
 
+\usepackage{fancybox}
+
 \newenvironment{myindentpar}[1]%
 {\begin{list}{}%
          {\setlength{\leftmargin}{#1}}%
@@ -34,10 +36,10 @@
           \noindent
           \thicklines
           \setlength{\fboxsep}{8pt}%
-          % \cornersize{0.2}
+          \cornersize{0.2}
           \ovalbox{
             \begin{minipage}{3.0in}%
-              % \textit{#1} 
+              \textit{#1} 
               
             \end{minipage}
           } 
@@ -204,6 +206,7 @@ a été dûment accepté\ifthenelse{\equal{\monDiplome}{M}}{}{e} par le jury d'e
 \include{7-Theme1}             % Premier thème (Doctorat) ou "Détails de la Solution" (Maîtrise).
 \include{7-Theme2}             % Second thème (Doctorat) ou "Résultats théoriques et expérimentaux" (Maîtrise).
 \include{7-Theme3}             % Troisième thème (Doctorat) ou effacez ce fichier si vous êtes à la Maîtrise.
+\include{general-discussion}
 \include{8-Conclusion}         % Conclusion.
 %\backmatter
 \renewcommand\bibname{REFERENCES}
