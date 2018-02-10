@@ -1,11 +1,11 @@
-\Chapter{RESEARCH GENERAL WORKFLOW}\label{sec:Theme1}
+\Chapter{GENERAL RESEARCH WORKFLOW}\label{sec:Theme1}
 
 
 
-As stated in \autoref{sec:Introduction}, the goal of our research project is to create an expertise model based on a series of metrics mined from the Linux Git repository and various mailing lists. Although our model could be applied to other project, we focused our evaluation on the Linux Kernel.
-Our expertise model takes into account many different activities not only present in the linux contribution process, but also in other large scale software engineering projets. These activities translate into metrics as we attempt to quantify them. To give back to the linux community, we made those metrics available through two open source tools, as the metrics are complicated to generate.  
+As stated in \autoref{sec:Introduction}, the goal of our research project is to create an expertise model capable of detecting maintainers in a given subsystem. Although our model could be applied to other projects, we focused our evaluation on the Linux Kernel.
+Our expertise model takes into account many different activities not only present in the linux contribution process, but also in other large scale software engineering projets. These activities translate into metrics as we attempt to quantify them. To give back to the Linux community, we made those metrics readily available through two open source tools.
 
-In this chapter, we describe the general workflow of the research. \autoref{sec:expertise_model} introduces the expertise model we created during our research project, whose aproach and evaluation were submitted as a paper to the IEEE International Conference on Software Analysis, Evolution and Reengineering\footnote{\url{http://saner.unimol.it/}}. In \autoref{sec:srcmap} and \autoref{sec:email2git}, we introduce the tools we created, providing an explaination of how the metrics helped with the creation of our expertise model. 
+In this chapter, we describe the general workflow of the research. \autoref{sec:expertise_model} introduces the expertise model we created during our research project, whose approach and evaluation were submitted as a paper to the 15th International Conference on Mining Software Repositories\footnote{\url{https://2018.msrconf.org/}}. In \autoref{sec:srcmap} and \autoref{sec:email2git}, we introduce the tools we created, providing an explanation of how the metrics helped with the creation of our expertise model. 
 
 
 
@@ -26,7 +26,7 @@ In the interest of offering more visibility to the authors of the Linux Kernel, 
 
 We needed an interface that would allow the user to navigate the different files and direcotries of Linux while displaying our list of datapoints, which is why we chose to base the tool on a treemap. Treemaps, which were introduced by~\citep{Bederson-2002} as a solution to display large hierarchical dataset on a 2 dimentional plane, were a great fit for our tool's requierments. 
 
-This tool served two purposes. First, percieved as a contribution to the Linux community, we acquired a lot of contacts and gained goodwill in return. Secondly, we gained a greater understanding of the contribution process and we discovered the concept of decreasing footprint as explained in \autoref{sec:lessons_srcmap}.
+This tool served two purposes. First, perceived as a contribution to the Linux community, we acquired a lot of contacts and gained goodwill in return. Second, we gained a greater understanding of the contribution process and we discovered the concept of decreasing footprint as explained in \autoref{sec:lessons_srcmap}.
 
 \subsection{Srcmap 1.0}
 
@@ -34,24 +34,24 @@ In the first version of Srcmap\footnote{\url{http://mcis.polymtl.ca/~courouble/l
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=5in]{srcmap1}
+\includegraphics[width=\textwidth]{srcmap1}
 \caption{First version of srcmap}
 \label{fig:srcmap1}
 \end{figure}
 
-\autoref{fig:srcmap1} shows the first version of Srcmap. The diferent boxes represent subdirectories of the Linux Kernel. The different colors present within each box give a preview of the content of the box. In this version of the tool, the color represents the developer having contributed the most lines of code in the contained files. Furthermore, the size of the boxes is proportional to the number of lines of code existing within the file or directory represented by the box. The panel on the right of the screen and the tooltip contain most of the data: exact number of lines of code, age of the first and last lines of code to be added, and the top 20 authors and their percentage of lines of code contributed.
+\autoref{fig:srcmap1} shows the first version of Srcmap. The diferent boxes represent subdirectories of the Linux Kernel. The different colors within each box give a preview of the content of the box. In this version of the tool, the color represents the developer having contributed the most lines of code in the contained files. Furthermore, the size of the boxes is proportional to the number of lines of code existing within the file or directory represented by the box. The panel on the right of the screen and the tooltip contain most of the data: exact number of lines of code, age of the first and last lines of code added, and the top 20 authors and their percentage of lines of code contributed.
 
 
 \subsection{Srcmap 2.0}
 
 
-After some research, we discovered a new treemap implementation\footnote{\url{https://carrotsearch.com/foamtree/}} capable of handling large dataset and deeply nested stuctures, which we used for the second version of the tool\footnote{\url{http://mcis.polymtl.ca/~courouble/dev/}}. This new version, shown in \autoref{fig:srcmap2}, introduced three important features: 
+After some research, we discovered a new treemap implementation\footnote{\url{https://carrotsearch.com/foamtree/}} capable of handling large datasets and deeply nested stuctures, which we used for the second version of the tool\footnote{\url{http://mcis.polymtl.ca/~courouble/dev/}}. This new version, shown in \autoref{fig:srcmap2}, introduced three important features: 
 \begin{itemize}
 	\item Coloring the files and directories according to three metrics:
 	\begin{itemize}
 		\item \ac{LOC}
 		\item Median age
-		\item Number of commits since 2016, or "Hot files"
+		\item Number of commits since 2016, or 'hot files'
 	\end{itemize}
 	\item File search
 	\item A plot displaying the \textit{age} distribution of \ac{LOC} present in the file/directory.
@@ -79,23 +79,23 @@ This is why we decided to create a new version of the tool with a different tree
 
 
 
-\subsection{Community Engagment}
+\subsection{Community Engagement}
 
-After the creation of the first implementation of Srcmap, we attended LinuxCon 2016 to meet with a series of Linux developers and maintainers. The goal of these informal interviews was to recieve early feedback on the tool. In addition to that, I traveled to Santa Fe, New Mexico to present Srcmap at the Linux Plumbers Conference. After discussing srcmap and our research to a series of linux developers, we deducted the following. 
+After the creation of the first implementation of Srcmap, we attended LinuxCon 2016 to meet with a series of Linux developers and maintainers. The goal of these informal interviews was to receive early feedback on the tool. In addition to that, I traveled to Santa Fe, New Mexico to present Srcmap at the Linux Plumbers Conference. After discussing srcmap and our research to a series of Linux developers, we deducted the following. 
 
 Firstly, experienced linux developers and maintainers are accustomed to their own development workflow. According to our interviews, experienced developers have acquired \textit{muscle memory} from developing in the same terminal over the years. Moreover, experienced maintainers were not interested in a web-based visualization tool, especially since the metrics displayed in Srcmap were easily accessible from the Linux git repository. In other words, the linux developers that I met showed little interest in the tool, in its current state.
 
-However, the interviewed developers showed interest in work that was previously done by \cite{jiang14}: linking Linux git commits to email patches and code reviews. Since our we wished to provide a tool that would increase developers' productivity, this became our next goal. Access to the original patches and code reviews would save a lot of time to developers trying to further understand an unknown code area. 
+However, the interviewed developers showed interest in work that was previously done by \cite{jiang14}: linking Linux git commits to email patches and code reviews. Since our wished to provide a tool that would increase developers' productivity, this became our next goal. Access to the original patches and code reviews would save a lot of time to developers trying to further understand an unknown subsystem. 
 
 
 
 \subsection{Lessons learned}
 \label{sec:lessons_srcmap}
 
-We learned many important lesson during the creation of Srcmap.  From a community perspective, we now understand the importance of understanding the needs and the habits of the targetted community. 
+We learned many important lesson during the creation of Srcmap.  From a community perspective, we now understand the importance of understanding the needs and the habits of the targeted community. 
 
 
-From a research point of view, the creation of srcmap allowed us to understand an important concept in the creation of our expertise model. The different areas displayed in the treemap represent the footprint of the developer in the given area. In this case, the area represents a file or directory. As we updated srcmap to a newer release of the Linux Kernel, we noticed that the larger footprints were decreasing. Which lead us to discover the concept of decreasing footprint, an important aspect of our expertise model. 
+From a research point of view, the creation of srcmap allowed us to understand an important concept in the creation of our expertise model. The different areas displayed in the treemap represent the footprint of the developer in the given area. In this case, the area represents a file or directory. As we updated srcmap to a newer release of the Linux Kernel, we noticed that the larger footprints were decreasing, which lead us to discover the concept of decreasing footprint, an important aspect of our expertise model. 
 
 
 In conclusion, although Srcmap was not as succeful as we originally hoped, we learned many important concepts that helped us in the rest of our research. 
@@ -104,7 +104,7 @@ In conclusion, although Srcmap was not as succeful as we originally hoped, we le
 \section{Expertise Model}
 \label{sec:expertise_model}
 
-To address the claim made in our hypothesis, we create an expertise model based on multiple different activities and with a historical dimention. As stated in chapter 1, we discovered that maintainers' contribution frequencies were decreases over time. This results in their \textit{LOC footprint} to slowly erode because of the contributions coming from other developers. Wondering whether this decrease in footprint was the result of maintainers reconsidering their involment with the Linux community, we analysed other metrics. Starting with the data collected for the creation of Email2git, we take a look at the other aspects of large scale software development. We discovered that as the Linux community becomes larger, maintainers are spending and increasing amount of time review code changes submitted by other developers. With this data available, we were able to improve state of the art expertise model. Chapter 5 presents the paper in which we introduce and evaluate our expertise model. 
+To address the claim made in our hypothesis, we create an expertise model based on multiple different activities and with a historical dimension. As stated in chapter 1, we discovered that maintainers' contribution frequencies decreased over time. This results in their \textit{LOC footprint} to slowly erode because of the contributions coming from other developers. Wondering whether this decrease in footprint was the result of maintainers reconsidering their involment with the Linux community, we analysed other metrics. Starting with the data collected for the creation of Email2git, we take a look at the other aspects of large scale software development. We discovered that as the Linux community becomes larger, maintainers are spending and increasing amount of time review code changes submitted by other developers. With this data available, we were able to improve state of the art expertise model. Chapter 5 presents the paper in which we introduce and evaluate our expertise model. 
 
 
 

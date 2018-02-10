@@ -2,59 +2,29 @@
 
 \section{Abstract}
 
-% \begin{abstract}
-As software evolves, a developer's contributions will gradually vanish as they are being replaced by other developers' code, slowly eroding the developer's footprint in the software project. Even though this developer's knowledge of the file did not disappear overnight, to outsiders, the developer and her expertise have become invisible. Through an empirical study on 5 years of Linux development history, this paper analyses this phenomenon of expertise erosion by building a 2-dimensional model of developer expertise involving a range of developer activities and involving activity data on more than one release. Using these models, we found that although many Linux maintainers' own coding footprint has regressed over time, their expertise is perpetuated through involvement in other development activities such as patch reviews and committing upstream on behalf of other developers. Considering such activities over time further improves the expertise models.
-% \end{abstract}
-
+As software evolves, a maintainer's contributions will gradually vanish as they are being replaced by other developers' code, slowly eroding the maintainer's footprint in the software project. Even though this maintainer's knowledge of the file did not disappear overnight, to outsiders, the maintainer and her expertise have become invisible. Through an empirical study on 5 years of Linux development history, this paper analyses this phenomenon of expertise erosion by building a 2-dimensional model of maintainer expertise involving a range of maintainer activities and involving activity data on more than one release. Using these models, we found that although many Linux maintainers' own coding footprint has regressed over time, their expertise is perpetuated through involvement in other development activities such as patch reviews and committing upstream on behalf of other developers. Considering such activities over time further improves recommendation models.
 
 
 \section{Introduction}
 
+As reported by Damien et al.~\cite{turnover}, employee turnover is a major challenge of information technology organizations. Estimations of the cost of losing an employee amount to between 0.5 and 1.5 times her salary, with the cost of replacing a software engineer in particular exceeding \$100,000~\cite{economist5988}. These costs are not limited to the software engineer's company, but also spread to open source development. In their 2017 Linux kernel report, Corbet et al.~\cite{corbet17} noted that ``well over 85 percent of all kernel development is demonstrably done by developers who are being paid for their work''. In fact, only 8.2\% of all kernel commits were made by volunteer developers. Hence, developer turn-over in companies risks to impact open source development as well!
 
-%Software comprehension is widely accepted to be difficult. Joining a software development team involves a steep learning
-%curve. During this period, one has to learn--at the same time--the architecture of a system, its implementation
-%rational, the idiosyncrasies of its implementation, its coding standards, the libraries that it uses, etc. etc.
-As reported by Damien et al.~\citep{turnover}, employee turnover is a major challenge of information technology organizations. Estimations of the cost of losing an employee amount to between 0.5 and 1.5 times her salary, with the cost of replacing a software engineer in particular exceeding \$100,000~\citep{economist5988}. These costs are not limited to the software engineer's company, but also spread to open source development. In their 2017 Linux kernel report, Corbet et al.~\citep{corbet17} noted that ``well over 85 percent of all kernel development is demonstrably done by developers who are being paid for their work''. In fact, only 8.2\% of all kernel commits were made by volunteer developers. Hence, developer turn-over in companies risks to impact open source development as well!
-% ``increasing number of companies are working toward the improvement of the kernel.''
-%
-% ``It is worth no ng that, even if one assumes that all of the “unknown” contributors are working on their own  me, well over 85 percent of all kernel development is demonstrably done by developers who are being paid for their work.''
-%
-% ``Interes ngly, the volume of contribu ons from unpaid developers has been in slow decline for many years. It was 14.6 percent in the 2012 version of this report, but is 8.2 percent this  me around. There are many possible reasons for this decline, but, arguably, the most plausible of those is quite simple: kernel developers are in short supply, so anybody who demonstrates an ability to get code into the mainline tends not to have trouble  nding job o ers.''
 
-Apart from improving the working conditions and onboarding procedures, software organizations (both closed and open source) need to invest time in finding the ``right'' expert to replace a parting developer. While it is possible to train newcomers and bring them up to speed (e.g., one third of the kernel contributors in the last 12 months were newcomers, and 60\% of those made their contribution as employee), the term ``right'' refers to having a similar profile, allowing the new expert to seamlessly fit in and continue his or her predecessor's work, without significant loss of knowledge. Thanks to the widespread adoption of agile development and open source development models, software development has become a collaborative endeavor, in which knowledge is shared across the members of an organization, hence in principle it should be possible to find contributors with similar profiles.
 
-Unfortunately, there is no consensus on how to measure the profile of a developer, and how to determine whether such a profile indicates the developer to be an expert. The simplest way to measure someone's development activities is to count the number of code changes (e.g., Git commits) authored. This is for example how Corbet et al. determine the most active developers and organizations in Linux kernel development~\citep{corbet17}. Yet, at the same time, they note that ``The total number of patches signed off by Linus Torvalds (207, or 0.3 percent of the total) continues its long-term decline. That reflects the increasing amount of delegation to subsystem maintainers who do the bulk of the patch review and merging.'' Worse, developer rankings based on the number of commits differed substantially based on the period during which this metric was measured (e.g., ranking based on last 10 years vs. last year). At a minimum, one needs to be careful interpreting these and other measures such as a developer's code legacy as shown by ``git blame''~\citep{Bhattacharya, mockus02, McDonald, Fritz-2007}.% are not reliable
-% ``Note that many senior kernel developers, Linus Torvalds included, do not show up on these lists. These developers spend much of their time getting other developers’ patches into the kernel; this work includes reviewing changes and routing accepted patches toward the mainline. " Which might be useful for your intro.''
-%``The numbers in the previous table are drawn from the entire git repository history, starting with 2.6.12. If we look at the commits since the last version of this report (4.7) through 4.13, the picture is somewhat different.''~\citep{corbet17} => \#commits, not blame (p.11-12)
+Apart from improving the working conditions and onboarding procedures, software organizations (both closed and open source) need to invest time in finding the ``right'' expert to replace a parting maintainer. While it is possible to train newcomers and bring them up to speed (e.g., one third of the kernel contributors in the last 12 months were newcomers, and 60\% of those made their contribution as employee), the term ``right'' refers to having a similar profile, allowing the new maintainer to seamlessly fit in and continue his or her predecessor's work, without significant loss of knowledge. Thanks to the widespread adoption of agile development and open source development models, software development has become a collaborative endeavor, in which knowledge is shared across the members of an organization, hence in principle it should be possible to find contributors with similar profiles.
 
-% Hence,
-% software organizations have to be prepared to the difficulties of training newcomers at the same time they expect many
-% of their employees to leave. Since software development is a knowledge industry, an important concern of software
-% development organizations is to increase and maintain the knowledge acquired by its employees (either by retaining them
-% or by accelerating its acquisition).
-% ``Over the course of kernel develop- ment since the use of Git began, each kernel release has included contribu ons from 200-300 develop- ers who had never put a patch into the kernel before.''
-%
-% ``up to 1,670  rst- me developers over the course of just under 13 months. Remember that 4,319 developers overall contributed to the kernel during this  me; one can thus conclude that over one-third of them were contribu ng for the  rst  me. Many of those developers will get their par cular  x merged and never be seen again, but others will become permanent members of the kernel development community.'' => 4.8 to 4.13
-%
-% ``The rest of the new developers (999, represen ng 60 percent of the total) were already working for a company when they contributed their  rst patch to the kernel.''
-%
-% ``The bo om line is that, even if all of
-% the unknowns were volunteers,
-% more than half of our new
-% developers are paid to work on the kernel from their very  rst patch.''
-
-To make developer expertise measures more robust and reliable, this paper proposes a 2-dimensional developer expertise footprint, addressing two important issues with current expertise models. First of all, while the amount of code written by a person can be an important indicator of expertise, % Expertise in a software system has been traditionally measured by authored lines of code \bram{Alex: we need at least two citations here}. The more code a person writes,
-% the more it is perceived to be an expert. While this metric is likely to measure expertise in the system, it overlooks
-% two important issues. First, 
+Unfortunately, there is no consensus on how to measure the profile of a developer, and how to determine whether such a profile indicates the developer to be an maintainer. The simplest way to measure someone's development activities is to count the number of code changes (e.g., Git commits) authored. This is for example how Corbet et al. determine the most active developers and organizations in Linux kernel development~\cite{corbet17}. Yet, at the same time, they note that ``The total number of patches signed off by Linus Torvalds (207, or 0.3 percent of the total) continues its long-term decline. That reflects the increasing amount of delegation to subsystem maintainers who do the bulk of the patch review and merging.'' Worse, developer rankings based on the number of commits differed substantially based on the period during which this metric was measured (e.g., ranking based on last 10 years vs. last year). At a minimum, one needs to be careful interpreting these and other measures such as a developer's code legacy as shown by ``git blame''~\cite{Bhattacharya, mockus02, McDonald, Fritz-2007}.
+To make developer expertise measures more robust and reliable, this paper proposes a 2-dimensional contribution footprint model, addressing two important issues with current expertise models. First of all, while the amount of code written by a person can be an important indicator of expertise, 
 it does not take into consideration the actions of people who do not directly contribute
 source code, such as those who review it or discuss it on mailing lists or issue repositories. Our footprint measure combines indicators of multiple kinds of developer activities.
 
-Second, as indicated by the Corbet et al., current measures focus on a given software release or development period, basically ignoring the development activities that happened before. % then   \bram{report}; and second, it does not take into consideration the
-% impact of time. 
+Second, as indicated by Corbet et al., current measures focus on a given software release or development period, basically ignoring the development activities that happened before.
 While a person who wrote 50\% of the code changes of the previous release could be less of an expert than a person who
 wrote 50\% of the code changes of the current release, the former developer might have been ill or absent, or might have been the one mentoring the latter developer. As such, both developers should be considered as experts, not just the latter developer. Our footprint measure allows to consider a developer's activities across different time periods.
 
-We empirically evaluate the expertise footprint models on 5 years of Linux kernel development history, addressing the following research questions:
+We empirically evaluate the footprint model's ability to detect maintainers on 5 years of Linux kernel development history, addressing the following research questions:
+
+
 
 \begin{description}
 \item[\textit{RQ1)}] \textit{\rqone }
@@ -77,50 +47,55 @@ Models involving a maintainers' own code footprint and coordination activities (
 \end{description}
 
 \begin{myindentpar}{1cm}
-Expertise models considering the last $R$ releases perform better than single-release models.
+Models considering the last $R$ releases perform better than single-release models.
 \end{myindentpar}
-
-%the remaining 50\% last week, the former person . Part of the reason is, first, that time affects our ability to recall our memory,
-%and second, because the evolution of a system might change some of the knowledge that a previous developer acquired,
-%rendering it invalid \bram{report}.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 \section{Background and Related Work}
 \label{sec:backgr-relat-work} 
 
-% Prior work \citep{Wu,Zhou,Ye-icse-2003} discusses developers' motivations to stay an open source project, claiming that developers will likely stop their involvment with the project once their personal goals have been fulfilled. Developers' departure results in knowledge loss \citep{Rigby}, as tacit knowledge about their code will disaprear with them. This knowledge loss associated with developer departure could have a important negative impact if the departing developer happens to be a maintainer. 
+% Prior work \cite{Wu,Zhou,Ye-icse-2003} discusses developers' motivations to stay an open source project, claiming that developers will likely stop their involvment with the project once their personal goals have been fulfilled. Developers' departure results in knowledge loss \cite{Rigby}, as tacit knowledge about their code will disaprear with them. This knowledge loss associated with developer departure could have a important negative impact if the departing developer happens to be a maintainer. 
 
-Maintainers ensure the longevity of the Linux kernel by not only contributing new code, but also by reviewing and integrating code submitted to their subsystems by other developers. They are the backbone of Linux kernel development, yet few studies have been done to study their work~\citep{Zhou-fse}.
 
-In particular, a maintainer's departure of her subsystem calls for her immediate replacement. However, only a developer with extensive experience in the subsystem can take on the task of maintainer. Software expertise and knowledge have been extensively studied in the past~\citep{Bhattacharya, mockus02, McDonald, Fritz-2007}. Many different models were created to attempt to assess developer expertise. 
+Maintainers ensure the longevity of a large open source project like the Linux kernel by not only contributing new code, but also by reviewing and integrating code submitted to their subsystems by other developers. Despite their crucial role in open source development, % maintainers are the backbone of Linux kernel development, yet 
+few studies have been done on maintainers~\cite{Zhou-fse}. 
+In particular, a maintainer's departure of her subsystem calls for her immediate replacement. However, only a developer with extensive experience in the subsystem can take on the task of maintainer. Hence, in this section, we aim to understand the different expert detection techniques. % \bram{in this paper or in related work section?}.
 
-Earlier expertise models~\citep{McDonald,mockus02} made the assumption that expertise is related to coding activities. They both extracted data describing the changes in the source code from the version control system. In other words, they measured a developer's expertise in terms of the number of changes made to the system.
+Software expertise and knowledge have been extensively studied in the past~\cite{Bhattacharya, mockus02, McDonald, Fritz-2007}. Most of this work % regarding software expertise
+provides a recommendation system to detect experts among the population of developers. % regarding a particular software project. 
+Typically, existing % Most 
+recommenders % created in the past
+base their assessment of expertise on \textbf{non-historical models}, meaning that they only exploit data of the current snapshot of the software repository, not of earlier versions. These non-historical models use a variety of different metrics to determine expertise.
 
-Fritz et al.~\citep{Fritz-2007} later expressed their concern about the assumption that activity indicates expertise. Their review of psychology studies indicated a lack of evidence proving that activity can be an indicator of knowledge. However, after a qualitative study consisting of  19 java developers interviews, they were able to confirm a relationship between commit frequency and expertise. In addition to that, they foud evidence proving that authorship (as obtained from the amount of churn contributed, or through ``git blame'') is also capable of indicating expertise.
+\textit{Implementation expertise.} This type of metric implies that a developer gains expertise through implementation, in other words, by making changes to a file% ~\cite{Anvik:2007:DIE:1268983.1269018}
+, % The earliest models assessed expertise based on changes brought to the source code, which are 
+as tracked by a version control system. McDonald~\cite{McDonald} recommends the last developer who made a change to a file as expert for that file, which could be interpreted as file-level \texttt{git blame}. Later, Mockus et al.~\cite{mockus02} improved on the approach proposed by McDonald~\cite{McDonald} by counting the number of changes each developer brought to a file to provide a better expertise recommendation. Girba et al.~\cite{1572315} later improved Mockus et al.'s method~\cite{mockus02} by measuring the size (churn) of each change in terms of lines of code.  %\bram{which is McDonald? be more precise as to how this third paper improves on Mockus}.
+% removed bug review paper. It is not relevant enough for us
 
-Bhattacharya et al.~\citep{Bhattacharya} explored the suitability of different expertise indicators depending on the developer's role. They argue that state-of-the-art metrics (lines of code and commits added), being unaware of the developer's role, can lead to inaccurate results. They add that code activity metrics like the number of lines of code added, only describe expertise at a local level and poorly capture global expertise. 
+\textit{Usage Expertise.} Developers gain usage expertise by calling (``using'') specific methods from within their code. This concept of usage expertise was introduced by Schuler and Zimmermann~\cite{Schuler:2008:MUE:1370750.1370779}. In later work~\cite{5306386}, the authors compare the accuracy of usage expertise against implementation expertise recommenders. They concluded that usage expertise recommends experts with similar accuracy to implementation expertise models. 
 
-Even though the goal of each study mentioned above varies, they all introduced expertise detection models relying on two simple metrics to measure expertise: the number of lines of code contributed and/or the number of commits.
+Additionally, Fritz et al.~\cite{Fritz-2007} validate the accuracy of implementation expertise techniques. After a qualitative study consisting of  19 java developers interviews, they were able to confirm a relationship between changes made (commit frequency) and expertise. In addition to that, they found evidence proving that authorship (as obtained from the amount of churn contributed, or through ``git blame'') is also capable of indicating expertise. In a later study, the authors~\cite{Fritz:2010:DMC:1806799.1806856} create a degree of knowledge model combining both usage and implementation metrics to recommend experts.
 
-Although these state-of-the-art techniques are well suited to detect experts among regular developers, we believe that they do not properly evaluate more complex expertise, such as that of subsystem maintainers. Most of the daily tasks, such as reviewing, of maintainers are ignored, creating an inherent bias in the expertise models.
+% \bram{did these add another kind of expertise metric, or still impl. vs. usage?} 
+Bhattacharya et al.~\cite{Bhattacharya} explored the suitability of different implementation expertise metrics depending on a developer's role. They argue that state-of-the-art metrics (lines of code and commits added), being unaware of the developer's role, can lead to inaccurate results. They add that code activity metrics like the number of lines of code added, only describe expertise at a local level and poorly capture global expertise. 
 
-We address this bias by building expertise models based on a variety of metrics capturing the full breadth of software development activities, and also considering a longer the evolution of such activities over time.% In this paper, we describe the model and provide a promissing evaluation.  
 
- % We address the risk associated with a maintainer's departure by building an expert/maintainer detection model based on different contribution metrics. Our goal is to evaluate this new model. 
+Thus far, all models cited above are not \textbf{history aware}. Hence, they do not take into consideration the effect of time on developer expertise and assume that developers' memory lasts for ever. Based on a survey of psychological literature, Hattori et al.~\cite{Hattori:2012:RCO:2318097.2318145} create a memory retention model to improve expertise models. Memory retention is computed using a Forgetting function, which reduces the weight of older activities to account for memory loss.
+%\bram{how? details?} 
+The data used in the experiment was acquired by a tool that records information from the developer's IDE. It would be impossible to reproduce this experiment on a project of the scale of the Linux Kernel because it would be impossible to force all Linux developers to use the IDE integrated tool.
+%\bram{why? currently no means for reader to understand this important statement}
+
+Although these state-of-the-art techniques are well suited to detect experts among regular developers, who specialize in implementation, they % we believe that they do not properly evaluate more complex expertise, such as that of subsystem maintainers.  
+ignore most of the daily tasks of maintainers, such as reviewing and committing code upstream, creating an inherent bias in the expertise models. We address this bias by building expertise models based on a variety of metrics capturing the full breadth of software development activities, and also considering the evolution of such activities over time.
+
+
+
+
+% Ownership.
+
+% Using git blame for finding owner of code \cite{1572315} .
+% MSR for accurate authorship \cite{Meng:2013:MSR:2550526.2550579}.
+
 
 
 
@@ -128,32 +103,33 @@ We address this bias by building expertise models based on a variety of metrics 
 
 
 % \begin{itemize}
-%   \item explain why experts are important for code quality \citep{Rahman-2011}
+%   \item explain why experts are important for code quality \cite{Rahman-2011}
 % \end{itemize}
 
 
-% code reviews \citep{Thongtanunam-2016}
+% code reviews \cite{Thongtanunam-2016}
 
-% Explain difference between author and commiter \citep{Ihara}
+% Explain difference between author and commiter \cite{Ihara}
 
 % conclude that current approaches ignore most of the tasks of experts, so need new expertise formula, whiose evaluation is our goal
 
 
 
 
-\section{Measuring the Expertise Footprint of Contributors}
+\section{Measuring Developers' Contribution Footprint}
 \label{sec:expertise-formula}
 
-This section discusses the two-dimensional model of expertise footprint proposed by this paper to enable identification of experienced team members (e.g., developers, testers, etc.). The first dimension of the footprint model considers a wide range of activities performed by a project member, not only focusing on code changes, but also code review or even a developer's code ``legacy'' (i.e., contributed code that still survives in the code base). The second dimension enhances the first dimension by not only considering the range of activities in the latest release, but \emph{across the last N releases}. As such, accidental lulls or shifts in project activity are accounted for.
+This section discusses the two-dimensional contribution footprint model proposed by this paper to enable identification of experienced team members (e.g., developers, testers, etc.) as candidate maintainers. The first dimension of the footprint model considers a wide range of activities performed by a project member, not only focusing on code changes, but also code review or even a developer's code ``legacy'' (i.e., contributed code that still survives in the code base). The second dimension enhances the first dimension by not only considering the range of activities in the latest release, but \emph{across the last N releases}. As such, accidental lulls or shifts in project activity are accounted for.
 
-Note that the expertise we are interested in is expertise about the {\em internals} of a particular source code file or component. An alternative form of expertise would consider knowledge on how to {\em use} a particular component (API). We focus on the former kind of expertise, since it is at the heart of a software organizations needs. For example, it allows to measure the expertise of a particular individual, allowing the organization to better use her skills, evaluate her value to the
+Note that the expertise we are interested in is expertise about the {\em internals} of a particular source code file or component, or implementation expertise. An alternative form of expertise would consider knowledge on how to {\em use} a particular component (API), or usage expertise. We focus on the former kind of expertise, since it is at the heart of a software organizations needs. For example, it allows to measure the expertise of a particular individual, allowing the organization to better use her skills, evaluate her value to the
 organization, and assess the risk of her potential departure. Furthermore, it is important for an organization to know---for any
-section of the system---who are its experts, and their level of expertise. Finally, in both cases, it is also
-important to know how this expertise is changing over time (e.g., the areas where a person is gaining and losing
-expertise, and, for a given area, how it is losing or gaining experts).
-% 2 types of expertise:
-%  * use of piece of code
-%  * internals of piece of code => we do this
+section of the system---who are its maintainers, and their level of expertise. Finally, in both cases, it is also
+important to know how the role of maintainer is changing over time (e.g., the activities where a maintainer is gaining and losing
+expertise).
+
+
+
+
 
 
 \subsection{Dimension 1: Contributor Activities}
@@ -179,7 +155,7 @@ activity & definition\\
 \label{tab:met}
 \end{table*}
 
-The expertise footprint model that we propose explicitly considers a wide range of development activities instead of focusing only on review- or code-related activities. \autoref{tab:met} provides a non-exhaustive list of activities, from very technical to outreach activities. Any activity by a contributor to one of these, can increase (or at least maintain) the contributor's knowledge about the subsystem she is working in. The more measures are considered, the more comprehensive the expertise footprint model becomes, hence the better the expected performance for identification of experts in a project under study, provided the activities are weighted based on their relevance for a given project.
+The footprint model that we propose explicitly considers a wide range of development activities instead of focusing only on review- or code-related activities. \autoref{tab:met} provides a non-exhaustive list of activities, from very technical to outreach activities. Any activity by a contributor to one of these, can increase (or at least maintain) the contributor's knowledge about the subsystem she is working in. The more measures are considered, the more comprehensive the footprint ranking model becomes, hence the better the expected performance for identification of maintainers in a project under study, provided the activities are weighted based on their relevance for a given project.
 
 This flexibility comes at the expense of additional effort for mining these activity measures. %, and our results with only the measures in \autoref{tab:met} already show encouraging results.
 Fortunately, when developers contribute code to an open or closed source project, data about each code change, code review or other activity is automatically stored in the project's software repositories. The most trivial example are the code changes (commits) recorded in a version control system like git. However, information about the contributor's activity in issue report discussions is also readily available from the project's issue repository (e.g., bugzilla or jira), code review activity from the review repository (e.g., gerrit or mailing list) and mailing list activity from the mailing list archive. Of the metrics in \autoref{tab:met}, \texttt{represented} and \texttt{planned} are the hardest to obtain data for. 
@@ -207,7 +183,7 @@ Fortunately, when developers contribute code to an open or closed source project
 %   \item Commit message attributions count: The number of times a developer is mentioned at the end of a commit message. These mentions ("Signed-off-by","Reviewed-by", and "Acked-by") give credit to the developers that contributed indirectly to the commit.
 % \end{enumerate}
 
-Given a set of activity measures $\mathbb{A}=\{a_i | a_i\ is\ activity\ measure\}$, we compute the expertise footprint of a release $j$ as: $$footprint_j(\mathbb{A})=\sum_{i} \frac{w_i \times a_i}{a_i^{tot}}$$, where $w_i$ is a weight factor given to $a_i$ ($\sum_i w_i = 1$) and $a_i^{tot}$ is the total number of activities of a given type (e.g., number of source code lines, commits or reviews) recorded for a given activity and release. In other words, each activity is normalized, and the weighted sum of the normalized activities yields the $footprint_j(\mathbb{A})$ percentage. Hence, to instantiate the generic $footprint_j(\mathbb{A})$ measure, an organization first has to select the activity measures $\mathbb{A}$ relevant to its context, then determine the relative weight $w_i$ of each selected activity.
+Given a set of activity measures $\mathbb{A}=\{a_i | a_i\ is\ activity\ measure\}$, we compute the contribution footprint of a release $j$ as: $$footprint_j(\mathbb{A})=\sum_{i} \frac{w_i \times a_i}{a_i^{tot}}$$, where $w_i$ is a weight factor given to $a_i$ ($\sum_i w_i = 1$) and $a_i^{tot}$ is the total number of activities of a given type (e.g., number of source code lines, commits or reviews) recorded for a given activity and release. In other words, each activity is normalized, and the weighted sum of the normalized activities yields the $footprint_j(\mathbb{A})$ percentage. Hence, to instantiate the generic $footprint_j(\mathbb{A})$ measure, an organization first has to select the activity measures $\mathbb{A}$ relevant to its context, then determine the relative weight $w_i$ of each selected activity.
 
 
 % \subsection{Developers' contribution footprint}
@@ -278,18 +254,18 @@ For this reason, the second dimension of our footprint model explicitly takes in
 While the choice of weights $w_i$ for dimension 1 could be chosen arbitrarily based on relevance of individual activities, the weights $W_i$ typically will be decreasing, since recent activity typically is at least as important as older activity. For example, the weights could be linearly decaying (e.g., $[0.33,0.27,0.20,0.13,0.07]$ for $R=4$), giving each older release proportionally less influence on the footprint model. Alternatively, an exponential ($[0.64,0.23,0.09,0.03,0.01]$) or logarithmic ($[0.34,0.29,0.23,0.14,0.00]$) decay could be used to give older release less or more influence, or (less likely) even a uniform ($[0.20,0.20,0.20,0.20,0.20]$) decay to give all considered releases the same importance.%which might pinpoint different people as expert, \emph{while }  might change over time we believe that software expertise is not built over night. On the contrary, we think expertise in a software system is acquired over a long period of involvment with the system. To address this claim, we add a historical dimenssion to our expertise formula. Instead of computing the footprints for just the current version, \textit{v4.11}, we combine the footprints found for the \textit{4 prior} releases with the \textit{current} footprints. We assign linear decaying weights to each release to add more importance to recent contributions.
 
 
-\subsection{Use Cases for Expertise Footprint}
+\subsection{Use Cases for Contribution Footprint Models}
 \label{sec:expertise-formula}
 
 Given the footprint models $footprint_j(\mathbb{A})$ and $footprint_j^R(\mathbb{A})$, a number of use cases can be imagined.
 
-The main use case considered in this paper is the identification of experts in a software project. Newcomers to a project typically are not aware who to ask for advice when encountering a specific technical issue. Similarly, when the maintainer of a specific component or library decides to retire, finding a good replacement is not always straightforward for an organization, as important development knowledge (across a range of development activities) risks to be lost.
+The main use case considered in this paper is the identification of maintainers in a software project. When the maintainer of a specific component or library decides to retire, finding a good replacement is not always straightforward for an organization, as important development knowledge (across a range of development activities) risks to be lost.
 
 A less straightforward application was suggested at one of the 2017 OPNFV Summit's panels, where substantial attention went to the issue of non-responsive Linux kernel maintainers. These are experts responsible for a given subsystem who, due to personal events, loss of interest or other reasons, start becoming non-responsive in communication with other developers or management. Having a reliable expertise measure in place would enable monitoring over time of maintainers' activities to spot long-term periods with sub-par performance. Such pro-active detection of issues could also suggest alternative maintainers.
 %``Evolution of a Multi-Organizational Developer Community Within China Panel'' at OPNFV Summit, June 2017 (Beijing): non-responsive maintainers big issue => automatically monitoring maintainers turning radio-silent
 %Finally, finding a new maintainer once the previous maintainer decides to leave often leads to a variety of management issues that could be avoided by pro-actively detecting monitoring and suggesting new experts for a subsystem.
 
-Similarly, an expertise footprint can help an organization guard itself against accidental loss of manpower. For example, the bus factor~\citep{Mens2014} is a known measure of the risk that key personnel might disappear from a project, either out of free will or due to an accident. Organizations with a high bus factor could leverage an expertise footprint to identify backups for key developers or managers. As such, for each subsystem, an organization could have a list of the main people working in it as well as their expertise level.
+Similarly, a contribution footprint model can help an organization guard itself against accidental loss of manpower. For example, the bus factor~\cite{Mens2014} is a known measure of the risk that key personnel might disappear from a project, either out of free will or due to an accident. Organizations with a high bus factor could leverage a contribution footprint to identify backups for key developers, maintainers, or managers. As such, for each subsystem, an organization could have a list of the main people working in it as well as their expertise level.
 %\bram{other uses?}
 %\begin{itemize}
 %\item ``Evolution of a Multi-Organizational Developer Community Within China Panel'' at OPNFV Summit, June 2017 (Beijing): non-responsive maintainers big issue => automatically monitoring maintainers turning radio-silent
@@ -297,7 +273,7 @@ Similarly, an expertise footprint can help an organization guard itself against 
 %\item company management: know how many people are working in an area of the system + their expertise level
 %\end{itemize}
 
-In order to use the footprint models to find the most appropriate expert of a given subsystem, one needs to calculate $footprint_j(\mathbb{A})$ and/or $footprint_j^R(\mathbb{A})$ for each person who contributed at least once to one of the activities in $\mathbb{A}$. Then, the resulting footprint values should be ranked from high to low. Ideally, the contributor with the highest footprint value is recommended as first candidate expert, followed by the contributor with the next highest footprint value, etc.% The ultimate goal of this experiment is to determine which of the tracked heuristics are the best expertise indicators. Experts must have a high footprint for that heuristic to be a proper expertise measure. Hence, we create \textbf{subsystem heuristic-based rankings} of all developers present in a subsystem based on each individual heuristic, which we use in the approach of RQ2.
+In order to use the footprint models to find the most appropriate maintainer candidate of a given subsystem, one needs to calculate $footprint_j(\mathbb{A})$ and/or $footprint_j^R(\mathbb{A})$ for each person who contributed at least once to one of the activities in $\mathbb{A}$. Then, the resulting footprint values should be ranked from high to low. Ideally, the contributor with the highest footprint value is recommended as first candidate maintainer, followed by the contributor with the next highest footprint value, etc.% The ultimate goal of this experiment is to determine which of the tracked heuristics are the best expertise indicators. Experts must have a high footprint for that heuristic to be a proper expertise measure. Hence, we create \textbf{subsystem heuristic-based rankings} of all developers present in a subsystem based on each individual heuristic, which we use in the approach of RQ2.
 %For each individual footprint, we simply compute the ranking of developers in each subsystem based on the footprint. 
 
 % For the composition of footprints, we create an expertise index by summing up the desired footprints for each developers. For example, Developer $D$ has the following footprints:
@@ -321,28 +297,29 @@ In order to use the footprint models to find the most appropriate expert of a gi
 
 
 
+
 \section{Case Study Setup}
 \label{sec:case-study-setup}
 
-This section presents the design of an empirical study on the Linux kernel to evaluate the 2-dimensional footprint model introduced in the previous section. The study addresses the following research questions:
+This section presents the design of an empirical study on the Linux kernel to evaluate the 2-dimensional footprint ranking model introduced in the previous section. The study addresses the following research questions:
 
-\newlist{RQ}{enumerate}{1}
-\setlist[RQ]{label=RQ\arabic*:}
-\begin{RQ}
-  \item \rqone
-  \item \rqtwo
-  \item \rqthree
-\end{RQ}
+% \newlist{RQ}{enumerate}{1}
+% \setlist[RQ]{label=RQ\arabic*:}
+% \begin{RQ}
+%   \item \rqone
+%   \item \rqtwo
+%   \item \rqthree
+% \end{RQ}
 
 \subsection{Subject Data}
 \label{sec:subject-data}
 
-Our study evaluates the expertise footprint models in the context of the Linux kernel. First of all, the Linux kernel is one of the hallmark open source projects, with a long history, large code base and vast supply of contributors. Second, the kernel is one of the few open source projects in which expertise is documented explicitly. The code base contains a file named \texttt{MAINTAINERS} that lists, for each subsystem, the experts in charge. Just as for source code, changes in maintainership are recorded through regular commits. This provides us with a unique oracle for our expertise measures.
+Our study evaluates the footprint models in the context of the Linux kernel. First of all, the Linux kernel is one of the hallmark open source projects, with a long history, large code base and vast supply of contributors. Second, the kernel is one of the few open source projects in which maintainers are documented explicitly. The code base contains a file named \texttt{MAINTAINERS} that lists, for each subsystem, the experts in charge. Just as for source code, changes in maintainership are recorded through regular commits. This provides us with a unique oracle for our footprint ranking based recommender.
 
-Furthermore, the Linux Foundation (who governs and mentors the development of the Linux kernel and related open source initiatives) recently has started up the CHAOSS committee on Community Health Analytics for Open Source Software\footnote{\url{https://chaoss.community/}}. Amongst others, the aim of this committee is to identify explicit measures of expertise that can help prospective adopters of open source projects in choosing the right developer or maintainer to contact. As such, our study can help this concrete initiative, and we are in contact with the CHAOSS consortium.%\bram{move something to intro? also check that Kate is not unblinded}
+Furthermore, the Linux Foundation (who governs and mentors the development of the Linux kernel and related open source initiatives) recently has started up the CHAOSS committee on Community Health Analytics for Open Source Software\footnote{\url{https://chaoss.community/}}. Amongst others, the aim of this committee is to identify explicit measures of expertise that can help prospective adopters of open source projects in choosing the right maintainer to contact. As such, our study can help this concrete initiative, and we are in contact with the CHAOSS consortium.%\bram{move something to intro? also check that Kate is not unblinded}
 %one of the co-authors is a member of the Linux Foundation who has been mentoring our work, with 
 
-Determining expertise footprints in the Linux kernel, especially taking into account the second dimension of our measure, requires a large set of historical data. We conducted our analysis on a set of 27 releases of the Linux kernel, spanning releases \textit{v3.5} to \textit{v4.11}, which corresponds to approximately 5 years of development and release history. 
+Determining the footprint rankings in the Linux kernel, especially taking into account the second dimension of our measure, requires a large set of historical data. We conducted our analysis on a set of 27 releases of the Linux kernel, spanning releases \textit{v3.5} to \textit{v4.11}, which corresponds to approximately 5 years of development and release history. 
 
 
 \subsection{Filtering of the Data}
@@ -363,7 +340,7 @@ We then set minimum thresholds of 50 commits per release and 60\% matched commit
 %We are interested in the expertise at a sub-module level. Thus, the first step is to build a directory tree for each subsystem according to the \texttt{MAINTAINERS} file contained in each studied revision of the Linux git repository. The \texttt{MAINTAINERS} file is a list that contains data about each subsystem in Linux. The subsystem directory tree is the set of all the files that constitute the subsystem. It will later allow us to compute the dedicated metrics for each developers at a subsystem level for each release.
 
 
-\subsection{Instantiation of the Footprint Models}
+\subsection{Instantiation of the Footprint Rankings}
 \label{sec:inst-footpr-meas}
 
 \begin{table*}[t]
@@ -396,7 +373,7 @@ To calculate the Git-related activity measures of \autoref{tab:metlin}, i.e., al
 
 Bread-and-butter analysis of the Git log commits in the time span since the previous official release yields \texttt{authored} and \texttt{committed}, while simple regular expressions of the commit messages in the same logs obtains \texttt{attributed}. Finally, a standard git blame command yields, for each code line in the release under analysis, the last person touching it. This information allows to calculate \texttt{legacy}.
 
-In kernel development, tags like ``Signed-off-by'', ``Reviewed-by'' and ``Acked-by'' are used as ``a loose indication of review, so [...] need to be regarded as approximations only''~\citep{corbet17}. Despite the warning of Corbet et al., \texttt{attributed} information is straightforward to obtain from commit messages, which is why we included this measure to complement the more strictly defined \texttt{reviewed} measure (calculated from reviewing data).
+In kernel development, tags like ``Signed-off-by'', ``Reviewed-by'' and ``Acked-by'' are used as ``a loose indication of review, so [...] need to be regarded as approximations only''~\cite{corbet17}. Despite the warning of Corbet et al., \texttt{attributed} information is straightforward to obtain from commit messages, which is why we included this measure to complement the more strictly defined \texttt{reviewed} measure (calculated from reviewing data).
 
 The next step is to lift up each contributor's Git-related activity measures to the subsystem-level, leveraging the file path information for each subsystem in the \texttt{MAINTAINERS} file. To do this, we identify for each commit the changed files, then map the commit to the subsystem(s) to which these files belong and aggregate the file-level measures to the subsystem level, for each contributor.% This subsystem-based contributions view will allow us to run our analysis at the subsystem level.
 
@@ -423,12 +400,12 @@ The next step is to lift up each contributor's Git-related activity measures to 
 \subsection{Linking Commits to Review Emails}
 \label{sec:link-comm-revi}
 
-In contrast to the developer \texttt{attributed} data obtained from the Git repository, the \texttt{reviewed} metric considers a second repository, i.e., the review environment. For the Linux kernel, code reviews are performed through mailing list discussions~\citep{icst17,msr13jojo,jiang14}. %we believe it is important to also include code reviewing activities to better describe expertise. The code review metric will ensure that the experience gained from reviewing patches does not go unnoticed. 
+In contrast to the developer \texttt{attributed} data obtained from the Git repository, the \texttt{reviewed} metric considers a second repository, i.e., the review environment. For the Linux kernel, code reviews are performed through mailing list discussions~\cite{icst17,msr13jojo,jiang14}. %we believe it is important to also include code reviewing activities to better describe expertise. The code review metric will ensure that the experience gained from reviewing patches does not go unnoticed. 
 % Unlike many other open source projects, Linux does not use a web-wased code review tool. 
 Patches are sent to one or more of the various linux mailing lists (typically one per kernel subsystem), where anyone can step up and provide review comments simply by replying to the patch email. As such, the review comments of a specific patch are spread across one or more email threads.
 
 %which causes technical difficulties when attempting to recover the patch that introduced the commit. 
-Jiang et al.~\citep{msr13jojo,jiang14} have introduced a number of heuristics to link an accepted patch stored as a commit in the official Git repository to the (different versions of the) reviewed patch in the mailing list. We adopted the best performing heuristic of Jiang et al., which % a patch-line based algorithm that 
+Jiang et al.~\cite{msr13jojo,jiang14} have introduced a number of heuristics to link an accepted patch stored as a commit in the official Git repository to the (different versions of the) reviewed patch in the mailing list. We adopted the best performing heuristic of Jiang et al., which % a patch-line based algorithm that 
 uses simple set intersection of the changed code lines between each email patch and Git commit. The heuristic matches a given Git commit C to the email patch P with which the change code line intersection is the largest and exceeds a given threshold of 4\%. All emails in P's email thread are said to correspond to the review comments on P (and hence C).%finds possible matches by comparing +/- lines in both the patch and the commit diff. The +/- lines are the lines that a developer added (+) or removed (-) when modifying existing code. 
 
 To improve % In a parallel research project (Will include links after double-blind review), we have been able to improve
@@ -439,7 +416,7 @@ If there is no such P, or multiple patches P have been found, %This increasingly
 %After the commit summary, we take the remainder of \textit{unmatched} commits and the remainder of \textit{unmatched} email patches and start
 we extract for each remaining commit the \textit{author} and the \textit{changed files}. We do the same for each remaining email patch. This information is then used to narrow down the search space of the line-based matching, by trying to match a commit only to email patches authored by the same developer and/or touching the same files. This substantially speeds up the matching process.% For instance, when the algorithm attempts to find matches for a commit authored by developer $D$, it will only look at email patches sent by developer $D$.
 
-The remaining commits, i.e., the commits still not matched to a review, introduce noise to our measures. The reason for not finding a code review could be due to the reviews being sent to a mailing list that we did not analyze, or not being reviewed at all. We were granted read access to the database behind the Patchwork mailing list archive hosted by linux.org\footnote{\url{https://patchwork.kernel.org/}}. This Patchwork instance has been tracking 69 different Linux mailing lists since 2009, providing us with about 1.4 million patches. However, patches that were submitted through untracked mailing lists are not in our dataset, which explains the variability of matched commits across subsystems. Alternatively, the code change in the accepted commit could also have undergone substantial changes compared to the reviewed commit, for example due to rebasing, cherry-picking or squashing~\citep{Bird-2009}.
+The remaining commits, i.e., the commits still not matched to a review, introduce noise to our measures. The reason for not finding a code review could be due to the reviews being sent to a mailing list that we did not analyze, or not being reviewed at all. We were granted read access to the database behind the Patchwork mailing list archive hosted by linux.org\footnote{\url{https://patchwork.kernel.org/}}. This Patchwork instance has been tracking 69 different Linux mailing lists since 2009, providing us with about 1.4 million patches. However, patches that were submitted through untracked mailing lists are not in our dataset, which explains the variability of matched commits across subsystems. Alternatively, the code change in the accepted commit could also have undergone substantial changes compared to the reviewed commit, for example due to rebasing, cherry-picking or squashing~\cite{Bird-2009}.
 
 \autoref{fig:matches_dir} shows the total percentage of matched commits from 2009 to the time of writing this paper, across the largest subdirectories of the kernel. It shows that this percentage varies greatly among the different subdirectories, with a minimum of 25\% for the ``net'' subdirectory. This is why, in \autoref{sec:data-filtering}, we filter out those subsystems whose average percentage of matched commits across the studied releases is lower than 60\%. Note that we do not show the percentage of unmatched {\em patches} (only unmatched {\em commits}), since the unmatched email patches include those patches that were rejected during code review, and hence never showed up in the Git repository.
 
@@ -460,8 +437,8 @@ The remaining commits, i.e., the commits still not matched to a review, introduc
 
 
 
-%patch-based: \citep{msr13jojo,jiang14}
-%actually, we're leveraging heuristic also mentioned by Jojo~\citep{jiang14} because nowadays it is standard practice <=> only from 2013 on? use only those in test
+%patch-based: \cite{msr13jojo,jiang14}
+%actually, we're leveraging heuristic also mentioned by Jojo~\cite{jiang14} because nowadays it is standard practice <=> only from 2013 on? use only those in test
 
 %\subsection{Formula for Historical Expertise}
 %\label{sec:form-hist-expert}
@@ -485,9 +462,9 @@ This section discusses for each research question its motivation, specific appro
 Open source software maintainers are responsible for the health of their subsystem. For example, each Linux kernel maintainer % ensures the healthy evolution of the Linux kernel
 manages the changes proposed by developers to the subsystem they are responsible for, and shepherd those changes upstream towards the Git repository of Linus Torvalds (i.e., the official Linux kernel repository). Hence, their presence is vital to the kernel community.
 
-Unfortunately, due to the unpredictable nature of life in general and open source software development in particular~\citep{Wu-oss,Zhou}, maintainers, for various reasons, one day will be forced to give up their responsibilities. In most cases, this means that another developer will have to take over the responsibility of maintainer.
+Unfortunately, due to the unpredictable nature of life in general and open source software development in particular~\cite{Wu,Zhou}, maintainers, for various reasons, one day will be forced to give up their responsibilities. In most cases, this means that another developer will have to take over the responsibility of maintainer.
 
-Hence, this research question aims to analyze how often maintainership changes in kernel development. Furthermore, we are interested in understanding how much of the code base of official releases is ``owned'' by the subsystem maintainers, i.e., was originally developed by a maintainer. Since ``git blame'' is a popular means for finding experts~\citep{Rahman-2011}, our results will help us understand to what extent such a measure is reliable to measure expertise.%  This allows to , as well as whether the workload of kernel developers also decreases over time \bram{if Zhou already found this, why are we doing it again? or is \texttt{legacy} measuring something else? if so, what is link with Zhou et al.'s work?}. \bram{did not get an answer about this, so removing it}% We investigate whether this decline in monthly workload and the decline in LOC footprint result in a loss of expertise.
+Hence, this research question aims to analyze how often maintainership changes in kernel development. Furthermore, we are interested in understanding how much of the code base of official releases is ``owned'' by the subsystem maintainers, i.e., was originally developed by a maintainer. Since ``git blame'' is a popular means for finding experts~\cite{Rahman-2011}, our results will help us understand to what extent such a measure is reliable to measure expertise.%  This allows to , as well as whether the workload of kernel developers also decreases over time \bram{if Zhou already found this, why are we doing it again? or is \texttt{legacy} measuring something else? if so, what is link with Zhou et al.'s work?}. \bram{did not get an answer about this, so removing it}% We investigate whether this decline in monthly workload and the decline in LOC footprint result in a loss of expertise.
 
 {\bf Approach:}
 
@@ -496,7 +473,7 @@ Furthermore, for each studied release, we measure and plot these maintainers' \t
 We then validated the statistical significance of the change in \texttt{legacy} distribution between the first and last analyzed release using a Wilcoxon paired test. % between the \texttt{legacy} distribution of maintainers active in the studied period of .  
 % list1=[across all maintainers of their \%lines owned in earliest release for given subsystem]
 % list2=[same, in final release for which we have data for that person]
-In case of a significant test result, we also provide the Cliff Delta effect size ((Cite Romano stats paper)). An effect size smaller than 0.147 is deemed a ``negligible'' difference, smaller than 0.33 a ``small'' difference, smaller than 0.474 a ``medium'' difference and otherwise a ``large'' difference.
+In case of a significant test result, we also provide the Cliff Delta effect size~\cite{Romano:2006}. An effect size smaller than 0.147 is deemed a ``negligible'' difference, smaller than 0.33 a ``small'' difference, smaller than 0.474 a ``medium'' difference and otherwise a ``large'' difference.
 
 
 \begin{figure}[t]
@@ -515,11 +492,11 @@ In case of a significant test result, we also provide the Cliff Delta effect siz
 
 
 %\bram{no link at all with Zhou et al.'s work, it seems, as they? do we have better motivation? if not, leave out \autoref{fig:RQ1_temp}?}
-Although the Cliff Delta value of 0.07 indicates only a negligible difference, this decreasing trend suggests that, if one limits the measure of expertise to the amount of surviving code originally authored by a maintainer, as was done by earlier work~\citep{Rahman-2011}, the expertise of maintainers globally seems to be decreasing over time. The next two research questions evaluate the use of a wider range of activity measures, across a range of releases, to obtain a more accurate measure of expertise.
+Although the Cliff Delta value of 0.07 indicates only a negligible difference, this decreasing trend suggests that, if one limits the measure of expertise to the amount of surviving code originally authored by a maintainer, as was done by earlier work~\cite{Rahman-2011}, the expertise of maintainers globally seems to be decreasing over time. 
 
 % \bram{no link at all with Zhou et al.'s work, it seems, as they? do we have better motivation? if not, leave out \autoref{fig:RQ1_temp}?}
 
-%\bram{still don't understand the link with Zhou et al., so leaving it out} This finding mirrors those of Zhou et al.~\citep{Zhou-fse}, who have shown that the workload of Linux kernel maintainers over time is decreasing. This workload was defined by the number of files a maintainer is responsible for, the number of commits to those files authored by other authors, and the number of authors interacting with the maintainer. Not only is the total workload not evenly spread out across all maintainers, their monthly workload is decreasing as well.
+%\bram{still don't understand the link with Zhou et al., so leaving it out} This finding mirrors those of Zhou et al.~\cite{Zhou-fse}, who have shown that the workload of Linux kernel maintainers over time is decreasing. This workload was defined by the number of files a maintainer is responsible for, the number of commits to those files authored by other authors, and the number of authors interacting with the maintainer. Not only is the total workload not evenly spread out across all maintainers, their monthly workload is decreasing as well.
 
 
 %The     According to state of the art expretise metrics, this decline in LOC footprint should translate in a decline in expertise.
@@ -566,8 +543,8 @@ Although the Cliff Delta value of 0.07 indicates only a negligible difference, t
 
 % important => currently state-of-the-art is based on code activity => evaluation shows it is far from perfect, so we check and see that priorities of people have changed
 
-Prior work on expertise measures~\citep{Anvik-2006, Bhattacharya, McDonald, Minto-2007, mockus02} primarily are based on code activity, which can be defined in terms of \texttt{legacy} and \texttt{committed}% number of changes added to the source code (Commits)
-. As motivated in \autoref{sec:expertise-formula}, we believe that these two metrics do not capture the full breadth of contributor expertise activities. Indeed, the results in RQ1 indicate that the \texttt{legacy} of long-standing maintainers crumbles over time. Unless one assumes that this reflects a real drop in expertise over time, the only explanation is that existing experts reorient their focus to other activities, such as code review and email communication. Hence, this research question evaluates whether considering such additional activities is able to improve the identification of experts.%Other facets of software development are not reflected by those metrics. Important development activities such as code reviews and upstream committing are not portayed by lines of code and commit authors.
+Prior work on expertise measures~\cite{Anvik-2006, Bhattacharya, McDonald, Minto-2007, mockus02} primarily are based on code activity, which can be defined in terms of \texttt{legacy} and \texttt{committed}% number of changes added to the source code (Commits)
+. As motivated in \autoref{sec:expertise-formula}, we believe that these two metrics do not capture the full breadth of maintainer activities. Indeed, the results in RQ1 indicate that the \texttt{legacy} of long-standing maintainers crumbles over time. Unless one assumes that this reflects a real drop in expertise over time, the only explanation is that existing experts reorient their focus to other activities, such as code review and email communication. Hence, this research question evaluates whether considering such additional activities is able to improve the identification of experts.%Other facets of software development are not reflected by those metrics. Important development activities such as code reviews and upstream committing are not portayed by lines of code and commit authors.
 
 {\bf Approach:}
 
@@ -589,13 +566,14 @@ we should find the maintainers in the top positions when ranked based on footpri
 
 In particular, we calculate two performance metrics:
 \begin{description}
-\item[$POS_N$] \underline{P}ercentage \underline{O}f \underline{S}ubsystems for which at least one maintainer was ranked in the top N expert candidates
-\item[$POM_N$] \underline{P}ercentage \underline{O}f \underline{M}aintainers in the {\em whole} project who were ranked in the top N expert candidates for their subsystem
+\item[$POS_N$] \underline{P}ercentage \underline{O}f \underline{S}ubsystems for which at least one maintainer was ranked in the top N recommended candidates
+\item[$POM_N$] \underline{P}ercentage \underline{O}f \underline{M}aintainers in the {\em whole} project who were ranked in the top N recommended candidates for their subsystem
 \end{description}
 
 For these performance metrics, N is a threshold that can be varied. Our case study uses thresholds ranging from 1 to 5. It is important to note that, if the number of maintainers of a subsystem is larger than N, $POM_N$ could be penalized. To avoid this, we slightly changed the definition of $POM_N$ to be calculated only for the maintainers of all subsystems with at most N maintainers, instead of for all maintainers of the whole project. For example, $POM_1$ measures the percentage of top-recommended maintainers of subsystems with at most 1 maintainer.%having said that, how do we explain that for top-N it says out of all projects with at most N maintainers, what is percentage of them in top-N?
 
-To structure our analysis, we analyzed the performance of expertise models involving only one metric of \autoref{tab:metlin}, then analyzed models involving all combinations of \texttt{legacy} with one of the other 4 measures, and finally one model with all measures combined. We focus explicitly on models involving \texttt{legacy} because it is a commonly used measure ~\citep{Rahman-2011}, and hence we use its performance as baseline. %We excluded the 20 other combinations because we aim to analyze the impact of the different activities combined with \texttt{legacy}. \bram{basically: we chose A and B, because we chose A ...}
+To structure our analysis, we analyzed the performance of maintainer recommender involving only one metric of \autoref{tab:metlin}, then analyzed models involving all combinations of \texttt{legacy} with one of the other 4 measures, and finally one model with all measures combined. 
+% We focus explicitly on models involving \texttt{legacy} because it is a commonly used measure ~\cite{Rahman-2011}, and hence we use its performance as baseline. %We excluded the 20 other combinations because we aim to analyze the impact of the different activities combined with \texttt{legacy}. \bram{basically: we chose A and B, because we chose A ...}
 % \bram{why?}\alex{Too complicated to compute for such marginal returns?} \bram{no, we wanted to study the impact of different groups of metrics, i.e., blame, then commit info, then review info}
 
 Since, for a given release, there is one $POS_N$ value and one $POM_N$ value, we calculate these metrics for each release, then study their distribution across the analyzed releases using boxplots. % Second, we also measure for each subsystem whether the top N ranking finds at least one of the subsystem's maintainers (since finding one maintainer is enough for someone trying to ask a question).%We establish thresholds of a maximum ranking position to validate wether a metric or combination of metrics is a good expertise indicator. In other words
@@ -628,14 +606,14 @@ We only show the plots for N=1 and N=3, as for higher values of N the plots rema
   \centering
   \begin{minipage}[b]{\columnwidth}
     \centering
-    \includegraphics[scale=.55]{plots/RQ2_metrics_N1_one_maint}
+    \includegraphics[scale=.5]{plots/RQ2_metrics_N1_one_maint}
     \caption{Distribution of $POS_N$ for each combination of activity measures, for ranking threshold N = 1. }
     \label{fig:rq2_1}
   \end{minipage}
   % \hfill
   \begin{minipage}[b]{\columnwidth}
     \centering
-    \includegraphics[scale=.55]{plots/RQ2_metrics_N3_one_maint}
+    \includegraphics[scale=.5]{plots/RQ2_metrics_N3_one_maint}
     \caption{Distribution of $POS_N$ for each combination of activity measures, for ranking threshold N = 3. }
     \label{fig:rq2_3}
   \end{minipage}
@@ -645,14 +623,14 @@ We only show the plots for N=1 and N=3, as for higher values of N the plots rema
   \centering
   \begin{minipage}[b]{\columnwidth}
     \centering
-    \includegraphics[scale=.55]{plots/RQ2_metrics_N1_many_maint}
+    \includegraphics[scale=.5]{plots/RQ2_metrics_N1_many_maint}
     \caption{Distribution of $POM_N$ for each combination of activity measures, for ranking threshold N = 1. These boxplots only consider subsystems with at most 1 maintainer.}
     \label{fig:rq2_1_many}
   \end{minipage}
   % \hfill
   \begin{minipage}[b]{\columnwidth}
     \centering
-    \includegraphics[scale=.55]{plots/RQ2_metrics_N3_many_maint}
+    \includegraphics[scale=.5]{plots/RQ2_metrics_N3_many_maint}
     \caption{Distribution of $POM_N$ for each combination of activity measures, for ranking threshold N = 3. These boxplots only consider subsystems with at most 3 maintainers.}
     \label{fig:rq2_3_many}
   \end{minipage}
@@ -709,7 +687,8 @@ Interesting to note is that, across all analyzed releases, the boxplots show a r
 {\bf Motivation:} 
 
 % priorities seem to shift => add historical expertise + expertise in different activities (in particular code review, although there are other things we do not measure)
-The metrics analyzed in RQ2 reveal that traditional expertise metrics based solely on a contributor's own development productivity are not well suited to identify maintainers. Expertise models exploiting only the information available for the release under study, are able to obtain median $POS_N$ performance of up to 75\% (N=1) and 90\% (N=3).%   first dimOther metrics, such as number of commits as a committer and number of commit message attributions are better indicators of maintainership. We believe this is due to a shift from development to reviewing activities. 
+The metrics analyzed in RQ2 reveal that traditional expertise metrics
+~\cite{McDonald,1572315,mockus02} based solely on a contributor's own development productivity are not well suited to identify maintainers. Expertise models exploiting only the information available for the release under study, are able to obtain median $POS_N$ performance of up to 75\% (N=1) and 90\% (N=3).%   first dimOther metrics, such as number of commits as a committer and number of commit message attributions are better indicators of maintainership. We believe this is due to a shift from development to reviewing activities. 
 
 However, % the limitation of $footprint_j(\mathbb{A})$ is that it only accounts for the data found in the current release of the kernel. We
 we believe that adding a historical dimension considering also the activity in the last R releases would assist the model in two ways. On the one hand, long standing kernel developers' contributions should carry more weight than newcomers' contributions. On the other hand, analyzing data on multiple releases would control for cases where contributors' productivity was lower due to a variety of reasons, such as illness, vacation or work on other projects.
@@ -739,9 +718,9 @@ whether the historical dimension improves the model.
 To save space, and since we found that, similar to RQ2, the combination of \texttt{legacy} and \texttt{committed} performs the best, we only show the results for this model (the rest of the data will be made available after the double-blind review). In particular, % maybe need exponentially decaying weights, where past counts, but newer stuff has higher weight
 \autoref{fig:rq3_curr} and \autoref{fig:rq3_hist} show the $POS_N$ performance of the combined \texttt{legacy}+\texttt{committed} model without and with the history dimension, for ranking thresholds N ranging from 1 to 5. \autoref{fig:rq3_curr_many} and \autoref{fig:rq3_hist_many} show the corresponding $POM_N$ results.%\bram{also, did you double-check that this combined model is still the best one?} \alex{It is the best one, but it is already really good for the current percpective, so the performance increase is not as noticable when using historical. See table 3.} 
 
-\autoref{table:rq3_wilc_loc_cc} contains the results of Wilcoxon paired tests between the $POS_N$ values without and with history, for each N, and (similarly) between the $POM_N$ values without and with history, for each N. For each test, we also provide the Cliff Delta effect size(((cite romano))).% An effect size smaller than 0.147 is deemed ``negligible'', smaller than 0.33 ``small'', smaller than 0.474 ``medium'' and otherwise ``large''.
+\autoref{table:rq3_wilc_loc_cc} contains the results of Wilcoxon paired tests between the $POS_N$ values without and with history, for each N, and (similarly) between the $POM_N$ values without and with history, for each N. For each test, we also provide the Cliff Delta effect size~\cite{Romano:2006}.% An effect size smaller than 0.147 is deemed ``negligible'', smaller than 0.33 ``small'', smaller than 0.474 ``medium'' and otherwise ``large''.
 
-% To create rankings in a similar fashion as RQ2, we assign previous release data to linearly decaying weights. The data collected in \textit{v4.7} will carry less weight than the data found in \textit{v4.8}, as developers are less likely to lose experience acquired more recently \citep{Rigby}. 
+% To create rankings in a similar fashion as RQ2, we assign previous release data to linearly decaying weights. The data collected in \textit{v4.7} will carry less weight than the data found in \textit{v4.8}, as developers are less likely to lose experience acquired more recently \cite{Rigby}. 
 
 % For each developer found in each tracked subsystem, we compute and weight the different metrics for the past 4 releases. For example: 
 
@@ -770,14 +749,14 @@ To save space, and since we found that, similar to RQ2, the combination of \text
   \centering
   \begin{minipage}[b]{\columnwidth}
     \centering
-    \includegraphics[scale=.6]{plots/RQ3_curr}
+    \includegraphics[scale=.5]{plots/RQ3_curr}
     \caption{Distribution of $POS_N$ for the combined \texttt{legacy}+\texttt{committed} model (\textbf{without} history dimension), for different N.}
     \label{fig:rq3_curr}
   \end{minipage}
   % \hfill
   \begin{minipage}[b]{\columnwidth}
     \centering
-    \includegraphics[scale=.6]{plots/RQ3_hist}
+    \includegraphics[scale=.5]{plots/RQ3_hist}
     \caption{Distribution of $POS_N$ for the combined \texttt{legacy}+\texttt{committed} model (\textbf{with} history dimension), for different N.}
     \label{fig:rq3_hist}
   \end{minipage}
@@ -787,14 +766,14 @@ To save space, and since we found that, similar to RQ2, the combination of \text
   \centering
   \begin{minipage}[b]{\columnwidth}
     \centering
-    \includegraphics[scale=.6]{plots/RQ3_curr_many}
+    \includegraphics[scale=.5]{plots/RQ3_curr_many}
     \caption{Distribution of $POM_N$ for the combined \texttt{legacy}+\texttt{committed} model (\textbf{without} history dimension), for different N. For each N, the boxplot only considers subsystems with at most N maintainers.}
     \label{fig:rq3_curr_many}
   \end{minipage}
   % \hfill
   \begin{minipage}[b]{\columnwidth}
     \centering
-    \includegraphics[scale=.6]{plots/RQ3_hist_many}
+    \includegraphics[scale=.5]{plots/RQ3_hist_many}
     \caption{Distribution of $POM_N$ for the combined \texttt{legacy}+\texttt{committed} model (\textbf{with} history dimension), for different N. For each N, the boxplot only considers subsystems with at most N maintainers.}
     \label{fig:rq3_hist_many}
   \end{minipage}
@@ -856,14 +835,14 @@ by the p-values and effect sizes of the Wilcoxon paired tests in \autoref{table:
 
 \textbf{Threats to validity:}
 
-Threats to external validity prevent generalization of empirical results to other contexts. In particular, due to the abundant volume of data and presence of an oracle for expertise, our empirical evaluation only focused on 22 releases of the Linux kernel project. Hence, the study should be expanded to cover not only more kernel releases, but also other open (and closed) source projects. Furthermore, we considered only 5 expertise measures for our footprint models. Other measures, such as those mentioned in \autoref{tab:met}, should be studied to understand their impact on expertise.
+Threats to external validity prevent generalization of empirical results to other contexts. In particular, due to the abundant volume of data and presence of an oracle for expertise, our empirical evaluation only focused on 22 releases, or five years of the Linux kernel project. Hence, the study should be expanded to cover not only more kernel releases, but also other open (and closed) source projects. Furthermore, we considered only 5 expertise measures for our footprint models. Other measures, such as those mentioned in \autoref{tab:met}, should be studied to understand their impact on expertise.
 % \begin{itemize}
 % \item only Linux kernel
 % \item only 22 releases
 % \item only 5 measures
 % \end{itemize}
 
-Threats to construct validity involve risks regarding the measures used in the empirical study. Of the five considered expertise measures, \texttt{reviewed} was the only one requiring noisy approximations. Except for cases where the email patch subject was identical to the Git commit message summary, there is a definite risk of false positive and false negative matches, as identified earlier by Jiang et al.~\citep{msr13jojo,jiang14}. This might explain the relatively weak performance of expertise models involving \texttt{reviewed}. However, no better alternatives exist for projects that use mailing lists for code review. Projects using web-based review environments like Gerrit do not have this issue, and will have perfect matching between commits and their reviews.
+Threats to construct validity involve risks regarding the measures used in the empirical study. Of the five considered expertise measures, \texttt{reviewed} was the only one requiring noisy approximations. Except for cases where the email patch subject was identical to the Git commit message summary, there is a definite risk of false positive and false negative matches, as identified earlier by Jiang et al.~\cite{msr13jojo,jiang14}. This might explain the relatively weak performance of expertise models involving \texttt{reviewed}. However, no better alternatives exist for projects that use mailing lists for code review. Projects using web-based review environments like Gerrit do not have this issue, and will have perfect matching between commits and their reviews.
 % construct:
 % \begin{itemize}
 % \item matching not perfect => sub-par performance of review-related metrics could be explained by this
@@ -897,137 +876,11 @@ Finally, whereas we used a top-down approach from expertise model to evaluation 
 %look at distribution of each measure, then transform in specific way in order to best separate values (e.g., also filtering too low values, ...)
 
 
-
-
-
-
-
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure}
-
-% Note that the IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
-
-
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command,
-% and the \label for the overall figure must come after \caption.
-% \hfil is used as a separator to get equal spacing.
-% Watch out that the combined width of all the subfigures on a 
-% line do not exceed the text width or a line break will occur.
-%
-%\begin{figure*}[!t]
-%\centering
-%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
-%\label{fig_second_case}}
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat[]), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
-% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
-% labels, the optional argument to \subfloat must be present. If a
-% subcaption is not desired, just leave its contents blank,
-% e.g., \subfloat[].
-
-
-% An example of a floating table. Note that, for IEEE style tables, the
-% \caption command should come BEFORE the table and, given that table
-% captions serve much like titles, are usually capitalized except for words
-% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
-% and up, which are usually not capitalized unless they are the first or
-% last word of the caption. Table text will default to \footnotesize as
-% the IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
-
-
-% Note that the IEEE does not put floats in the very first column
-% - or typically anywhere on the first page for that matter. Also,
-% in-text middle ("here") positioning is typically not used, but it
-% is allowed and encouraged for Computer Society conferences (but
-% not Computer Society journals). Most IEEE journals/conferences use
-% top floats exclusively. 
-% Note that, LaTeX2e, unlike IEEE journals/conferences, places
-% footnotes above bottom floats. This can be corrected via the
-% \fnbelowfloat command of the stfloats package.
-
-
-
-
 \section{Conclusion}
 
-This paper argued about the need for expertise models considering a wide range of developer and other activities, and doing so across different snapshots of a project instead of just for one snapshot. Through an empirical study on 22 releases of the Linux kernel, we empirically showed how measures about an expert's own coding footprint (\texttt{legacy}) and her involvement in coordinating other project members (e.g., committing their commits and/or reviewing their code changes) significantly improves on coding-only expertise models. Furthermore, considering those measures across different releases significantly improved performance, with large effect size.
+This paper argued about the need for expertise models considering a wide range of developer and other activities, and doing so across different snapshots of a project instead of just for one snapshot. Through an empirical study on 22 releases of the Linux kernel, we empirically showed how measures about a maintainer's own coding footprint (\texttt{legacy}) and her involvement in coordinating other project members (e.g., committing their commits and/or reviewing their code changes) significantly improves on coding-only expertise models for the sake of maintianer recommendation. Furthermore, considering those measures across different releases significantly improved performance, with large effect size.
 
-The simplest incarnation of our expertise model that software organizations should consider adopting involves (1) a developer's code \texttt{legacy} and number of changes \texttt{committed}, which are both readily obtainable from a Git log, calculated across (2) the last 5 releases. In future work, we will consider additional activity measures and empirically analyze other open source projects.
-
-
-% The conclusion goes here.
-% to really find who is expert, you need two things:
-% \begin{itemize}
-% \item different measures, not just blame and commit authors but also reviews, committers and commit message attributions
-%   \item historical perspective
-% \end{itemize}
-
-
-% \bram{should talk about how good expertise measures are in general, the fact that mixing activities is a must, and that somehow review activities are less indicative, at least in the kernel community}
-
-% RQ1:
-% 23\% of the studied subsystems saw changes in maintainership over the last 5 years.
-% The median maintainer \texttt{legacy} significantly decreases over time.
-
-% RQ2:
-% \texttt{attributed} is the only single-measure model able to keep up with the multi-measure models.
-% The models combining \texttt{legacy} with \texttt{committed}, \texttt{attributed} and/or \texttt{reviewed} perform the best
-% $POS_N$ increases to a median of 87.5\% for larger N, with multi-measure models outperforming single-measure models by at least 17\%.
-
-% RQ3:
-% The history-aware \texttt{legacy}+\texttt{committed} footprint models perform significantly better than the history-unaware models.
-
+The simplest incarnation of our maintainer recommender that software organizations should consider adopting involves (1) a developer's code \texttt{legacy} and number of changes \texttt{committed}, which are both readily obtainable from a Git log, calculated across (2) the last 5 releases. In future work, we will consider additional activity measures and empirically analyze other open source projects.
 
 
 
