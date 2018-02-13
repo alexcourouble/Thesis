@@ -23,3 +23,14 @@ For the future of this project, we recommend running our own instance of Patchwo
 
 
 \section{Maintainer Recommendation Model}
+
+The article in \autoref{sec:Theme3} describes a model used to recommend the maintainer(s) of a given subsystem. To create this recommender, we used thechniques described in previous work to create a modified expertise model. 
+All maintainers are experts, but not all experts are maintainers. Hence we use a different set of metrics chosen to represent the activities undertaken by maintainers on a daily basis, such as upstream committing and code reviews. 
+
+As described in \autoref{sec:discussion}, there are several threads to the validity of the model.
+As a threat to \textit{external validity}, we describe that the data set should include data from a longer timespan and from more different projects, proprietary and open source. This would allow our model to be generalized to external contexts. 
+
+As a threat to \textit{construct validity}, we identify one of the metrics studies to be noisy. The data related to the \texttt{reviewed} activity is often incomplete due to the nature of the Linux code review process. This noise in the data represents a risk regarding one of the measure used in the empirical study.
+
+Additionally, another threat to validity not mentioned in \autoref{sec:discussion} is that we validated the model's recommendations with the maintainers listed in the \texttt{MAINTAINERS} file as an oracle. Ideally, our model should be trained to detect or predict the best candidate as a \textit{replacement} to the current maintainer(s). To achieve this, we would have to create an oracle containing the developers that were selected as maintainers, and verify wheter our model is capable to recommend the developer at the moment of the selection.
+
