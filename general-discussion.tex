@@ -1,7 +1,7 @@
 \Chapter{GENERAL DISCUSSION}\label{sec:general-discussion}
 
 
-In this thesis, we explore models capable of experts identification. Through a review of the existing litterature on expertise models, we established that the current models were lacking exposure to the different activities undertaken by Linux developers and lacking exposure to the amount of time the developers have been involved with those activities. To answer this issue, we propose a new model aware of both time and the wide array of activities present in Linux development. 
+In this thesis, we explore models capable of expert identification and more specifically, maintainer indentification. Through a review of the existing literature on expertise models, we established that the current models were lacking exposure to the different activities undertaken by Linux developers and lacking exposure to the amount of time the developers have been involved with those activities. To answer this issue, we propose a new model aware of both time and the wide array of activities present in Linux development. 
 
 Additionally, we release two open-source projects based on the metrics acquired during the creation of the expertise model. This chapter provides a discussion regarding the two open-source tools: Srcmap and Email2git.
 
@@ -9,14 +9,14 @@ Additionally, we release two open-source projects based on the metrics acquired 
 
 \section{Srcmap}
 
-Srcmap, our visualization of the kernel and its authors, has a few constrains and a lot of possible future work. The main constrain is the lack of a fluid user experience. The amount of data to process in the browser is too high to allow smooth browsing of the main tree. A way to address this issue would be to configure the interface to only download the required data as users browse the visualization. This way, the internet browser uses to display the tool would not have to save the entire dataset in memory and would only process the desired area. 
+Srcmap, our visualization of the kernel and its authors, has a few constraints. The main constraint is the lack of a fluid user experience. The amount of data to process in the browser is too high to allow smooth browsing of the main tree. A way to address this issue would be to configure the interface to only download the required data as users browse the visualization. This way, the internet browser uses to display the tool would not have to save the entire dataset in memory and would only process the desired area. 
 
 
 
 \section{Email2git}
 
-Email2git, our code reivew tracking system, has a few important limitations. The first limitation to consider is the missing mailing list. Although our patch data source, patchwork.kernel.org, already track many mailing lists, some major mailings list like \texttt{net-dev} are not tracked. Although this is a minor issue, it reflects in the low number of commit matched in the \texttt{net} subdirectory. 
+Email2git, our code reivew tracking system, has a few important limitations. The first limitation to consider is the missing mailing lists. Although our patch data source, patchwork.kernel.org, already tracks many mailing lists, some major mailings list like \texttt{net-dev} are not tracked. Although this is a minor issue, it reflects in the low number of commits matched in the \texttt{net} subdirectory. 
 
-We recieved a lot of valuable feedback from linux developers after our refereed talk the Open Source Summit North America. A developer mentioned the absence of the \textit{Patch 0} from our current implementation of Email2git. The Patch 0 is a summary of the changes submitted, often in multi-patch submissions. Another suggestion was to track \textit{linux-next}. This would allow developers to access discussion behind commits that have not been integrated in the main tree. 
+We received a lot of valuable feedback from linux developers after our refereed talk the Open Source Summit North America. A developer mentioned the absence of the \textit{Patch 0} from our current implementation of Email2git. The Patch 0 is a summary of the changes submitted, often in multi-patch submissions. Another suggestion was to track \textit{linux-next}. This would allow developers to access discussion behind commits that have not been integrated in the main tree. 
 
-For the future of this project, we recommend running our own instance of Patchwork 2.0, which automatically track the Patch 0 of each patch. In addition to ansering the lack of Patch 0, it would allow to have control on the tracked mailing lists. If we have access to old archives of the desired mailing lists, we could be able to create matching data dating to before 2009. We also recommend tracking the linux-next tree, as Email2git could ease the integration debugging process. 
+For the future of this project, we recommend running our own instance of Patchwork 2.0, which automatically track the Patch 0 of each patch. In addition to ansering the lack of Patch 0, running our own Patchwork would allow to have control on the set of tracked mailing lists. If we have access to old archives of the desired mailing lists, we could be able to create matching data dating to before 2009. We also recommend tracking the linux-next tree, as Email2git could ease the integration debugging process. 
