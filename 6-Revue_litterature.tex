@@ -22,13 +22,36 @@ Furthermore, \citep{armstrong} studied the difference between \textit{unicast} a
 \section{Software Engineering Expertise}
 \label{sec:expertise_models}
 
-Many different studies explored the concept of expertise in software engineering. the authors of two early studies, Expertise Browser \citep{mockus02} and Expertise Recommender\citep{McDonald}, offered the first two software engineering expertise models. McDonald et al. approach the topic from a problem solving percpective, meaning they recommend an expert that could help solving a problem. Today's developers have many different resources at their disposal for the purpose of problem solving. Stack Overflow\footnote{\url{https://stackoverflow.com/}}, a programming question answer exchange, is used by developers from around the world that are looking for solutions for complex problems. Before Stack Overflow's creation in 2008, developers did not have easy access to a large database of solutions provided by \textit{experts} from various topics. The authors of the Expertise Recommender were seeking to solve this problem by providing an architecture capable of recommending experts for given parts of the software project, for the sake of finding an expert to solve an issue. \citep{mockus02} approach the issue differently. They provide an expertise model to solve the issue of replacing or adding new experts to a distributed software engineering project. Both approaches base their measure of expertise on \textit{software change}. 
-\citep{McDonald} recommends the last developer to bring change to a file as expert for that file. \citep{mockus02} improved upon this method by counting the number of changes associated to each developer to recommend an expert for each file. These software changes are the equivalent of git commits, as explained in \autoref{sec:commit_anatomy}.
 
 
-Each of these previous studies ~\citep{Bhattacharya}, ~\citep{mockus02}, ~\citep{McDonald}, and~\citep{Fritz-2007} base their measures of expertise among developers on the tacit assumption that experience is acquired through development activities, such as number of lines of code contributed or the number of commits authored. The author in \citep{Fritz-2007} examined the reliability of this assumption. Through a review of the many studies in psychology on knowledge and expertise, \citep{Fritz-2007} disovered that there was not sufficient evidence that activity does determine one's knowledge. The authors conducted a quantitative study on 19 java programmer to assess the accuracy of these finding. With this study, they discovered that multiple activity related heuristics influenced developers' knowledge. These heurstics include authorship, role, work experience, and activity, which confirms the suitablility of using activity-based metrics to measure expertise. Furthermore,~\citep{Fritz-2007} mention the effect of code stability to code knolwedge, they explain that knowledge about a specific code area will degrade faster if the code area is not stable, i.e. the code is heavily modified. 
+Many different studies explored the concept of expertise in software engineering.
+We believe previous work on expertise is crucial to our model because we consider the population of Linux maintainers to be a subset of the population of Linux experts. Hence, we believe we can improve upon existing expertise recommendation techniques to recommend maintainers. In this section, we describe the different expertise models that have been published in the past.
 
-Globally, we found that the previous expertise models on the topic fail to address several important activities present in software development mentioned in~\citep{Fritz-2007}. Even though the authors give insightful advice on how developers acquire knowledge, they do not provide an expertise model capable of recommending expert for a certain code area. 
+
+Typically, existing % Most 
+recommenders % created in the past
+base their assessment of expertise on \textbf{non-historical models}, meaning that they only exploit data of the current snapshot of the software repository, not of earlier versions. These non-historical models use a variety of different metrics to determine expertise.
+
+\textit{Implementation expertise.} This type of metric implies that a developer gains expertise through implementation, in other words, by making changes to a file% ~\cite{Anvik:2007:DIE:1268983.1269018}
+, % The earliest models assessed expertise based on changes brought to the source code, which are 
+as tracked by a version control system. McDonald~\cite{McDonald} recommends the last developer who made a change to a file as expert for that file, which could be interpreted as file-level \texttt{git blame}. Later, Mockus et al.~\cite{mockus02} improved on the approach proposed by McDonald~\cite{McDonald} by counting the number of changes each developer brought to a file to provide a better expertise recommendation. Girba et al.~\cite{1572315} later improved Mockus et al.'s method~\cite{mockus02} by measuring the size (churn) of each change in terms of lines of code.  %\bram{which is McDonald? be more precise as to how this third paper improves on Mockus}.
+% removed bug review paper. It is not relevant enough for us
+
+\textit{Usage Expertise.} Developers gain usage expertise by calling (``using'') specific methods from within their code. This concept of usage expertise was introduced by Schuler and Zimmermann~\cite{Schuler:2008:MUE:1370750.1370779}. In later work~\cite{5306386}, the authors compare the accuracy of usage expertise against implementation expertise recommenders. They concluded that usage expertise recommends experts with similar accuracy to implementation expertise models. 
+
+Additionally, Fritz et al.~\cite{Fritz-2007} validate the accuracy of implementation expertise techniques. After a qualitative study consisting of  19 java developers interviews, they were able to confirm a relationship between changes made (commit frequency) and expertise. In addition to that, they found evidence proving that authorship (as obtained from the amount of churn contributed, or through ``git blame'') is also capable of indicating expertise. In a later study, the authors~\cite{Fritz:2010:DMC:1806799.1806856} create a degree of knowledge model combining both usage and implementation metrics to recommend experts.
+
+% \bram{did these add another kind of expertise metric, or still impl. vs. usage?} 
+Bhattacharya et al.~\cite{Bhattacharya} explored the suitability of different implementation expertise metrics depending on a developer's role. They argue that state-of-the-art metrics (lines of code and commits added), being unaware of the developer's role, can lead to inaccurate results. They add that code activity metrics like the number of lines of code added, only describe expertise at a local level and poorly capture global expertise. 
+
+
+Thus far, all models cited above are not \textbf{history aware}. Hence, they do not take into consideration the effect of time on developer expertise and assume that developers' memory lasts for ever. Based on a survey of psychological literature, Hattori et al.~\cite{Hattori:2012:RCO:2318097.2318145} create a memory retention model to improve expertise models. Memory retention is computed using a Forgetting function, which reduces the weight of older activities to account for memory loss.
+%\bram{how? details?} 
+The data used in the experiment was acquired by a tool that records information from the developer's IDE. It would be impossible to reproduce this experiment on a project of the scale of the Linux Kernel because it would be impossible to force all Linux developers to use the IDE integrated tool.
+
+
+During the creationg our model, we used methods described in most of these expertise models, as described in \autoref{sec:Theme3}.
+
 
 \section{The Anatomy of a Git Commit}
 \label{sec:commit_anatomy}
