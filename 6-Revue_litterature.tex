@@ -1,21 +1,21 @@
 \Chapter{CRITICAL LITERATURE REVIEW}\label{sec:RevLitt}
 
 
-Our research project touches upon two areas of software engineering research: \textit{mining software repositories} and \textit{software engineering expertise}. Besides these two research fields, we relied on another type of literature to conduct this research project: Git and Linux documentation. This chapter provides a critical literature review of our academic research areas and a description of the information available in the Linux and Git documentation, as well as how it helped us find solutions for the problems encoutered.
+Our research project touches upon two areas of software engineering research: \textit{mining software repositories} and \textit{software engineering expertise}. Besides these two research fields, we relied on another type of literature to conduct this research project: Git and Linux documentation. This chapter provides a critical literature review of our academic research areas and a description of the information available in the Linux and Git documentation, as well as how it helped us find solutions for the problems encountered.
 
 
 
 \section{Mining Software Repositories}
 
-In addition to providing a contribution platform, \ac{SCM} systems track and save large amounts of information about changes brought to the source code. During the lifetime of the project, the \ac{SCM} acquires a large amount of data about the development of various projects. Mining software repositories researchers \textit{mine} this data for their research projects. This data can come from versin control systems, mailing list, or bug tracking systems.
+In addition to providing a contribution platform, \ac{SCM} systems track and save large amounts of information about changes brought to the source code. During the lifetime of the project, the \ac{SCM} acquires a large amount of data about the development of various projects. Mining software repositories researchers \textit{mine} this data for their research projects. This data can come from version control systems, mailing list, or bug tracking systems.
 
-Software repositories are not limited to \ac{SCM}. There are other types of software repositories that researchers mine to gather information about software projects. These repositories include bug tracking systems, mailing lists, source code, and issue tracking systems. Over the years, researchers have used mining software reporistories techniques that enabled them to research different topics of software engineering~\citep{Bird-2009}.
+Software repositories are not limited to \ac{SCM}. There are other types of software repositories that researchers mine to gather information about software projects. These repositories include bug tracking systems, mailing lists, source code, and issue tracking systems. Over the years, researchers have used mining software repositories techniques that enabled them to research different topics of software engineering~\citep{Bird-2009}.
 
 In the scope of our research, we used mining software repositories techniques in each different part of the project. Chapter 3 discusses two open source projects we created during this research project. The data used for both projects came from mining the Linux Kernel git repository and the Linux mailing lists. We eventually used this data for the creation of our maintainer recommendation system.
 
-One of the difficulties often encountered by researchers in mining software repositories is the inability to link data coming from different entities of the software repository. In the case of the linux kernel, the difficulty was to link data from the mailing lists to the data from the git repository. A dificulty we addressed with an algorithm introduced in \citep{msr13jojo,jiang14}, as explained in chapter 4. 
+One of the difficulties often encountered by researchers in mining software repositories is the inability to link data coming from different entities of the software repository. In the case of the linux kernel, the difficulty was to link data from the mailing lists to the data from the git repository. A difficulty we addressed with an algorithm introduced in \citep{msr13jojo,jiang14}, as explained in chapter 4. 
 
-Furthermore, \citep{armstrong} studied the difference between \textit{unicast} and \textit{broadcast} review systems. A unicast review system, like gerrit, provides an environment in which the code reviews are only sent to the author and cced people by default, but are still accessible by other developers. On the contrary, broadcast review system, like the email system used by the Linux community, shows the code reviews to each reader of the mailing list. There are advantages and disadvantages to both systems. The authors note, through an empirical study, that unicast reviews lead to less bugs in the future, but that broadcast systems allows for faster review cycles and allow beginers to learn the code base faster. 
+Furthermore, \citep{armstrong} studied the difference between \textit{unicast} and \textit{broadcast} review systems. A unicast review system, like gerrit, provides an environment in which the code reviews are only sent to the author and cced people by default but are still accessible by other developers. On the contrary, broadcast review system, like the email system used by the Linux community, shows the code reviews to each reader of the mailing list. There are advantages and disadvantages to both systems. The authors note, through an empirical study, that unicast reviews lead to less bugs in the future, but that broadcast systems allows for faster review cycles and allow beginers to learn the code base faster. 
 
 
 
@@ -45,12 +45,12 @@ Additionally, Fritz et al.~\cite{Fritz-2007} validate the accuracy of implementa
 Bhattacharya et al.~\cite{Bhattacharya} explored the suitability of different implementation expertise metrics depending on a developer's role. They argue that state-of-the-art metrics (lines of code and commits added), being unaware of the developer's role, can lead to inaccurate results. They add that code activity metrics like the number of lines of code added, only describe expertise at a local level and poorly capture global expertise. 
 
 
-Thus far, all models cited above are not \textbf{history aware}. Hence, they do not take into consideration the effect of time on developer expertise and assume that developers' memory lasts for ever. Based on a survey of psychological literature, Hattori et al.~\cite{Hattori:2012:RCO:2318097.2318145} create a memory retention model to improve expertise models. Memory retention is computed using a Forgetting function, which reduces the weight of older activities to account for memory loss.
+Thus far, all models cited above are not \textbf{history aware}. Hence, they do not take into consideration the effect of time on developer expertise and assume that developers' memory lasts forever. Based on a survey of psychological literature, Hattori et al.~\cite{Hattori:2012:RCO:2318097.2318145} create a memory retention model to improve expertise models. Memory retention is computed using a Forgetting function, which reduces the weight of older activities to account for memory loss.
 %\bram{how? details?} 
 The data used in the experiment was acquired by a tool that records information from the developer's IDE. It would be impossible to reproduce this experiment on a project of the scale of the Linux Kernel because it would be impossible to force all Linux developers to use the IDE integrated tool.
 
 
-During the creationg our model, we used methods described in most of these expertise models, as described in \autoref{sec:Theme3}.
+During the creation our model, we used methods described in most of these expertise models, as described in \autoref{sec:Theme3}.
 
 
 \section{The Anatomy of a Git Commit}
@@ -58,7 +58,7 @@ During the creationg our model, we used methods described in most of these exper
 
 A git commit is a fundamental concept in the scope of this research and for the understanding of git in general. The changes brought to source code by developers are contained in a \textit{commit}. If a developer is tasked to fix a bug or to create a new feature in a project, she will have to modify the source code in order to implement these changes. When a developer feels ready to share these changes, she can apply them to the repository in the form of a git commit. The changes are represented in the \textit{commit diff}, which contains the exact lines to be removed (-) or added (+) in the source code. Git uses the +/- lines to modify the repository of someone who \textit{pulled} the changes from the developer as depicted in \autoref{fig:commit_anatomy}. 
 
-Furthermore, commits contain an array of metadata regarding the changes committed, all of which is accessible to anyone with a copy of the repository through a handful of builtin commands. For example, git log returns information about the past commits in the repository. \autoref{fig:commit_anatomy} shows one commit in the output printed by the following command: \texttt{git log -{}-pretty=fuller -{}-patch}, where the \texttt{-{}-pretty=fuller} shows more information and \texttt{-{}-patch} shows the commit diff. There are three main parts to the commit as seen in the image: the header, the  message, and the diff.
+Furthermore, commits contain an array of metadata regarding the changes committed, all of which is accessible to anyone with a copy of the repository through a handful of built-in commands. For example, git log returns information about the past commits in the repository. \autoref{fig:commit_anatomy} shows one commit in the output printed by the following command: \texttt{git log -{}-pretty=fuller -{}-patch}, where the \texttt{-{}-pretty=fuller} shows more information and \texttt{-{}-patch} shows the commit diff. There are three main parts to the commit as seen in the image: the header, the  message, and the diff.
 
 The header contains the following data points:
 
@@ -72,17 +72,17 @@ The header contains the following data points:
 \begin{itemize}
 	\item \textbf{Commit ID:} The commit's unique identifier.
 	\item \textbf{Commit Author:} Name and email address of the developer who \textit{wrote}, or \textit{authored} the code change.
-	\item \textbf{Author Date:} Time, date, and timezone at which the changes were submitted.
+	\item \textbf{Author Date:} Time, date, and time zone at which the changes were submitted.
 	\item \textbf{Commit Committer:} Name and email address of the person who committed the code to the repository.
 	\item \textbf{Commit Date:} Time, date, and timezone at which the commit was committed tot he repository.
 \end{itemize}
 
-In the scope of the Linux Kernel, the Commit Author rarely is the Commit Committer. As explained in \autoref{sec:Introduction}, the author is the person who wrote the code, and then submitted it for review as a patch in an email. The commit committer is the person that received, accepted, and commited the changes to their repository.
+In the scope of the Linux Kernel, the Commit Author rarely is the Commit Committer. As explained in \autoref{sec:Introduction}, the author is the person who wrote the code, and then submitted it for review as a patch in an email. The commit committer is the person that received, accepted, and committed the changes to their repository.
 
-The commit message contains the following datapoints:
+The commit message contains the following data points:
 
 \begin{itemize}
-	\item \textbf{Commit summary:} Often called the commit title, a brief explaination of the purpose of the commit. 
+	\item \textbf{Commit summary:} Often called the commit title, a brief explanation of the purpose of the commit. 
 	\item \textbf{Commit Message:} In depth explanation of the purpose of the commit.
 	\item \textbf{Credit Attribution Tags:} List of people who were involved in the commit and the nature of their involvement. 
 \end{itemize}
@@ -95,7 +95,7 @@ The commit diff, which sits at the end of the git log output, shows the exact fi
 
 \section{Open Source Participation}
 
-Previous work studies developers' motivation to participate in \ac{OSS}. ~\citep{Wu-oss} warn that the loosely organized nature of OSS development could be associated with a high turnover rate and in unexpected departures. Other work ~\citep{Rigby}, \citep{Foucault}, \citep{Izquierdo-Cortazar}, \citep{Mockus:2010}, \citep{Torchiano:2011:MPT:1985374.1985379}, and \citep{Ricca:2011:DCT:2022348.2022383} study the impact of a high turn over on the organization. The authors argue that departing developers leave the project with the knowledge they acquired during their time as a contributor, removing this knowledge from the project. We believe that this implies that OSS projects are at risk of knowledge loss and we believe that accurate expertise modeling could assist in addressing this issue.
+Previous work studies developers' motivation to participate in \ac{OSS}. ~\citep{Wu-oss} warn that the loosely organized nature of OSS development could be associated with a high turnover rate and in unexpected departures. Other work ~\citep{Rigby}, \citep{Foucault}, \citep{Izquierdo-Cortazar}, \citep{Mockus:2010}, \citep{Torchiano:2011:MPT:1985374.1985379}, and \citep{Ricca:2011:DCT:2022348.2022383} study the impact of a high turnover on the organization. The authors argue that departing developers leave the project with the knowledge they acquired during their time as a contributor, removing this knowledge from the project. We believe that this implies that OSS projects are at risk of knowledge loss and we believe that accurate expertise modeling could assist in addressing this issue.
 
 
 
