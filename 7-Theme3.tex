@@ -136,6 +136,8 @@ expertise).
 \label{sec:contribution-metrics}
 
 \begin{table*}[t]
+\caption{Non-exhaustive list of activity measures that can be measured for a particular contributor C of a specific subsystem S in a given release $R_i$.}
+\label{tab:met}
 \begin{center}
 \begin{tabular}{ll}
 activity & definition\\
@@ -151,8 +153,7 @@ activity & definition\\
       \texttt{planned} & effort spent by C planning $R_{i}$\\
 \end{tabular}
 \end{center}
-\caption{Non-exhaustive list of activity measures that can be measured for a particular contributor C of a specific subsystem S in a given release $R_i$.}
-\label{tab:met}
+
 \end{table*}
 
 The footprint model that we propose explicitly considers a wide range of development activities instead of focusing only on review- or code-related activities. \autoref{tab:met} provides a non-exhaustive list of activities, from very technical to outreach activities. Any activity by a contributor to one of these, can increase (or at least maintain) the contributor's knowledge about the subsystem she is working in. The more measures are considered, the more comprehensive the footprint ranking model becomes, hence the better the expected performance for identification of maintainers in a project under study, provided the activities are weighted based on their relevance for a given project.
@@ -344,6 +345,8 @@ We then set minimum thresholds of 50 commits per release and 60\% matched commit
 \label{sec:inst-footpr-meas}
 
 \begin{table*}[t]
+\caption{Concrete activity measures used for our empirical study on the Linux kernel. Each activity is measured for a particular contributor C of a specific subsystem S in a given release $R_i$.}
+\label{tab:metlin}
 \begin{center}
 \begin{tabular}{llp{11cm}}
 activity & source & definition\\
@@ -355,8 +358,7 @@ activity & source & definition\\
 \texttt{reviewed} & mailing list & \#commits since $R_{i-1}$ for which C has written at least one code review email\\
 \end{tabular}
 \end{center}
-\caption{Concrete activity measures used for our empirical study on the Linux kernel. Each activity is measured for a particular contributor C of a specific subsystem S in a given release $R_i$.}
-\label{tab:metlin}
+
 \end{table*}
 
 \autoref{tab:metlin} shows the five concrete activity measures considered in our empirical study on the Linux kernel. These measures cover influential source code contributed (\texttt{legacy}), the volume of code changes since the last release (\texttt{authored} and \texttt{committed}), and code review activities since the last release (\texttt{attributed} and \texttt{reviewed}).
@@ -793,6 +795,8 @@ To save space, and since we found that, similar to RQ2, the combination of \text
 % \end{table}
 
 \begin{table}[t]
+\caption{P-values and Cliff's delta values for the Wilcoxon paired tests ($\alpha=0.01$) between the $POS_N$ results of \autoref{fig:rq3_curr} and \autoref{fig:rq3_hist}, and of \autoref{fig:rq3_curr_many} and \autoref{fig:rq3_hist_many}, for ranking thresholds N=1 to N=5. A Cliff delta ``-'' indicates a non-significant test result, with p-value$>\alpha$}
+\label{table:rq3_wilc_loc_cc}
  \begin{tabular}{c c c c c c c} 
 Fig. & Measure & 1 & 2 & 3 & 4 & 5 \\
  \hline
@@ -803,8 +807,7 @@ Fig. & Measure & 1 & 2 & 3 & 4 & 5 \\
 % \ref{fig:rq3_curr_many}/\ref{fig:rq3_hist_many}& Cliff's delta & 0.25 & 0.46 & 0.56 & 0.66 & 0.69 \\
    \ref{fig:rq3_curr_many}/\ref{fig:rq3_hist_many}& Cliff's delta & - & 0.46 & 0.56 & 0.66 & 0.69 \\
 \end{tabular}
-\caption{P-values and Cliff's delta values for the Wilcoxon paired tests ($\alpha=0.01$) between the $POS_N$ results of \autoref{fig:rq3_curr} and \autoref{fig:rq3_hist}, and of \autoref{fig:rq3_curr_many} and \autoref{fig:rq3_hist_many}, for ranking thresholds N=1 to N=5. A Cliff delta ``-'' indicates a non-significant test result, with p-value$>\alpha$}
-\label{table:rq3_wilc_loc_cc}
+
 \end{table}
 
 

@@ -11,7 +11,7 @@ Since the kernel's mailing list-based review process is here to stay, we instead
 
 The original algorithm capable of backtracking patches from commits was introduced in two papers~\citep{msr13jojo,jiang14} published by Jiang, a former member of the MCIS Lab.
 
-The ultimate goal of the algorithm is to find the patch or patches that introduced a single commit. To do that, Jiang creates a SQLite database containing all the patches extracted from the mailing lists. This database contains each patch's +/- lines. The script will then parse a dataset containing all the git commits and find corresponding patches in the database. More specifically, the script queries the database for patches containing the same +/- line contained in each commit. The algorithm then ranks the possible matches by the proportion of lines in common between the commit and the patch. It is important to understand that a patch may have undergone several rounds of reviews before being committed. This means that a single commit will likely be matched to multiple patches. 
+The ultimate goal of the algorithm is to find the patch or patches that introduced a single commit. To do that, Jiang creates a SQLite database containing all the patches extracted from the mailing lists. This database contains each patch's +/- lines. The script will then parse a dataset containing all the git commits and find corresponding patches in the database. More specifically, for each commit the script queries the patch database for patches containing the same +/- line contained in the commit. The algorithm then ranks the possible matches by the proportion of lines in common between the commit and the patch. It is important to understand that a patch may have undergone several rounds of reviews before being committed. This means that a single commit will likely be matched to multiple patches. 
 
 % The general idea of the algorithm was to compare the +/- lines from both the accepted version of a patch and the email patches at the time of the review. A match was found if the proportion of identical +/- lines was above a certain threshold. 
 
@@ -82,7 +82,7 @@ The next step on this side of the data is to extract the data for the other phas
 
 \subsection{The Patches}
 
-The patches are stored on a remote serve in a MySQL database, the same database that hosts the patchwork.kernel.org data. Through the help of SQL queries, I dumped all the necessary data in csv files to avoid complications arising from handling a production database. Once those csv files created, I could parse them with the help of two python scripts available in the Email2git githubg repository. \texttt{subject\_data\_gen/patchwork/pwSubjectFull.py} takes care of the subject data and \texttt{lines\_data\_prep/pw\_prep.py} takes care of the authors, file names, and +/- lines of the patches. Here again, the subject data is stored in a SQLite3 database, and the line data is stored in pickle files. 
+The patches are stored on a remote serve in a MySQL database, the same database that hosts the patchwork.kernel.org data. Through the help of SQL queries, we gathered all the necessary data in csv files to avoid complications arising from handling a production database. Once those csv files created, I could parse them with the help of two python scripts available in the Email2git githubg repository. \texttt{subject\_data\_gen/patchwork/pwSubjectFull.py} takes care of the subject data and \texttt{lines\_data\_prep/pw\_prep.py} takes care of the authors, file names, and +/- lines of the patches. Here again, the subject data is stored in a SQLite3 database, and the line data is stored in pickle files. 
 
 
 
@@ -162,12 +162,12 @@ if (!/\b[0-9a-f]{40,40}\b/.test(cid)){
 
 \section{Introducing Email2git to the Opensource Community}
 
-We undertook various efforts to make our work more visible to the linux and open source community in general. The first effort was a blog post published on linux.com\footnote{\url{https://www.linux.com/blog/email2git-matching-linux-code-its-mailing-list-discussions}}. This blog post discusses email2git and its integration with cregit. This blog post was shared on Facebook and Twitter by the Linux Foundation and by other developers, which helped spread the word about our work. In addition to this blogpost, I gave a refereed talk at the Open Source Summit and the Linux Plumbers Conference in Los Angeles. This gave me the opportunity to give a demo, explain the underlying algorithm and finally discuss the project with developer and receive crucial feedback. An article\footnote{\url{https://lwn.net/Articles/734018/}} was published on LWN.net by Jake Edge following my talk. It explained the algorithm, the challenges faced, and mentioned some of the questions that were asked during the talk.
+We undertook various efforts to make our work more visible to the linux and open source community in general. The first effort was a blog post published on linux.com\footnote{\url{https://www.linux.com/blog/email2git-matching-linux-code-its-mailing-list-discussions}}. This blog post discusses email2git and its integration with cregit. This blog post was shared on Facebook and Twitter by the Linux Foundation and by other developers, which helped spread the word about our work. In addition to this blogpost, we gave a refereed talk at the Open Source Summit and the Linux Plumbers Conference in Los Angeles. This gave me the opportunity to give a demo, explain the underlying algorithm and finally discuss the project with developer and receive crucial feedback. An article\footnote{\url{https://lwn.net/Articles/734018/}} was published on LWN.net by Jake Edge following my talk. It explained the algorithm, the challenges faced, and mentioned some of the questions that were asked during the talk.
 
 
 The linux developers feedback included the following points:
 \begin{enumerate}
-	\item \textbf{Including patch zero.} The patch zero is the email that introduces a multi-patch series. A multi-patch series is a large set of changes that is split over multiple emails. The patch zero contains information regarding the entirety of the patch series. Our current source of matches, lkml.kernel.org, uses patchwork 1.0, which did not track the patch zero. The patch zero feature was implemented in Patchwork 2.0.
+	\item \textbf{Including patch zero.} The patch zero is the email that introduces a multi-patch series. A multi-patch series is a large patch that is split over multiple emails. The patch zero contains information regarding the entirety of the patch series. Our current source of matches, lkml.kernel.org, uses patchwork 1.0, which did not track the patch zero. The patch zero feature was implemented in Patchwork 2.0.
 
 	\item \textbf{Tracking Linux-next.} Linux-next is the branch used for integration testing. Developers would benefit from review discussions to help fix bugs that arised from integrating commits to Linux-next. In its current form, Email2git only contains matches for commits from the main tree, which means that Linux-next commits are not yet included.
 
@@ -202,7 +202,7 @@ Finally, we are running an analytics script on the server hosting the matches to
 \label{fig:analytics}
 \end{figure}
 
-\autoref{fig:analytics} displays the plots created by the analytics script running on the server. We observe two peaks in number of unique IP addresses at two different moments: at the end of July and in mid September. The former date corresponds to the day we introduced Email2git in a blogpost on linux.com and the latter corresponds to the talk I gave at the Open Source Summit North America in Los Angeles. 
+\autoref{fig:analytics} displays the plots created by the analytics script running on the server. We observe two peaks in number of unique IP addresses at two different moments: at the end of July and in mid September. The former date corresponds to the day we introduced Email2git in a blogpost on linux.com and the latter corresponds to the talk we gave at the Open Source Summit North America in Los Angeles. 
 
 \section{Conclusion}
 
